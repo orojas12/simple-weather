@@ -1,0 +1,59 @@
+.forecast-today {
+	padding: 1.6rem;
+}
+
+.forecast-today__weather {
+	display: flex;
+	justify-content: space-between;
+}
+
+.forecast-today__weather-data {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 2rem;
+	font-size: 1rem;
+	padding: 1rem;
+}
+
+.forecast-today__weather-data p {
+	border-bottom: 1px;
+	border-bottom-style: solid;
+	border-color: rgba(0, 0, 0, 0.2);
+}
+
+.forecast-today__weather-data--1 {
+	width: 50%;
+}
+
+.forecast-today__weather-data--2 {
+	width: 50%;
+}
+
+.temp {
+	display: flex;
+	align-items: center;
+	line-height: 3rem;
+}
+
+.temp--hi {
+	font-family: "Open Sans Semibold";
+	font-size: 3rem;
+}
+
+.temp--lo {
+	font-size: 1.6rem;
+}
+
+.weather-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.weather-state__icon {
+	height: 4rem;
+}
+
+.weather-state__desc {
+	font-size: 0.9rem;
+}
