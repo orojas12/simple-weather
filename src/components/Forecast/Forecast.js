@@ -29,9 +29,7 @@ class Forecast extends React.Component {
 		this.setState({ forecast: element.innerText.toLowerCase() });
 	};
 
-	componentDidUpdate() {
-		console.log(this.state);
-	}
+	componentDidUpdate() {}
 
 	render() {
 		const forecastType = this.state.forecast;

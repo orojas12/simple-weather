@@ -5,16 +5,20 @@ import Navigation from "./components/Navigation/Navigation.js";
 import CurrentWeather from "./components/CurrentWeather/CurrentWeather.js";
 import Forecast from "./components/Forecast/Forecast.js";
 
+// Geocode API (USA ONLY) https://geocode.xyz/?locate={location}&region=us&json=1
+
 class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
 			searchInput: "",
 			location: {
-				city: "El Paso",
-				state: "TX",
+				city: null,
+				state: null,
+				coords: [],
 			},
 			weather: {
+				tempScale: "fahrenheit",
 				current: {
 					temp: 42,
 					weatherState: "cloudy",
@@ -132,17 +136,125 @@ class App extends React.Component {
 		};
 	}
 
+	handleScaleSwitch = () => {
+		this.setState((prevState) => {
+			return {
+				weather: {
+					tempScale:
+						prevState.weather.tempScale === "fahrenheit"
+							? "celsius"
+							: "fahrenheit",
+					current: prevState.weather.current,
+					hourly: prevState.weather.hourly,
+					daily: prevState.weather.daily,
+				},
+			};
+		});
+	};
+
 	handleSearchInput = (e) => {
 		this.setState({
 			searchInput: e.target.value,
 		});
 	};
 
-	handleSearchInputSubmit = (e) => {
+	handleSearchInputSubmit = async (e) => {
 		e.preventDefault();
-		const [city, state] = this.state.searchInput.split(",");
-		this.setState({ location: { city: city, state: state } });
+		const inputText = e.target.querySelector(".search__input");
+		const { latt, longt } = await this.getLocation(this.state.searchInput);
+		this.setState({
+			location: {
+				coords: [latt, longt],
+			},
+		});
+		inputText.value = "";
 	};
+
+	/**
+	 * Calls the Geocode.xyz API to geocode a location string or coordinates.
+	 * @param {string} locationStr The input string containing the location
+	 * to geocode, such as a city or address.
+	 */
+	getLocation = async (locationStr) => {
+		try {
+			const res = await fetch(
+				`https://geocode.xyz/?locate=${locationStr}&region=us&json=1`
+			);
+			const data = await res.json();
+
+			return data;
+		} catch (error) {
+			console.error(error);
+		}
+
+		// this.setState({
+		// 	location: {
+		// 		city: data.standard.city,
+		// 		coords: [data.latt, data.longt],
+		// 	},
+		// });
+	};
+
+	/**
+	 * Gets the user's current coordinates.
+	 */
+	getCurrentCoords = async () => {
+		try {
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					const { latitude, longitude } = position.coords;
+					this.setState({
+						location: { coords: [latitude, longitude] },
+					});
+				},
+				(error) => {
+					throw new Error(error);
+				}
+			);
+		} catch (error) {
+			throw new Error(error);
+		}
+	};
+
+	/**
+	 * Updates the city and state to match the coordinates. Then gets the weather
+	 * for the new location.
+	 */
+	updateLocationAndWeather = async () => {
+		console.log(this.state);
+		const [latitude, longitude] = this.state.location.coords;
+		const data = await this.getLocation(`${latitude},${longitude}`);
+		const newCity = data.city
+			.split(" ")
+			.map((str) => `${str.slice(0, 1)}${str.slice(1).toLowerCase()}`)
+			.join(" ");
+
+		const newState = data.state;
+
+		this.setState((prevState) => {
+			return {
+				location: {
+					coords: prevState.location.coords,
+					city: newCity,
+					state: newState,
+				},
+			};
+		});
+	};
+
+	// If no change in coordinates, city/state and weather will NOT update.
+	componentDidUpdate(_, prevState) {
+		if (
+			prevState.location.coords.toString() ===
+			this.state.location.coords.toString()
+		)
+			return;
+		this.updateLocationAndWeather();
+	}
+
+	componentDidMount() {
+		this.getCurrentCoords();
+	}
 
 	render() {
 		const { city, state } = this.state.location;
@@ -151,7 +263,9 @@ class App extends React.Component {
 				<Navigation
 					onSearchInputChange={this.handleSearchInput}
 					onSearchInputSubmit={this.handleSearchInputSubmit}
+					onScaleSwitch={this.handleScaleSwitch}
 					location={`${city}, ${state}`}
+					tempScale={this.state.weather.tempScale}
 				/>
 				<CurrentWeather />
 				<Forecast

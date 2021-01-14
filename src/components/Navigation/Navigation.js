@@ -20,13 +20,34 @@ const Navigation = function (props) {
 				/>
 			</form>
 			<div className="scale">
-				<p className="scale-switch__label scale-switch__label--active">
+				<p
+					className={`scale-switch__label ${
+						props.tempScale === "fahrenheit"
+							? "scale-switch__label--active"
+							: ""
+					}`}
+				>
 					&deg;F
 				</p>
-				<div className="scale-switch">
+				<div
+					className={`scale-switch ${
+						props.tempScale === "celsius"
+							? "scale-switch--onCelsius"
+							: ""
+					}`}
+					onClick={props.onScaleSwitch}
+				>
 					<div className="scale-switch__circle"></div>
 				</div>
-				<p className="scale-switch__label">&deg;C</p>
+				<p
+					className={`scale-switch__label ${
+						props.tempScale === "celsius"
+							? "scale-switch__label--active"
+							: ""
+					}`}
+				>
+					&deg;C
+				</p>
 			</div>
 		</nav>
 	);
