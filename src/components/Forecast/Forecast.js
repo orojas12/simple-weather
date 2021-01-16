@@ -5,11 +5,13 @@ import ForecastToday from "./ForecastToday/ForecastToday.js";
 import ForecastHourly from "./ForecastHourly/ForecastHourly.js";
 import ForecastDaily from "./ForecastDaily/ForecastDaily.js";
 
+import { getDate } from "../../utilities.js";
+
 class Forecast extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			forecast: "today",
+			forecastType: "today",
 		};
 	}
 
@@ -29,21 +31,28 @@ class Forecast extends React.Component {
 		this.setState({ forecast: element.innerText.toLowerCase() });
 	};
 
-	componentDidUpdate() {}
-
 	render() {
-		const forecastType = this.state.forecast;
+		console.log(this.props.forecast);
+		if (!this.props.forecast.daily) return null;
+
 		let forecastComponent;
-		if (forecastType === "today") forecastComponent = <ForecastToday />;
-		if (forecastType === "hourly") {
-			forecastComponent = this.props.forecastHourly.map((forecast, i) => {
-				return <ForecastHourly forecast={forecast} key={i} />;
-			});
+		if (this.state.forecastType === "today")
+			forecastComponent = (
+				<ForecastToday forecast={this.props.forecast.daily[0]} />
+			);
+		if (this.state.forecastType === "hourly") {
+			forecastComponent = this.props.forecast.hourly.map(
+				(forecastObj, i) => {
+					return <ForecastHourly forecast={forecastObj} key={i} />;
+				}
+			);
 		}
-		if (forecastType === "daily") {
-			forecastComponent = this.props.forecastDaily.map((forecast, i) => {
-				return <ForecastDaily forecast={forecast} key={i} />;
-			});
+		if (this.state.forecastType === "daily") {
+			forecastComponent = this.props.forecastDaily.map(
+				(forecastObj, i) => {
+					return <ForecastDaily forecast={forecastObj} key={i} />;
+				}
+			);
 		}
 
 		return (
