@@ -1,10 +1,8 @@
 import "./currentWeather.css";
 
-import { getIconUrl, getTime } from "../../utilities.js";
+import { getIconUrl, getTime, toCelsius } from "../../utilities.js";
 
-const CurrentWeather = function (props) {
-	const { current } = props;
-
+const CurrentWeather = function ({ current, tempScale }) {
 	if (!current) return null;
 
 	const desc = `${current.weather[0].description
@@ -20,7 +18,12 @@ const CurrentWeather = function (props) {
 				<figcaption>
 					<p className="widget__desc">{desc}</p>
 					<p className="widget__temp">
-						{Math.round(current.temp)}&deg;
+						{Math.round(
+							tempScale === "celsius"
+								? toCelsius(current.temp)
+								: current.temp
+						)}
+						&deg;
 					</p>
 					<p className="widget__update-time">Updated {updateTime}</p>
 				</figcaption>

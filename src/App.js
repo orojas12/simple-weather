@@ -32,13 +32,11 @@ class App extends React.Component {
 	 * Switches the temperature scale to fahrenheit or celsius on click.
 	 */
 	handleScaleSwitch = () => {
-		this.setState((prevState) => {
-			return {
-				tempScale:
-					prevState.weather.tempScale === "fahrenheit"
-						? "celsius"
-						: "fahrenheit",
-			};
+		const newTempScale =
+			this.state.tempScale === "fahrenheit" ? "celsius" : "fahrenheit";
+
+		this.setState({
+			tempScale: newTempScale,
 		});
 	};
 
@@ -155,9 +153,11 @@ class App extends React.Component {
 				<CurrentWeather
 					current={this.state.weather.current || null}
 					locale={this.state.locale}
+					tempScale={this.state.tempScale}
 				/>
 				<Forecast
 					locale={this.state.locale}
+					tempScale={this.state.tempScale}
 					forecast={
 						isEmptyObj(this.state.weather)
 							? null

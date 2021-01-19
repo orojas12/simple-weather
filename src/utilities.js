@@ -135,3 +135,12 @@ export const capitalize = function (str) {
 		.join(" ");
 	return newStr;
 };
+
+/**
+ * Converts a fahrenheit temperature to celsius.
+ * @param temp Temperature in fahrenheit.
+ * @returns {number} Temperature in celsius.
+ */
+export const toCelsius = function (temp) {
+	return (temp - 32) * (5 / 9);
+};

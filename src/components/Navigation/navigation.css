@@ -48,24 +48,6 @@
 	filter: opacity(50%);
 }
 
-/* .nav__settings {
-	border: none;
-	background-color: rgba(255, 255, 255, 0);
-	background-image: url("../../icons/settings.svg");
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
-	height: 1.5rem;
-	width: 1.5rem;
-	cursor: pointer;
-	filter: opacity(80%);
-}
-
-.nav__settings:focus {
-	filter: none;
-	outline: none;
-} */
-
 .logo {
 	height: 1.8rem;
 }

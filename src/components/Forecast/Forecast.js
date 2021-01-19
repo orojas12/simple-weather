@@ -5,7 +5,7 @@ import ForecastToday from "./ForecastToday/ForecastToday.js";
 import ForecastHourly from "./ForecastHourly/ForecastHourly.js";
 import ForecastDaily from "./ForecastDaily/ForecastDaily.js";
 
-import { getDate, isEmptyObj } from "../../utilities.js";
+import { isEmptyObj } from "../../utilities.js";
 
 class Forecast extends React.Component {
 	constructor(props) {
@@ -39,14 +39,21 @@ class Forecast extends React.Component {
 
 		if (this.state.forecastType === "today")
 			forecastComponent = (
-				<ForecastToday forecast={this.props.forecast.daily[0]} />
+				<ForecastToday
+					forecast={this.props.forecast.daily[0]}
+					tempScale={this.props.tempScale}
+				/>
 			);
 
 		if (this.state.forecastType === "hourly") {
 			forecastComponent = [];
 			for (let i = 0; i < 24; i++) {
 				forecastComponent.push(
-					<ForecastHourly forecast={forecast.hourly[i]} />
+					<ForecastHourly
+						forecast={forecast.hourly[i]}
+						tempScale={this.props.tempScale}
+						key={i}
+					/>
 				);
 			}
 		}
@@ -54,7 +61,13 @@ class Forecast extends React.Component {
 		if (this.state.forecastType === "daily") {
 			forecastComponent = this.props.forecast.daily.map(
 				(forecastObj, i) => {
-					return <ForecastDaily forecast={forecastObj} key={i} />;
+					return (
+						<ForecastDaily
+							forecast={forecastObj}
+							tempScale={this.props.tempScale}
+							key={i}
+						/>
+					);
 				}
 			);
 		}

@@ -1,23 +1,33 @@
 import "./forecastToday.css";
-import cloudIcon from "../../../icons/cloud.svg";
 
 import {
-	getDate,
 	getTime,
 	getWindDirection,
 	getIconUrl,
+	toCelsius,
 } from "../../../utilities.js";
 
-const ForecastToday = function ({ forecast }) {
+const ForecastToday = function ({ forecast, tempScale }) {
 	return (
 		<div className="forecast-today">
 			<div className="forecast-today__weather">
 				<div className="temp">
 					<p className="temp--hi">
-						{Math.round(forecast.temp.max)}&deg;
+						{Math.round(
+							tempScale === "celsius"
+								? toCelsius(forecast.temp.max)
+								: forecast.temp.max
+						)}
+						&deg;
 					</p>
 					<p className="temp--lo">
-						/{Math.round(forecast.temp.min)}&deg;
+						/
+						{Math.round(
+							tempScale === "celsius"
+								? toCelsius(forecast.temp.min)
+								: forecast.temp.min
+						)}
+						&deg;
 					</p>
 				</div>
 				<figure className="weather-state">
@@ -56,7 +66,14 @@ const ForecastToday = function ({ forecast }) {
 					<p>{forecast.uvi}</p>
 					<p>{forecast.pressure} hPa</p>
 					<p>{forecast.humidity}%</p>
-					<p>{Math.round(forecast.dew_point)}&deg;</p>
+					<p>
+						{Math.round(
+							tempScale === "celsius"
+								? toCelsius(forecast.dew_point)
+								: forecast.dew_point
+						)}
+						&deg;
+					</p>
 					<p>{forecast.pop}%</p>
 				</div>
 			</div>

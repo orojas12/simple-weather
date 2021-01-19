@@ -2,16 +2,27 @@ import "./forecastHourly.css";
 import dropIcon from "../../../icons/drop.svg";
 import windIcon from "../../../icons/wind.svg";
 
-import { getTime, capitalize, getIconUrl } from "../../../utilities.js";
+import {
+	getTime,
+	capitalize,
+	getIconUrl,
+	toCelsius,
+} from "../../../utilities.js";
 
 const ForecastHourly = function (props) {
 	const { forecast } = props;
+	console.log(props);
 
 	return (
 		<div className="forecast-hourly">
 			<p className="forecast-hourly__time">{getTime(forecast.dt)}</p>
 			<p className="forecast-hourly__temp">
-				{Math.round(forecast.temp)}&deg;
+				{Math.round(
+					props.tempScale === "celsius"
+						? toCelsius(forecast.temp)
+						: forecast.temp
+				)}
+				&deg;
 			</p>
 			<img className="drop-icon" alt="drop icon" src={dropIcon} />
 			<p className="forecast-hourly__precip">

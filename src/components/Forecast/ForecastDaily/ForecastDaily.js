@@ -2,7 +2,12 @@ import "./forecastDaily.css";
 import dropIcon from "../../../icons/drop.svg";
 import windIcon from "../../../icons/wind.svg";
 
-import { getDate, capitalize, getIconUrl } from "../../../utilities.js";
+import {
+	getDate,
+	capitalize,
+	getIconUrl,
+	toCelsius,
+} from "../../../utilities.js";
 
 // {
 //   date: "01/10",
@@ -39,8 +44,18 @@ const ForecastDaily = function (props) {
 		<div className="forecast-daily">
 			<p className="forecast-daily__date">{getDate(forecast.dt)}</p>
 			<p className="forecast-daily__temp">
-				{Math.round(forecast.temp.max)}&deg;/
-				{Math.round(forecast.temp.min)}&deg;
+				{Math.round(
+					props.tempScale === "celsius"
+						? toCelsius(forecast.temp.max)
+						: forecast.temp.max
+				)}
+				&deg;/
+				{Math.round(
+					props.tempScale === "celsius"
+						? toCelsius(forecast.temp.min)
+						: forecast.temp.min
+				)}
+				&deg;
 			</p>
 			<img className="daily-drop-icon" alt="drop icon" src={dropIcon} />
 			<p className="forecast-daily__precip">
