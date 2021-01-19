@@ -49,13 +49,10 @@ class Forecast extends React.Component {
 					<ForecastHourly forecast={forecast.hourly[i]} />
 				);
 			}
-			// forecastComponent = this.props.forecast.hourly.map((hour, i) => {
-			// 	return <ForecastHourly forecast={hour} key={i} />;
-			// });
 		}
 
 		if (this.state.forecastType === "daily") {
-			forecastComponent = this.props.forecastDaily.map(
+			forecastComponent = this.props.forecast.daily.map(
 				(forecastObj, i) => {
 					return <ForecastDaily forecast={forecastObj} key={i} />;
 				}

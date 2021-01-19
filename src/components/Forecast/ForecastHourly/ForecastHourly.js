@@ -1,7 +1,6 @@
 import "./forecastHourly.css";
 import dropIcon from "../../../icons/drop.svg";
 import windIcon from "../../../icons/wind.svg";
-import cloudIcon from "../../../icons/cloud.svg";
 
 import { getTime, capitalize, getIconUrl } from "../../../utilities.js";
 
@@ -15,7 +14,9 @@ const ForecastHourly = function (props) {
 				{Math.round(forecast.temp)}&deg;
 			</p>
 			<img className="drop-icon" alt="drop icon" src={dropIcon} />
-			<p className="forecast-hourly__precip">{forecast.pop}%</p>
+			<p className="forecast-hourly__precip">
+				{Math.round(forecast.pop)}%
+			</p>
 			<img className="wind-icon" alt="wind icon" src={windIcon} />
 			<p className="forecast-hourly__wind">
 				{Math.round(forecast.wind_speed)} mph

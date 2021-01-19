@@ -13,7 +13,7 @@
 	background-color: rgba(240, 240, 240, 0.2);
 }
 
-.forecast-daily__daily {
+.forecast-daily__date {
 	font-size: 1rem;
 	width: 5rem;
 }
@@ -21,7 +21,7 @@
 .forecast-daily__temp {
 	font-family: "Open Sans Semibold";
 	font-size: 1.2rem;
-	width: 3rem;
+	width: 6rem;
 }
 
 .forecast-daily__precip,
@@ -37,11 +37,10 @@
 	width: 4rem;
 }
 
-.drop-icon,
-.wind-icon {
-	height: 1.2rem;
-	padding-right: 1rem;
-	width: 2rem;
+.daily-drop-icon,
+.daily-wind-icon {
+	height: 1rem;
+	width: 1rem;
 }
 
 .forecast-daily__desc {
@@ -50,6 +49,7 @@
 }
 
 .forecast-daily__icon {
-	height: 2rem;
+	height: 2.4rem;
+	width: 2.4rem;
 	margin-left: -1rem;
 }
