@@ -110,3 +110,28 @@ export const getWindDirection = function (degree) {
 	const key = Math.round(degree / interval);
 	return directions.get(key);
 };
+
+/**
+ * Checks if an object is empty by checking if it has any properties.
+ * @param {object} obj The object to check.
+ * @returns {boolean} True or false.
+ */
+export const isEmptyObj = function (obj) {
+	for (const prop in obj) {
+		if (obj.hasOwnProperty(prop)) return false;
+	}
+	return true;
+};
+
+/**
+ * Capitalizes the first letter of each word in a string.
+ * @param {string} str The string to capitalize.
+ * @returns {string} New string with capitalized words.
+ */
+export const capitalize = function (str) {
+	const newStr = str
+		.split(" ")
+		.map((word) => word[0].toUpperCase() + word.slice(1))
+		.join(" ");
+	return newStr;
+};

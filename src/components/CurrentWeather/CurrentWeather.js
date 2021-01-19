@@ -4,7 +4,9 @@ import { getIconUrl, getTime } from "../../utilities.js";
 
 const CurrentWeather = function (props) {
 	const { current } = props;
+
 	if (!current) return null;
+
 	const desc = `${current.weather[0].description
 		.slice(0, 1)
 		.toUpperCase()}${current.weather[0].description.slice(1)}`;

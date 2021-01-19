@@ -3,33 +3,30 @@ import dropIcon from "../../../icons/drop.svg";
 import windIcon from "../../../icons/wind.svg";
 import cloudIcon from "../../../icons/cloud.svg";
 
-// {
-//   time: "4pm",
-//   temp: 42,
-//   weatherState: "cloudy",
-//   precip: 0.2,
-//   wind: {
-//     direction: "NE",
-//     speed: "11 mph",
-//   },
-// },
+import { getTime, capitalize, getIconUrl } from "../../../utilities.js";
 
 const ForecastHourly = function (props) {
+	const { forecast } = props;
+
 	return (
 		<div className="forecast-hourly">
-			<p className="forecast-hourly__time">{props.forecast.time}</p>
-			<p className="forecast-hourly__temp">{props.forecast.temp}&deg;</p>
-			<img className="drop-icon" alt="drop icon" src={dropIcon} />
-			<p className="forecast-hourly__precip">
-				{props.forecast.precip * 100}%
+			<p className="forecast-hourly__time">{getTime(forecast.dt)}</p>
+			<p className="forecast-hourly__temp">
+				{Math.round(forecast.temp)}&deg;
 			</p>
+			<img className="drop-icon" alt="drop icon" src={dropIcon} />
+			<p className="forecast-hourly__precip">{forecast.pop}%</p>
 			<img className="wind-icon" alt="wind icon" src={windIcon} />
-			<p className="forecast-hourly__wind">{props.forecast.wind.speed}</p>
-			<p className="forecast-hourly__desc">Cloudy</p>
+			<p className="forecast-hourly__wind">
+				{Math.round(forecast.wind_speed)} mph
+			</p>
+			<p className="forecast-hourly__desc">
+				{capitalize(forecast.weather[0].description)}
+			</p>
 			<img
 				className="forecast-hourly__icon"
 				alt="cloud icon"
-				src={cloudIcon}
+				src={getIconUrl(forecast.weather[0].icon)}
 			/>
 		</div>
 	);

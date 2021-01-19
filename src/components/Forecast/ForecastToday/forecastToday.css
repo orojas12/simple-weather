@@ -1,5 +1,7 @@
 .forecast-today {
 	padding: 1.6rem;
+	background-color: rgba(255, 255, 255, 0.1);
+	color: white;
 }
 
 .forecast-today__weather {
@@ -16,9 +18,9 @@
 }
 
 .forecast-today__weather-data p {
-	border-bottom: 1px;
+	/* border-bottom: 1px;
 	border-bottom-style: solid;
-	border-color: rgba(0, 0, 0, 0.2);
+	border-color: rgba(255, 255, 255, 0.2); */
 }
 
 .forecast-today__weather-data--1 {

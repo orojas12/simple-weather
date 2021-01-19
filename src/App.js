@@ -5,7 +5,12 @@ import Navigation from "./components/Navigation/Navigation.js";
 import CurrentWeather from "./components/CurrentWeather/CurrentWeather.js";
 import Forecast from "./components/Forecast/Forecast.js";
 
-import { getWeather, geocode, reverseGeocode } from "./utilities.js";
+import {
+	getWeather,
+	geocode,
+	reverseGeocode,
+	isEmptyObj,
+} from "./utilities.js";
 
 class App extends React.Component {
 	constructor() {
@@ -111,7 +116,7 @@ class App extends React.Component {
 					state: location.state,
 				},
 				weather: {
-					alerts: weather.alerts || null,
+					alerts: weather.alerts,
 					current: weather.current,
 					hourly: weather.hourly,
 					daily: weather.daily,
@@ -154,12 +159,12 @@ class App extends React.Component {
 				<Forecast
 					locale={this.state.locale}
 					forecast={
-						this.state.weather
-							? {
+						isEmptyObj(this.state.weather)
+							? null
+							: {
 									hourly: this.state.weather.hourly,
 									daily: this.state.weather.daily,
 							  }
-							: null
 					}
 				/>
 			</div>

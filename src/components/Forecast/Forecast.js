@@ -5,7 +5,7 @@ import ForecastToday from "./ForecastToday/ForecastToday.js";
 import ForecastHourly from "./ForecastHourly/ForecastHourly.js";
 import ForecastDaily from "./ForecastDaily/ForecastDaily.js";
 
-import { getDate } from "../../utilities.js";
+import { getDate, isEmptyObj } from "../../utilities.js";
 
 class Forecast extends React.Component {
 	constructor(props) {
@@ -28,25 +28,32 @@ class Forecast extends React.Component {
 				element.classList.remove("forecast__tab--active")
 			);
 		element.classList.add("forecast__tab--active");
-		this.setState({ forecast: element.innerText.toLowerCase() });
+		this.setState({ forecastType: element.innerText.toLowerCase() });
 	};
 
 	render() {
-		console.log(this.props.forecast);
-		if (!this.props.forecast.daily) return null;
+		const { forecast } = this.props;
+		if (isEmptyObj(forecast)) return null;
 
 		let forecastComponent;
+
 		if (this.state.forecastType === "today")
 			forecastComponent = (
 				<ForecastToday forecast={this.props.forecast.daily[0]} />
 			);
+
 		if (this.state.forecastType === "hourly") {
-			forecastComponent = this.props.forecast.hourly.map(
-				(forecastObj, i) => {
-					return <ForecastHourly forecast={forecastObj} key={i} />;
-				}
-			);
+			forecastComponent = [];
+			for (let i = 0; i < 24; i++) {
+				forecastComponent.push(
+					<ForecastHourly forecast={forecast.hourly[i]} />
+				);
+			}
+			// forecastComponent = this.props.forecast.hourly.map((hour, i) => {
+			// 	return <ForecastHourly forecast={hour} key={i} />;
+			// });
 		}
+
 		if (this.state.forecastType === "daily") {
 			forecastComponent = this.props.forecastDaily.map(
 				(forecastObj, i) => {

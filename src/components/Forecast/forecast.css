@@ -1,13 +1,13 @@
 .forecast {
-	background-color: white;
-	width: 35rem;
+	min-width: 35rem;
 	border-radius: 20px;
 	overflow: hidden;
+	margin-bottom: 10rem;
 	/* transition: all 200ms ease-in; */
 }
 
 .forecast__navigation {
-	margin-top: 5rem;
+	margin-top: 2rem;
 	display: flex;
 	justify-content: flex-start;
 	list-style: none;
