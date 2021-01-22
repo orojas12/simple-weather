@@ -11,7 +11,6 @@ import {
 
 const ForecastHourly = function (props) {
 	const { forecast } = props;
-	console.log(props);
 
 	return (
 		<div className="forecast-hourly">
@@ -26,7 +25,7 @@ const ForecastHourly = function (props) {
 			</p>
 			<img className="drop-icon" alt="drop icon" src={dropIcon} />
 			<p className="forecast-hourly__precip">
-				{Math.round(forecast.pop)}%
+				{Math.round(forecast.pop * 100)}%
 			</p>
 			<img className="wind-icon" alt="wind icon" src={windIcon} />
 			<p className="forecast-hourly__wind">

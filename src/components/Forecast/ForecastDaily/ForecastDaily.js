@@ -59,7 +59,7 @@ const ForecastDaily = function (props) {
 			</p>
 			<img className="daily-drop-icon" alt="drop icon" src={dropIcon} />
 			<p className="forecast-daily__precip">
-				{Math.round(forecast.pop)}%
+				{Math.round(forecast.pop * 100)}%
 			</p>
 			<img className="daily-wind-icon" alt="wind icon" src={windIcon} />
 			<p className="forecast-daily__wind">

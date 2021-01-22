@@ -97,30 +97,35 @@ class App extends React.Component {
 	 * gets the weather for the new location.
 	 */
 	updateLocationAndWeather = async () => {
-		const [lat, lon] = this.state.location.coords;
-		const location = await reverseGeocode([lat, lon]);
-		const city = location.city
-			.split(" ")
-			.map((str) => `${str.slice(0, 1)}${str.slice(1).toLowerCase()}`)
-			.join(" ");
+		try {
+			const [lat, lon] = this.state.location.coords;
+			const location = await reverseGeocode([lat, lon]);
 
-		const weather = await getWeather(lat, lon);
+			const city = location.city
+				.split(" ")
+				.map((str) => `${str.slice(0, 1)}${str.slice(1).toLowerCase()}`)
+				.join(" ");
 
-		this.setState((prevState) => {
-			return {
-				location: {
-					coords: prevState.location.coords,
-					city: city,
-					state: location.state,
-				},
-				weather: {
-					alerts: weather.alerts,
-					current: weather.current,
-					hourly: weather.hourly,
-					daily: weather.daily,
-				},
-			};
-		});
+			const weather = await getWeather(lat, lon);
+
+			this.setState((prevState) => {
+				return {
+					location: {
+						coords: prevState.location.coords,
+						city: city,
+						state: location.state,
+					},
+					weather: {
+						alerts: weather.alerts,
+						current: weather.current,
+						hourly: weather.hourly,
+						daily: weather.daily,
+					},
+				};
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	// If no change in coordinates, location and weather will NOT update.

@@ -15,6 +15,9 @@ class Forecast extends React.Component {
 		};
 	}
 
+	/**
+	 * Changes the active tab on click.
+	 */
 	handleTabClick = (e) => {
 		const element = e.target;
 

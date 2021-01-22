@@ -1,4 +1,4 @@
-import { API_KEY } from "./config.js";
+import { WEATHER_API_KEY, GEO_API_KEY } from "./config.js";
 
 /**
  * Calls the OpenWeatheMap API and returns weather data for the location.
@@ -9,10 +9,14 @@ import { API_KEY } from "./config.js";
  */
 export const getWeather = async function (lat, lon) {
 	try {
-		const json = await fetch(
-			`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=imperial&appid=${API_KEY}`
+		const res = await fetch(
+			`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=imperial&appid=${WEATHER_API_KEY}`
 		);
-		const data = await json.json();
+
+		if (!res.ok) throw new Error(`${res.status} Could not fetch weather.`);
+
+		const data = await res.json();
+
 		return data;
 	} catch (error) {
 		throw error;
@@ -35,10 +39,15 @@ export const getIconUrl = function (icon) {
  */
 export const geocode = async function (location) {
 	try {
-		const json = await fetch(
-			`https://geocode.xyz/?locate=${location}&region=us&json=1`
+		const res = await fetch(
+			`https://geocode.xyz/?locate=${location}&region=us&json=1&auth=${GEO_API_KEY}`
 		);
-		const data = await json.json();
+		const data = await res.json();
+
+		if (!res.ok) throw new Error(`${res.status}: ${data.error.message}`);
+		if (data.error)
+			throw new Error(`${data.error.code} ${data.error.description}`);
+
 		return data;
 	} catch (error) {
 		throw error;
@@ -52,10 +61,17 @@ export const geocode = async function (location) {
  */
 export const reverseGeocode = async function (coords) {
 	try {
-		const json = await fetch(
-			`https://geocode.xyz/?locate=${coords.join(",")}&region=us&json=1`
+		const res = await fetch(
+			`https://geocode.xyz/?locate=${coords.join(
+				","
+			)}&region=us&json=1&auth=691072423133569444264x114586`
 		);
-		const data = await json.json();
+		const data = await res.json();
+
+		if (!res.ok) throw new Error(`${res.status}: ${data.error.message}`);
+		if (data.error)
+			throw new Error(`${data.error.code} ${data.error.description}`);
+
 		return data;
 	} catch (error) {
 		throw error;

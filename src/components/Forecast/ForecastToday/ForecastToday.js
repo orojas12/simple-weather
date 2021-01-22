@@ -74,7 +74,7 @@ const ForecastToday = function ({ forecast, tempScale }) {
 						)}
 						&deg;
 					</p>
-					<p>{forecast.pop}%</p>
+					<p>{Math.round(forecast.pop * 100)}%</p>
 				</div>
 			</div>
 		</div>
