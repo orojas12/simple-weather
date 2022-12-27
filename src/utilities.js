@@ -8,19 +8,19 @@ import { WEATHER_API_KEY, GEO_API_KEY } from "./config.js";
  * current, daily, and hourly forecast.
  */
 export const getWeather = async function (lat, lon) {
-	try {
-		const res = await fetch(
-			`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=imperial&appid=${WEATHER_API_KEY}`
-		);
+  try {
+    const res = await fetch(
+      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=imperial&appid=${WEATHER_API_KEY}`
+    );
 
-		if (!res.ok) throw new Error(`${res.status} Could not fetch weather.`);
+    if (!res.ok) throw new Error(`${res.status} Could not fetch weather.`);
 
-		const data = await res.json();
+    const data = await res.json();
 
-		return data;
-	} catch (error) {
-		throw error;
-	}
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 /**
@@ -29,7 +29,7 @@ export const getWeather = async function (lat, lon) {
  * @returns {string} Weather icon url.
  */
 export const getIconUrl = function (icon) {
-	return `http://openweathermap.org/img/wn/${icon}@2x.png`;
+  return `http://openweathermap.org/img/wn/${icon}@2x.png`;
 };
 
 /**
@@ -38,20 +38,20 @@ export const getIconUrl = function (icon) {
  * @returns {object} Location data containing coordinates.
  */
 export const geocode = async function (location) {
-	try {
-		const res = await fetch(
-			`https://geocode.xyz/?locate=${location}&region=us&json=1&auth=${GEO_API_KEY}`
-		);
-		const data = await res.json();
+  try {
+    const res = await fetch(
+      `https://geocode.xyz/?locate=${location}&region=us&json=1&auth=${GEO_API_KEY}`
+    );
+    const data = await res.json();
 
-		if (!res.ok) throw new Error(`${res.status}: ${data.error.message}`);
-		if (data.error)
-			throw new Error(`${data.error.code} ${data.error.description}`);
+    if (!res.ok) throw new Error(`${res.status}: ${data.error.message}`);
+    if (data.error)
+      throw new Error(`${data.error.code} ${data.error.description}`);
 
-		return data;
-	} catch (error) {
-		throw error;
-	}
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 /**
@@ -60,22 +60,22 @@ export const geocode = async function (location) {
  * @returns {object} Location data containing address.
  */
 export const reverseGeocode = async function (coords) {
-	try {
-		const res = await fetch(
-			`https://geocode.xyz/?locate=${coords.join(
-				","
-			)}&region=us&json=1&auth=691072423133569444264x114586`
-		);
-		const data = await res.json();
+  try {
+    const res = await fetch(
+      `https://geocode.xyz/?locate=${coords.join(
+        ","
+      )}&region=us&json=1&auth=691072423133569444264x114586`
+    );
+    const data = await res.json();
 
-		if (!res.ok) throw new Error(`${res.status}: ${data.error.message}`);
-		if (data.error)
-			throw new Error(`${data.error.code} ${data.error.description}`);
+    if (!res.ok) throw new Error(`${res.status}: ${data.error.message}`);
+    if (data.error)
+      throw new Error(`${data.error.code} ${data.error.description}`);
 
-		return data;
-	} catch (error) {
-		throw error;
-	}
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 /**
@@ -84,12 +84,12 @@ export const reverseGeocode = async function (coords) {
  * @param {string} locale The user's language and region.
  */
 export const getTime = function (unixTime, locale) {
-	const time = new Date(unixTime * 1000);
-	const formattedTime = new Intl.DateTimeFormat(locale, {
-		timeStyle: "short",
-		hour12: true,
-	}).format(time);
-	return formattedTime;
+  const time = new Date(unixTime * 1000);
+  const formattedTime = new Intl.DateTimeFormat(locale, {
+    timeStyle: "short",
+    hour12: true,
+  }).format(time);
+  return formattedTime;
 };
 
 /**
@@ -98,11 +98,11 @@ export const getTime = function (unixTime, locale) {
  * @param {string} locale The user's language and region.
  */
 export const getDate = function (unixTime, locale) {
-	const date = new Date(unixTime * 1000);
-	const formattedDate = new Intl.DateTimeFormat(locale, {
-		dateStyle: "short",
-	}).format(date);
-	return formattedDate;
+  const date = new Date(unixTime * 1000);
+  const formattedDate = new Intl.DateTimeFormat(locale, {
+    dateStyle: "short",
+  }).format(date);
+  return formattedDate;
 };
 
 /**
@@ -111,20 +111,20 @@ export const getDate = function (unixTime, locale) {
  * @returns {string} The cardinal direction.
  */
 export const getWindDirection = function (degree) {
-	const directions = new Map([
-		[0, "N"],
-		[1, "NE"],
-		[2, "E"],
-		[3, "SE"],
-		[4, "S"],
-		[5, "SW"],
-		[6, "W"],
-		[7, "NW"],
-		[8, "N"],
-	]);
-	const interval = 45; // 8 directions from 360 degrees (360 / 8)
-	const key = Math.round(degree / interval);
-	return directions.get(key);
+  const directions = new Map([
+    [0, "N"],
+    [1, "NE"],
+    [2, "E"],
+    [3, "SE"],
+    [4, "S"],
+    [5, "SW"],
+    [6, "W"],
+    [7, "NW"],
+    [8, "N"],
+  ]);
+  const interval = 45; // 8 directions from 360 degrees (360 / 8)
+  const key = Math.round(degree / interval);
+  return directions.get(key);
 };
 
 /**
@@ -133,10 +133,10 @@ export const getWindDirection = function (degree) {
  * @returns {boolean} True or false.
  */
 export const isEmptyObj = function (obj) {
-	for (const prop in obj) {
-		if (obj.hasOwnProperty(prop)) return false;
-	}
-	return true;
+  for (const prop in obj) {
+    if (obj.hasOwnProperty(prop)) return false;
+  }
+  return true;
 };
 
 /**
@@ -145,11 +145,11 @@ export const isEmptyObj = function (obj) {
  * @returns {string} New string with capitalized words.
  */
 export const capitalize = function (str) {
-	const newStr = str
-		.split(" ")
-		.map((word) => word[0].toUpperCase() + word.slice(1))
-		.join(" ");
-	return newStr;
+  const newStr = str
+    .split(" ")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ");
+  return newStr;
 };
 
 /**
@@ -158,5 +158,5 @@ export const capitalize = function (str) {
  * @returns {number} Temperature in celsius.
  */
 export const toCelsius = function (temp) {
-	return (temp - 32) * (5 / 9);
+  return (temp - 32) * (5 / 9);
 };
