@@ -3,7 +3,7 @@ import "./navigation.css";
 import searchIcon from "../../icons/loupe.svg";
 import logo from "../../icons/logo.svg";
 
-const Navigation = function (props) {
+const Navigation = function (props: any) {
   return (
     <nav className="nav">
       <img className="logo" alt="weather app logo" src={logo} />

@@ -3,19 +3,22 @@ import "./forecastHourly.css";
 import dropIcon from "../../../icons/drop.svg";
 import windIcon from "../../../icons/wind.svg";
 
-import {
-  getTime,
-  capitalize,
-  getIconUrl,
-  toCelsius,
-} from "../../../utilities.js";
+import { getTime, capitalize, getIconUrl, toCelsius } from "../../../utilities";
 
-const ForecastHourly = function (props) {
+interface ForecastHourlyProps {
+  forecast: any;
+  tempScale: string;
+  locale: string;
+}
+
+const ForecastHourly = function (props: ForecastHourlyProps) {
   const { forecast } = props;
 
   return (
     <div className="forecast-hourly">
-      <p className="forecast-hourly__time">{getTime(forecast.dt)}</p>
+      <p className="forecast-hourly__time">
+        {getTime(forecast.dt, props.locale)}
+      </p>
       <p className="forecast-hourly__temp">
         {Math.round(
           props.tempScale === "celsius"

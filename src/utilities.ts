@@ -1,16 +1,16 @@
-import { WEATHER_API_KEY, GEO_API_KEY } from "./config.js";
+import { WEATHER_API_KEY, GEO_API_KEY } from "./config";
 
 /**
  * Calls the OpenWeatheMap API and returns weather data for the location.
- * @param {string} lat Latitude coordinate.
- * @param {string} lon Longitude coordinate.
- * @returns {object} All weather data for the specified location including alerts,
+ * @param lat Latitude coordinate.
+ * @param lon Longitude coordinate.
+ * @returns All weather data for the specified location including alerts,
  * current, daily, and hourly forecast.
  */
-export const getWeather = async function (lat, lon) {
+export const getWeather = async function (lat: number, lon: number) {
   try {
     const res = await fetch(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=imperial&appid=${WEATHER_API_KEY}`
+      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat.toString()}&lon=${lon.toString()}&exclude=minutely&units=imperial&appid=${WEATHER_API_KEY}`
     );
 
     if (!res.ok) throw new Error(`${res.status} Could not fetch weather.`);
@@ -25,19 +25,19 @@ export const getWeather = async function (lat, lon) {
 
 /**
  * Gets the url for a weather icon in the OpenWeatherMap API.
- * @param {string} icon The icon name.
- * @returns {string} Weather icon url.
+ * @param icon The icon name.
+ * @returns Weather icon url.
  */
-export const getIconUrl = function (icon) {
+export const getIconUrl = function (icon: string) {
   return `http://openweathermap.org/img/wn/${icon}@2x.png`;
 };
 
 /**
  * Calls the Geocode API to perform forward geocoding. Only works with USA locations.
- * @param {string} location A human-readable address or name of a place.
- * @returns {object} Location data containing coordinates.
+ * @param location A human-readable address or name of a place.
+ * @returns Location data containing coordinates.
  */
-export const geocode = async function (location) {
+export const geocode = async function (location: string) {
   try {
     const res = await fetch(
       `https://geocode.xyz/?locate=${location}&region=us&json=1&auth=${GEO_API_KEY}`
@@ -56,10 +56,10 @@ export const geocode = async function (location) {
 
 /**
  * Calls the Geocode API to perform reverse geocoding. Only works with USA locations.
- * @param {string[]} coords An array of coordinates.
- * @returns {object} Location data containing address.
+ * @param coords An array of coordinates.
+ * @returns Location data containing address.
  */
-export const reverseGeocode = async function (coords) {
+export const reverseGeocode = async function (coords: string[]) {
   try {
     const res = await fetch(
       `https://geocode.xyz/?locate=${coords.join(
@@ -80,10 +80,10 @@ export const reverseGeocode = async function (coords) {
 
 /**
  * Gets a short-style formatted time from a unix timestamp.
- * @param {number} unixTime The time or date in unix time format.
- * @param {string} locale The user's language and region.
+ * @param unixTime The time or date in unix time format.
+ * @param locale The user's language and region.
  */
-export const getTime = function (unixTime, locale) {
+export const getTime = function (unixTime: number, locale: string) {
   const time = new Date(unixTime * 1000);
   const formattedTime = new Intl.DateTimeFormat(locale, {
     timeStyle: "short",
@@ -94,10 +94,10 @@ export const getTime = function (unixTime, locale) {
 
 /**
  * Gets a short-style formatted date from a unix timestamp
- * @param {number} unixTime The time or date in unix time format.
- * @param {string} locale The user's language and region.
+ * @param unixTime The time or date in unix time format.
+ * @param locale The user's language and region.
  */
-export const getDate = function (unixTime, locale) {
+export const getDate = function (unixTime: number, locale: string) {
   const date = new Date(unixTime * 1000);
   const formattedDate = new Intl.DateTimeFormat(locale, {
     dateStyle: "short",
@@ -107,10 +107,10 @@ export const getDate = function (unixTime, locale) {
 
 /**
  * Get the cardinal direction for a wind degree.
- * @param {number} degree The wind degree.
+ * @param degree The wind degree.
  * @returns {string} The cardinal direction.
  */
-export const getWindDirection = function (degree) {
+export const getWindDirection = function (degree: number) {
   const directions = new Map([
     [0, "N"],
     [1, "NE"],
@@ -129,10 +129,10 @@ export const getWindDirection = function (degree) {
 
 /**
  * Checks if an object is empty by checking if it has any properties.
- * @param {object} obj The object to check.
+ * @param obj The object to check.
  * @returns {boolean} True or false.
  */
-export const isEmptyObj = function (obj) {
+export const isEmptyObj = function (obj: any) {
   for (const prop in obj) {
     if (obj.hasOwnProperty(prop)) return false;
   }
@@ -144,7 +144,7 @@ export const isEmptyObj = function (obj) {
  * @param {string} str The string to capitalize.
  * @returns {string} New string with capitalized words.
  */
-export const capitalize = function (str) {
+export const capitalize = function (str: string) {
   const newStr = str
     .split(" ")
     .map((word) => word[0].toUpperCase() + word.slice(1))
@@ -157,6 +157,6 @@ export const capitalize = function (str) {
  * @param temp Temperature in fahrenheit.
  * @returns {number} Temperature in celsius.
  */
-export const toCelsius = function (temp) {
+export const toCelsius = function (temp: number) {
   return (temp - 32) * (5 / 9);
 };

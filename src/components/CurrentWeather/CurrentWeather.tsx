@@ -1,16 +1,26 @@
 import React from "react";
 import "./currentWeather.css";
 
-import { getIconUrl, getTime, toCelsius } from "../../utilities.js";
+import { getIconUrl, getTime, toCelsius } from "../../utilities";
 
-const CurrentWeather = function ({ current, tempScale }) {
+interface CurrentWeatherProps {
+  current: any;
+  tempScale: string;
+  locale: string;
+}
+
+export default function CurrentWeather({
+  current,
+  tempScale,
+  locale,
+}: CurrentWeatherProps) {
   if (!current) return null;
 
   const desc = `${current.weather[0].description
     .slice(0, 1)
     .toUpperCase()}${current.weather[0].description.slice(1)}`;
 
-  const updateTime = getTime(current.dt);
+  const updateTime = getTime(current.dt, locale);
 
   return (
     <section className="current-weather">
@@ -34,6 +44,4 @@ const CurrentWeather = function ({ current, tempScale }) {
       </figure>
     </section>
   );
-};
-
-export default CurrentWeather;
+}

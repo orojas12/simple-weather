@@ -6,9 +6,19 @@ import {
   getWindDirection,
   getIconUrl,
   toCelsius,
-} from "../../../utilities.js";
+} from "../../../utilities";
 
-const ForecastToday = function ({ forecast, tempScale }) {
+interface ForecastTodayProps {
+  forecast: any;
+  tempScale: string;
+  locale: string;
+}
+
+const ForecastToday = function ({
+  forecast,
+  tempScale,
+  locale,
+}: ForecastTodayProps) {
   return (
     <div className="forecast-today">
       <div className="forecast-today__weather">
@@ -55,8 +65,8 @@ const ForecastToday = function ({ forecast, tempScale }) {
           <p>Precipitaion</p>
         </div>
         <div className="forecast-today__weather-data--2">
-          <p>{getTime(forecast.sunrise)}</p>
-          <p>{getTime(forecast.sunset)}</p>
+          <p>{getTime(forecast.sunrise, locale)}</p>
+          <p>{getTime(forecast.sunset, locale)}</p>
           <p>
             {`${getWindDirection(forecast.wind_deg)} ${Math.round(
               forecast.wind_speed

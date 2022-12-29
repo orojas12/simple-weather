@@ -8,9 +8,9 @@
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
-    "module": "es6",
+    "module": "CommonJS",
     "target": "es5",
     "allowJs": true
   },
-  "files": ["src/index.tsx"]
+  "include": ["src/**/*"]
 }

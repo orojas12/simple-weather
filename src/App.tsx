@@ -1,20 +1,29 @@
 import React from "react";
 import "./App.css";
 
-import Navigation from "./components/Navigation/Navigation.js";
-import CurrentWeather from "./components/CurrentWeather/CurrentWeather.js";
-import Forecast from "./components/Forecast/Forecast.js";
+import Navigation from "./components/Navigation/Navigation";
+import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
+import Forecast from "./components/Forecast/Forecast";
 
-import {
-  getWeather,
-  geocode,
-  reverseGeocode,
-  isEmptyObj,
-} from "./utilities.js";
+import { getWeather, geocode, reverseGeocode, isEmptyObj } from "./utilities";
 
-class App extends React.Component {
-  constructor() {
-    super();
+interface AppState {
+  locale: string;
+  searchInput: string;
+  location: {
+    city: string;
+    state: string;
+    coords: number[];
+  };
+  weather: any;
+  tempScale: string;
+}
+
+class App extends React.Component<{}, AppState> {
+  state: AppState;
+
+  constructor(props: any) {
+    super(props);
     this.state = {
       locale: navigator.language,
       searchInput: "",
@@ -44,7 +53,7 @@ class App extends React.Component {
    * Updates search input on input change.
    * @param {object} e Event.
    */
-  handleSearchInput = (e) => {
+  handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       searchInput: e.target.value,
     });
@@ -52,17 +61,16 @@ class App extends React.Component {
 
   /**
    * Updates location coordinates on input submit.
-   * @param {object} e Event.
    */
-  handleSearchInputSubmit = async (e) => {
+  handleSearchInputSubmit = async (e: any) => {
     e.preventDefault();
     const inputText = e.target.querySelector(".search__input");
     try {
       const { latt, longt } = await geocode(this.state.searchInput);
-      this.setState({
-        location: {
-          coords: [latt, longt],
-        },
+      this.setState((prevState) => {
+        return {
+          location: { ...prevState.location, coords: [latt, longt] },
+        };
       });
     } catch (error) {
       console.error(error);
@@ -79,12 +87,17 @@ class App extends React.Component {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          this.setState({
-            location: { coords: [latitude, longitude] },
+          this.setState((prevState) => {
+            return {
+              location: {
+                ...prevState.location,
+                coords: [latitude, longitude],
+              },
+            };
           });
         },
         (error) => {
-          throw new Error(error);
+          throw new Error(error.message);
         }
       );
     } catch (error) {
@@ -99,14 +112,17 @@ class App extends React.Component {
   updateLocationAndWeather = async () => {
     try {
       const [lat, lon] = this.state.location.coords;
-      const location = await reverseGeocode([lat, lon]);
+      const location: any = await reverseGeocode([
+        lat.toString(),
+        lon.toString(),
+      ]);
 
       const city = location.city
         .split(" ")
-        .map((str) => `${str.slice(0, 1)}${str.slice(1).toLowerCase()}`)
+        .map((str: any) => `${str.slice(0, 1)}${str.slice(1).toLowerCase()}`)
         .join(" ");
 
-      const weather = await getWeather(lat, lon);
+      const weather: any = await getWeather(lat, lon);
 
       this.setState((prevState) => {
         return {
@@ -129,7 +145,7 @@ class App extends React.Component {
   };
 
   // If no change in coordinates, location and weather will NOT update.
-  componentDidUpdate(_, prevState) {
+  componentDidUpdate(_: any, prevState: AppState) {
     if (
       prevState.location.coords.toString() ===
       this.state.location.coords.toString()
@@ -157,8 +173,8 @@ class App extends React.Component {
         />
         <CurrentWeather
           current={this.state.weather.current || null}
-          locale={this.state.locale}
           tempScale={this.state.tempScale}
+          locale={this.state.locale}
         />
         <Forecast
           locale={this.state.locale}
