@@ -24,24 +24,6 @@ interface ForecastDailyProps {
 
 const ForecastDaily = function (props: ForecastDailyProps) {
   return (
-    // <div className="forecast-daily">
-    // 	<p className="forecast-daily__date">{props.forecast.date}</p>
-    // 	<p className="forecast-daily__temp">
-    // 		{props.forecast.temp_hi}/{props.forecast.temp_lo}&deg;
-    // 	</p>
-    // 	<img className="drop-icon" alt="drop icon" src={dropIcon} />
-    // 	<p className="forecast-daily__precip">
-    // 		{props.forecast.precip * 100}%
-    // 	</p>
-    // 	<img className="wind-icon" alt="wind icon" src={windIcon} />
-    // 	<p className="forecast-daily__wind">{props.forecast.wind.speed}</p>
-    // 	<p className="forecast-daily__desc">Cloudy</p>
-    // 	<img
-    // 		className="forecast-daily__icon"
-    // 		alt="cloud icon"
-    // 		src={cloudIcon}
-    // />
-
     <div className="forecast-daily">
       <p className="forecast-daily__date">
         {getDate(props.forecast.dt, props.locale)}

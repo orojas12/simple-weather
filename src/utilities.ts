@@ -100,7 +100,7 @@ export const getTime = function (unixTime: number, locale: string) {
 export const getDate = function (unixTime: number, locale: string) {
   const date = new Date(unixTime * 1000);
   const formattedDate = new Intl.DateTimeFormat(locale, {
-    dateStyle: "short",
+    weekday: "long",
   }).format(date);
   return formattedDate;
 };
