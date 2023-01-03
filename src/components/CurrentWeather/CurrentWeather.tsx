@@ -2,19 +2,21 @@ import React from "react";
 import "./currentWeather.css";
 
 import { getIconUrl, getTime, toCelsius } from "../../utilities";
+import Weather from "../../weather/Weather";
 
 interface CurrentWeatherProps {
-  current: any;
+  weather: Weather;
   tempScale: string;
   locale: string;
 }
 
 export default function CurrentWeather({
-  current,
+  weather,
   tempScale,
   locale,
 }: CurrentWeatherProps) {
-  if (!current) return null;
+  if (!weather) return null;
+  const { current } = weather;
 
   const desc = `${current.weather[0].description
     .slice(0, 1)

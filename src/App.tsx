@@ -4,8 +4,8 @@ import "./App.css";
 import Navigation from "./components/Navigation/Navigation";
 import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
 import Forecast from "./components/Forecast/Forecast";
-
-import { getWeather, geocode, reverseGeocode, isEmptyObj } from "./utilities";
+import Weather from "./weather/Weather";
+import { getWeather, geocode, reverseGeocode } from "./utilities";
 
 interface AppState {
   locale: string;
@@ -15,7 +15,7 @@ interface AppState {
     state: string;
     coords: number[];
   };
-  weather: any;
+  weather: Weather | null;
   tempScale: string;
 }
 
@@ -32,7 +32,7 @@ class App extends React.Component<{}, AppState> {
         state: null,
         coords: [],
       },
-      weather: {},
+      weather: null,
       tempScale: "fahrenheit",
     };
   }
@@ -122,7 +122,7 @@ class App extends React.Component<{}, AppState> {
         .map((str: any) => `${str.slice(0, 1)}${str.slice(1).toLowerCase()}`)
         .join(" ");
 
-      const weather: any = await getWeather(lat, lon);
+      const weather = new Weather(await getWeather(lat, lon));
 
       this.setState((prevState) => {
         return {
@@ -131,12 +131,7 @@ class App extends React.Component<{}, AppState> {
             city: city,
             state: location.state,
           },
-          weather: {
-            alerts: weather.alerts,
-            current: weather.current,
-            hourly: weather.hourly,
-            daily: weather.daily,
-          },
+          weather,
         };
       });
     } catch (error) {
@@ -172,21 +167,14 @@ class App extends React.Component<{}, AppState> {
           tempScale={this.state.tempScale}
         />
         <CurrentWeather
-          current={this.state.weather.current || null}
+          weather={this.state.weather}
           tempScale={this.state.tempScale}
           locale={this.state.locale}
         />
         <Forecast
           locale={this.state.locale}
           tempScale={this.state.tempScale}
-          forecast={
-            isEmptyObj(this.state.weather)
-              ? null
-              : {
-                  hourly: this.state.weather.hourly,
-                  daily: this.state.weather.daily,
-                }
-          }
+          weather={this.state.weather}
         />
       </div>
     );

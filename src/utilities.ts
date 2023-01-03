@@ -106,28 +106,6 @@ export const getDate = function (unixTime: number, locale: string) {
 };
 
 /**
- * Get the cardinal direction for a wind degree.
- * @param degree The wind degree.
- * @returns {string} The cardinal direction.
- */
-export const getWindDirection = function (degree: number) {
-  const directions = new Map([
-    [0, "N"],
-    [1, "NE"],
-    [2, "E"],
-    [3, "SE"],
-    [4, "S"],
-    [5, "SW"],
-    [6, "W"],
-    [7, "NW"],
-    [8, "N"],
-  ]);
-  const interval = 45; // 8 directions from 360 degrees (360 / 8)
-  const key = Math.round(degree / interval);
-  return directions.get(key);
-};
-
-/**
  * Checks if an object is empty by checking if it has any properties.
  * @param obj The object to check.
  * @returns {boolean} True or false.
@@ -150,13 +128,4 @@ export const capitalize = function (str: string) {
     .map((word) => word[0].toUpperCase() + word.slice(1))
     .join(" ");
   return newStr;
-};
-
-/**
- * Converts a fahrenheit temperature to celsius.
- * @param temp Temperature in fahrenheit.
- * @returns {number} Temperature in celsius.
- */
-export const toCelsius = function (temp: number) {
-  return (temp - 32) * (5 / 9);
 };

@@ -8,11 +8,11 @@ import ForecastDaily from "./ForecastDaily/ForecastDaily";
 interface ForecastProps {
   locale: string;
   tempScale: string;
-  forecast: any;
+  weather: any;
 }
 
 export default function Forecast(props: ForecastProps) {
-  if (!props.forecast) return null;
+  if (!props.weather) return null;
 
   const [forecastType, setForecastType] = useState("today");
   const tabStyle = "forecast__tab";
@@ -31,7 +31,7 @@ export default function Forecast(props: ForecastProps) {
       forecastComponent = (
         <div role="tabpanel" id="panelToday">
           <ForecastToday
-            forecast={props.forecast.daily[0]}
+            forecast={props.weather.daily[0]}
             tempScale={props.tempScale}
             locale={props.locale}
           />
@@ -46,7 +46,7 @@ export default function Forecast(props: ForecastProps) {
       for (let i = 0; i < 24; i++) {
         hourlyForecasts.push(
           <ForecastHourly
-            forecast={props.forecast.hourly[i]}
+            forecast={props.weather.hourly[i]}
             tempScale={props.tempScale}
             locale={props.locale}
             key={i}
@@ -63,7 +63,7 @@ export default function Forecast(props: ForecastProps) {
       break;
 
     case "daily":
-      let dailyForecasts = props.forecast.daily.map(
+      let dailyForecasts = props.weather.daily.map(
         (forecastObj: any, i: number) => {
           return (
             <ForecastDaily
