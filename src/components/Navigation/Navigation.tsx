@@ -1,34 +1,44 @@
-import React from "react";
+import React, { FormEvent, FormEventHandler, useState } from "react";
 import "./navigation.css";
 import searchIcon from "../../icons/loupe.svg";
 import logo from "../../icons/logo.svg";
 
-const Navigation = function (props: any) {
+interface NavigationProps {
+  cityAndState: string;
+  onSubmit: (e: FormEvent, text: string) => void;
+  onScaleSwitch: () => void;
+  useCelsius: boolean;
+}
+
+const Navigation = function (props: NavigationProps) {
+  const [input, setInput] = useState("");
+
+  const tempScale = props.useCelsius ? "celsius" : "fahrenheit";
+
   return (
     <nav className="nav">
       <img className="logo" alt="weather app logo" src={logo} />
-      <form className="search" onSubmit={props.onSearchInputSubmit}>
+      <form className="search" onSubmit={(e) => props.onSubmit(e, input)}>
         <input
           className="search__input"
           type="text"
-          placeholder={props.location}
-          onChange={props.onSearchInputChange}
+          placeholder={props.cityAndState}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
         />
         <img className="search__icon" alt="loupe icon" src={searchIcon} />
       </form>
       <div className="scale">
         <p
           className={`scale-switch__label ${
-            props.tempScale === "fahrenheit"
-              ? "scale-switch__label--active"
-              : ""
+            tempScale === "fahrenheit" ? "scale-switch__label--active" : ""
           }`}
         >
           &deg;F
         </p>
         <div
           className={`scale-switch ${
-            props.tempScale === "celsius" ? "scale-switch--onCelsius" : ""
+            tempScale === "celsius" ? "scale-switch--onCelsius" : ""
           }`}
           onClick={props.onScaleSwitch}
         >
@@ -36,7 +46,7 @@ const Navigation = function (props: any) {
         </div>
         <p
           className={`scale-switch__label ${
-            props.tempScale === "celsius" ? "scale-switch__label--active" : ""
+            tempScale === "celsius" ? "scale-switch__label--active" : ""
           }`}
         >
           &deg;C

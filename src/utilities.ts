@@ -59,12 +59,12 @@ export const geocode = async function (location: string) {
  * @param coords An array of coordinates.
  * @returns Location data containing address.
  */
-export const reverseGeocode = async function (coords: string[]) {
+export const reverseGeocode = async function (coords: number[]) {
   try {
     const res = await fetch(
-      `https://geocode.xyz/?locate=${coords.join(
-        ","
-      )}&region=us&json=1&auth=691072423133569444264x114586`
+      `https://geocode.xyz/?locate=${coords
+        .map((coord) => coord.toString())
+        .join(",")}&region=us&json=1&auth=691072423133569444264x114586`
     );
     const data = await res.json();
 
@@ -76,45 +76,6 @@ export const reverseGeocode = async function (coords: string[]) {
   } catch (error) {
     throw error;
   }
-};
-
-/**
- * Gets a short-style formatted time from a unix timestamp.
- * @param unixTime The time or date in unix time format.
- * @param locale The user's language and region.
- */
-export const getTime = function (unixTime: number, locale: string) {
-  const time = new Date(unixTime * 1000);
-  const formattedTime = new Intl.DateTimeFormat(locale, {
-    timeStyle: "short",
-    hour12: true,
-  }).format(time);
-  return formattedTime;
-};
-
-/**
- * Gets a short-style formatted date from a unix timestamp
- * @param unixTime The time or date in unix time format.
- * @param locale The user's language and region.
- */
-export const getDate = function (unixTime: number, locale: string) {
-  const date = new Date(unixTime * 1000);
-  const formattedDate = new Intl.DateTimeFormat(locale, {
-    weekday: "long",
-  }).format(date);
-  return formattedDate;
-};
-
-/**
- * Checks if an object is empty by checking if it has any properties.
- * @param obj The object to check.
- * @returns {boolean} True or false.
- */
-export const isEmptyObj = function (obj: any) {
-  for (const prop in obj) {
-    if (obj.hasOwnProperty(prop)) return false;
-  }
-  return true;
 };
 
 /**

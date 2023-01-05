@@ -1,28 +1,27 @@
 import React from "react";
 import "./currentWeather.css";
 
-import { getIconUrl, getTime, toCelsius } from "../../utilities";
+import { getIconUrl } from "../../utilities";
 import Weather from "../../weather/Weather";
+import WeatherCurrent from "../../weather/WeatherCurrent";
 
 interface CurrentWeatherProps {
-  weather: Weather;
-  tempScale: string;
+  weather: WeatherCurrent;
+  useCelsius: boolean;
   locale: string;
 }
 
 export default function CurrentWeather({
   weather,
-  tempScale,
-  locale,
+  useCelsius,
 }: CurrentWeatherProps) {
   if (!weather) return null;
-  const { current } = weather;
 
-  const desc = `${current.weather[0].description
+  const desc = `${weather.conditions[0].description
     .slice(0, 1)
-    .toUpperCase()}${current.weather[0].description.slice(1)}`;
+    .toUpperCase()}${weather.conditions[0].description.slice(1)}`;
 
-  const updateTime = getTime(current.dt, locale);
+  const updateTime = weather.dt.toLocaleTimeString();
 
   return (
     <section className="current-weather">
@@ -31,9 +30,7 @@ export default function CurrentWeather({
         <figcaption>
           <p className="widget__desc">{desc}</p>
           <p className="widget__temp">
-            {Math.round(
-              tempScale === "celsius" ? toCelsius(current.temp) : current.temp
-            )}
+            {weather.getTemp(undefined, useCelsius)}
             &deg;
           </p>
           <p className="widget__update-time">Updated {updateTime}</p>
@@ -41,7 +38,7 @@ export default function CurrentWeather({
         <img
           className="widget__weather-icon"
           alt="weather icon"
-          src={getIconUrl(current.weather[0].icon)}
+          src={getIconUrl(weather.conditions[0].icon)}
         />
       </figure>
     </section>

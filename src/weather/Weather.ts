@@ -1,5 +1,5 @@
-export default class Weather {
-  readonly dt: number;
+export default abstract class Weather {
+  readonly dt: Date;
   readonly temp:
     | number
     | {
@@ -45,7 +45,7 @@ export default class Weather {
       };
 
   constructor(data: any) {
-    this.dt = data.dt;
+    this.dt = new Date(data.dt);
     this.temp = data.temp;
     this.feels_like = data.feels_like;
     this.pressure = data.pressure;
@@ -105,22 +105,8 @@ export default class Weather {
   }
 
   /**
-   * Gets a short-style formatted time from a unix timestamp
-   * @param unixTime The time or date in unix time format.
-   * @param locale The user's language and region.
-   */
-  getTime(unixTime: number, locale: string) {}
-
-  /**
-   * Gets the date with the format of "{weekday} {day}" from a unix timestamp.
-   * @param unixTime The time or date in unix time format.
-   * @param locale The user's language and region.
-   */
-  getDate(unixTime: number, locale: string) {}
-
-  /**
    * Gets one of eight cardinal directions (NW, N, NE, E, SE, S, SW, W) from the
-   * wind degree.
+   * wind degree property.
    * @returns The cardinal direction.
    */
   getWindDirection() {

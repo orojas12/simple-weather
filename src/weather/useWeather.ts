@@ -1,26 +1,39 @@
 import { useState, useEffect } from "react";
-import Weather from "./Weather";
+import { WEATHER_API_KEY } from "../config";
+import WeatherCurrent from "./WeatherCurrent";
+import WeatherDay from "./WeatherDay";
+import WeatherHour from "./WeatherHour";
 
-export default function useWeather(lat: number, lon: number) {
-  const [location, setLocation] = useState({ lat, lon });
-  const [weather, setWeather] = useState<Weather>(null);
+interface WeatherState {
+  current: WeatherCurrent;
+  hourly: WeatherHour[];
+  daily: WeatherDay[];
+}
+
+export default function useWeather(latitude: number, longitude: number) {
+  const [location, setLocation] = useState({ latitude, longitude });
+  const [weather, setWeather] = useState<WeatherState>(null);
 
   useEffect(() => {
-    async function fetchWeather(lat: number, lon: number) {
+    async function fetchWeather(latitude: number, longitude: number) {
       try {
         const res = await fetch(
-          `https://api.openweathermap.org/data/3.0/onecall?lat=${lat.toString()}&lon=${lon.toString()}&exclude=minutely&units=imperial&appid=${WEATHER_API_KEY}`
+          `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude.toString()}&lon=${longitude.toString()}&exclude=minutely&units=imperial&appid=${WEATHER_API_KEY}`
         );
-        if (!res.ok) throw new Error(`${res.status} Could not fetch weather.`);
+        if (!res.ok) throw new Error(`${res.status} Failed to fetch weather.`);
         const data = await res.json();
-        setWeather(new Weather(data));
+        setWeather({
+          current: new WeatherCurrent(data.current),
+          hourly: data.hourly.map((hourData: any) => new WeatherHour(hourData)),
+          daily: data.daily.map((dayData: any) => new WeatherDay(dayData)),
+        });
       } catch (error) {
         console.error(error);
       }
     }
 
-    fetchWeather(location.lat, location.lon);
+    fetchWeather(location.latitude, location.longitude);
   }, [location]);
 
-  return [weather, setLocation];
+  return [weather, setLocation] as const;
 }
