@@ -11,7 +11,7 @@ interface WeatherState {
 }
 
 export default function useWeather(latitude: number, longitude: number) {
-  const [location, setLocation] = useState({ latitude, longitude });
+  const [coords, setCoords] = useState({ latitude, longitude });
   const [weather, setWeather] = useState<WeatherState>(null);
 
   useEffect(() => {
@@ -32,8 +32,12 @@ export default function useWeather(latitude: number, longitude: number) {
       }
     }
 
-    fetchWeather(location.latitude, location.longitude);
-  }, [location]);
+    fetchWeather(coords.latitude, coords.longitude);
+  }, [coords]);
 
-  return [weather, setLocation] as const;
+  const updateWeather = () => {
+    setCoords((prevCoords) => ({ ...prevCoords }));
+  };
+
+  return [weather, updateWeather, setCoords] as const;
 }

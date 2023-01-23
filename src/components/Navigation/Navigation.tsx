@@ -18,7 +18,13 @@ const Navigation = function (props: NavigationProps) {
   return (
     <nav className="nav">
       <img className="logo" alt="weather app logo" src={logo} />
-      <form className="search" onSubmit={(e) => props.onSubmit(e, input)}>
+      <form
+        className="search"
+        onSubmit={(e) => {
+          props.onSubmit(e, input);
+          setInput("");
+        }}
+      >
         <input
           className="search__input"
           type="text"

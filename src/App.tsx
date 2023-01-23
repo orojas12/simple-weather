@@ -1,88 +1,39 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import "./App.css";
 
+import AutoSubmitTextbox from "./components/AutoSubmitTextbox/AutoSubmitTextbox";
 import Navigation from "./components/Navigation/Navigation";
 import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
 import Forecast from "./components/Forecast/Forecast";
-import Weather from "./weather/Weather";
-import { getWeather, geocode, reverseGeocode } from "./utilities";
-import WeatherCurrent from "./weather/WeatherCurrent";
-import WeatherHour from "./weather/WeatherHour";
-import WeatherDay from "./weather/WeatherDay";
-import WeatherAlert from "./weather/WeatherAlert";
-import useWeather from "./weather/useWeather";
-
-/**
- * Gets the user's current coordinates.
- */
-const getUserLocation = async (
-  cb: (location: { latitude: number; longitude: number }) => void
-) => {
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      const { latitude, longitude } = position.coords;
-      cb({ latitude, longitude });
-    },
-    (error) => {
-      throw error;
-    }
-  );
-};
+import useWeather from "./weather";
+import useLocation from "./location";
 
 export default function App() {
-  const [weather, updateWeather] = useWeather(43, -75);
-  const [location, setLocation] = useState<{
-    latitude: number;
-    longitude: number;
-  }>(null);
-  const [city, setCity] = useState<string>(null);
-  const [state, setState] = useState<string>(null);
+  // const [weather, updateWeather, setCoords] = useWeather(43, -75);
+  // const { location, setLocation, searchResults, search } = useLocation();
   const [useCelsius, setUseCelsius] = useState(false);
 
-  useEffect(() => {
-    getUserLocation(setLocation);
-  }, []);
-
-  useEffect(() => {
-    if (!location) return;
-    const setCityAndState = async () => {
-      const data = await reverseGeocode([
-        location.latitude,
-        location.longitude,
-      ]);
-      const city = data.city
-        .split(" ")
-        .map((str: any) => `${str.slice(0, 1)}${str.slice(1).toLowerCase()}`)
-        .join(" ");
-      setCity(city);
-      setState(data.state);
-    };
-
-    updateWeather({
-      latitude: location.latitude,
-      longitude: location.longitude,
-    });
-    setCityAndState();
-  }, [location]);
-
-  const handleSubmit = async (e: FormEvent, text: string) => {
-    e.preventDefault();
-    const { latt, longt } = await geocode(text);
-    setLocation({ latitude: latt, longitude: longt });
-  };
-
-  const cityAndState = city && state ? `${city}, ${state}` : "";
+  // const handleSubmit = async (e: FormEvent, text: string) => {
+  //   e.preventDefault();
+  //   search(text);
+  // };
 
   return (
     <div className="App">
-      <Navigation
+      {/* CREATE SEARCH COMPONENT */}
+      <AutoSubmitTextbox
+        submit={(text: string) => {
+          console.log(text);
+        }}
+      />
+      {/* <Navigation
         onSubmit={handleSubmit}
         onScaleSwitch={() => {
           setUseCelsius((prevState) => !prevState);
         }}
-        cityAndState={cityAndState}
+        cityAndState={`${location.name}, ${location.state}`}
         useCelsius={useCelsius}
-      />
+      /> */}
       {/* <CurrentWeather
         weather={this.state.weather}
         tempScale={this.state.tempScale}

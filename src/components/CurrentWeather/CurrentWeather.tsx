@@ -30,7 +30,7 @@ export default function CurrentWeather({
         <figcaption>
           <p className="widget__desc">{desc}</p>
           <p className="widget__temp">
-            {weather.getTemp(undefined, useCelsius)}
+            {weather.getTemp(useCelsius)}
             &deg;
           </p>
           <p className="widget__update-time">Updated {updateTime}</p>

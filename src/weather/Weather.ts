@@ -1,3 +1,15 @@
+const cardinalDirections = new Map([
+  [0, "N"],
+  [1, "NE"],
+  [2, "E"],
+  [3, "SE"],
+  [4, "S"],
+  [5, "SW"],
+  [6, "W"],
+  [7, "NW"],
+  [8, "N"],
+]);
+
 export default abstract class Weather {
   readonly dt: Date;
   readonly temp:
@@ -77,7 +89,7 @@ export default abstract class Weather {
    * @param useCelsius Get temperature in celsius. Uses fahrenheit if false.
    * @returns Temperature
    */
-  getTemp(time?: "morn" | "day" | "eve" | "night", useCelsius = false) {
+  getTemp(useCelsius = false, time?: "morn" | "day" | "eve" | "night") {
     if (typeof this.temp === "number") {
       return useCelsius ? this.toCelsius(this.temp) : this.temp;
     } else if (typeof this.temp === "object") {
@@ -92,8 +104,8 @@ export default abstract class Weather {
    * @returns Feels-like temperature
    */
   getFeelsLikeTemp(
-    time?: "morn" | "day" | "eve" | "night",
-    useCelsius = false
+    useCelsius = false,
+    time?: "morn" | "day" | "eve" | "night"
   ) {
     if (typeof this.feels_like === "number") {
       return useCelsius ? this.toCelsius(this.feels_like) : this.feels_like;
@@ -110,19 +122,8 @@ export default abstract class Weather {
    * @returns The cardinal direction.
    */
   getWindDirection() {
-    const directions = new Map([
-      [0, "N"],
-      [1, "NE"],
-      [2, "E"],
-      [3, "SE"],
-      [4, "S"],
-      [5, "SW"],
-      [6, "W"],
-      [7, "NW"],
-      [8, "N"],
-    ]);
     const interval = 45; // 8 directions from 360 degrees (360 / 8)
     const key = Math.round(this.wind_deg / interval);
-    return directions.get(key);
+    return cardinalDirections.get(key);
   }
 }
