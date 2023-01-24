@@ -8,9 +8,9 @@
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
-    "module": "CommonJS",
     "target": "es5",
-    "allowJs": true
+    "allowJs": true,
+    "esModuleInterop": true
   },
   "include": ["src/**/*"]
 }
