@@ -1,10 +1,11 @@
-import React, { useState, useEffect, KeyboardEvent } from "react";
+import React, { useState, useEffect, KeyboardEvent, ChangeEvent } from "react";
 
 export interface ComboBoxProps<T> {
   id: string;
   label: string;
   options: ComboBoxOption<T>[];
-  select: (item: T) => void;
+  autocomplete?: "list" | "inline" | "both" | "none";
+  select: (option: T) => void;
 }
 
 interface ComboBoxOption<T> {
@@ -12,36 +13,81 @@ interface ComboBoxOption<T> {
   text: string;
   data: T;
 }
-
+// TODO: add ability to inject onchange handler (for autocomplete data fetching, etc.)
+// TODO: revert input value to previously selected option if combobox loses focus
+// TODO: research usage of tab-index and whether I should keep focus on combobox or listbox
 export default function ComboBox<T>(props: ComboBoxProps<T>) {
   const [value, setValue] = useState("");
-  const [activeDesc, setActiveDesc] = useState(0);
+  const [activeDesc, setActiveDesc] = useState<number>(null);
   const [expanded, setExpanded] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<ComboBoxOption<T>>(null);
 
   useEffect(() => {
-    setActiveDesc(props.options.length > 0 ? 0 : null);
+    setActiveDesc(null);
   }, [props.options]);
 
   useEffect(() => {
+    if (selectedOption) return;
     setExpanded(value.length > 0);
   }, [value]);
 
+  useEffect(() => {
+    if (!selectedOption) return;
+    setValue(selectedOption.text);
+    setActiveDesc(null);
+    setExpanded(false);
+    props.select(selectedOption.data);
+  }, [selectedOption]);
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSelectedOption(null);
+    setActiveDesc(null);
+    setValue(e.target.value);
+  };
+
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    return;
+    if (!props.options.length || !expanded) return;
+    switch (e.key) {
+      case "ArrowDown":
+        if (activeDesc === props.options.length - 1 || activeDesc === null) {
+          setActiveDesc(0);
+        } else {
+          setActiveDesc((prevActiveDesc) => prevActiveDesc + 1);
+        }
+        break;
+      case "ArrowUp":
+        if (activeDesc === 0 || activeDesc === null) {
+          setActiveDesc(props.options.length - 1);
+        } else {
+          setActiveDesc((prevActiveDesc) => prevActiveDesc - 1);
+        }
+        break;
+      case "Enter":
+        if (activeDesc === null) return;
+        setSelectedOption(props.options[activeDesc]);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const onClick = (option: ComboBoxOption<T>) => {
+    setSelectedOption(option);
   };
 
   const listboxId = `${props.id}_listbox`;
-  const optionId = listboxId + "_option";
-  const options = props.options.map((item, i) => (
+  const optionId = `${props.id}_option`;
+  const options = props.options.map((option, i) => (
     <li
+      key={i}
       id={optionId + `-${i}`}
       role="option"
-      className={
-        activeDesc === i ? "ComboBox_option--active" : "ComboBox_option"
-      }
-      onClick={() => props.select(item.data)}
+      className={`ComboBox__option ${
+        activeDesc === i ? "ComboBox__option--active" : ""
+      }`}
+      onClick={() => onClick(option)}
     >
-      {item.text}
+      {option.text}
     </li>
   ));
   const listbox = expanded ? (
@@ -58,12 +104,13 @@ export default function ComboBox<T>(props: ComboBoxProps<T>) {
         role="combobox"
         aria-label={props.label}
         aria-controls={listboxId}
-        aria-autocomplete="list"
+        aria-autocomplete={props.autocomplete || "none"}
         aria-expanded={expanded}
         aria-activedescendant={
           activeDesc !== null ? optionId + `-${activeDesc}` : ""
         }
-        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        onChange={onChange}
         onKeyDown={onKeyDown}
       />
       {listbox}
