@@ -6,27 +6,27 @@ import React, {
   useRef,
 } from "react";
 
-export interface ComboBoxProps<T> {
+export interface ComboboxProps<T> {
   id: string;
   label: string;
-  items: ComboBoxOption<T>[];
+  items: ComboboxOption<T>[];
   autocomplete?: "list" | "inline" | "both" | "none";
   onChange?: (value: string) => void;
   onChangeDelay?: number;
   select: (data: T) => void;
 }
 
-interface ComboBoxOption<T> {
+interface ComboboxOption<T> {
   id: string;
   text: string;
   data: T;
 }
 
-export default function ComboBox<T>(props: ComboBoxProps<T>) {
+export default function Combobox<T>(props: ComboboxProps<T>) {
   const [value, setValue] = useState("");
   const [activeDesc, setActiveDesc] = useState<number>(null);
   const [expanded, setExpanded] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<ComboBoxOption<T>>(null);
+  const [selectedOption, setSelectedOption] = useState<ComboboxOption<T>>(null);
   const timeoutId = useRef(null);
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export default function ComboBox<T>(props: ComboBoxProps<T>) {
     }
   };
 
-  const onClick = (option: ComboBoxOption<T>) => {
+  const onClick = (option: ComboboxOption<T>) => {
     setSelectedOption(option);
   };
 
@@ -107,8 +107,8 @@ export default function ComboBox<T>(props: ComboBoxProps<T>) {
       id={optionId + `-${i}`}
       role="option"
       tabIndex={-1}
-      className={`ComboBox__option ${
-        activeDesc === i ? "ComboBox__option--active" : ""
+      className={`Combobox__option ${
+        activeDesc === i ? "Combobox__option--active" : ""
       }`}
       onClick={(e) => {
         onClick(option);
@@ -127,6 +127,7 @@ export default function ComboBox<T>(props: ComboBoxProps<T>) {
     <div id={props.id}>
       <input
         id={`${props.id}_input`}
+        className="Combobox__input"
         type="text"
         role="combobox"
         aria-label={props.label}

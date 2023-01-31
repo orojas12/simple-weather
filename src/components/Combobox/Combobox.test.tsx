@@ -1,7 +1,7 @@
 import React from "react";
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import ComboBox from "./ComboBox";
+import Combobox from "./Combobox";
 
 describe("ComboBox component", () => {
   const setup = (element: any) => {
@@ -13,7 +13,7 @@ describe("ComboBox component", () => {
 
   test("expands listbox on focus", async () => {
     const { user } = setup(
-      <ComboBox<number>
+      <Combobox<number>
         id="testComboBox"
         label=""
         items={[{ id: "1", text: "test", data: 1 }]}
@@ -29,7 +29,7 @@ describe("ComboBox component", () => {
 
   test("closes listbox on item select", async () => {
     const { user } = setup(
-      <ComboBox<number>
+      <Combobox<number>
         id="testComboBox"
         label=""
         items={[
@@ -49,7 +49,7 @@ describe("ComboBox component", () => {
 
   test("pressing escape closes listbox", async () => {
     const { user } = setup(
-      <ComboBox<number>
+      <Combobox<number>
         id="testComboBox"
         label=""
         items={[
@@ -68,7 +68,7 @@ describe("ComboBox component", () => {
 
   test("sets input text to selected item text", async () => {
     const { user } = setup(
-      <ComboBox<number>
+      <Combobox<number>
         id="testComboBox"
         label=""
         items={[
@@ -88,7 +88,7 @@ describe("ComboBox component", () => {
 
   test("changed input expands listbox", async () => {
     const { user } = setup(
-      <ComboBox<number>
+      <Combobox<number>
         id="testComboBox"
         label=""
         items={[
@@ -109,7 +109,7 @@ describe("ComboBox component", () => {
 
   test("can select option using keyboard", async () => {
     const { user } = setup(
-      <ComboBox<number>
+      <Combobox<number>
         id="testComboBox"
         label=""
         items={[
@@ -130,7 +130,7 @@ describe("ComboBox component", () => {
 
   test("resets keyboard selection on input change", async () => {
     const { user } = setup(
-      <ComboBox<number>
+      <Combobox<number>
         id="testComboBox"
         label=""
         items={[
@@ -154,7 +154,7 @@ describe("ComboBox component", () => {
   test("reverts input value to selected option if combobox loses focus while typing", async () => {
     const { user } = setup(
       <div>
-        <ComboBox<number>
+        <Combobox<number>
           id="testComboBox1"
           label="testComboBox1"
           items={[
@@ -176,7 +176,7 @@ describe("ComboBox component", () => {
   test("sets input blank if no option selected and combobox is closed or loses focus", async () => {
     const { user } = setup(
       <>
-        <ComboBox<number>
+        <Combobox<number>
           id="testComboBox1"
           label="testComboBox1"
           items={[
@@ -201,7 +201,7 @@ describe("ComboBox component", () => {
   test("calls select prop function", async () => {
     const mockFunc = jest.fn();
     const { user } = setup(
-      <ComboBox<number>
+      <Combobox<number>
         id="testComboBox1"
         label="testComboBox1"
         items={[
@@ -220,7 +220,7 @@ describe("ComboBox component", () => {
   test("calls onChange prop function", async () => {
     const mockFunc = jest.fn();
     const { user } = setup(
-      <ComboBox<number>
+      <Combobox<number>
         id="testComboBox1"
         label="testComboBox1"
         items={[
@@ -239,7 +239,7 @@ describe("ComboBox component", () => {
   test("calls onChange prop function with delay", async () => {
     const mockFunc = jest.fn();
     const { user } = setup(
-      <ComboBox<number>
+      <Combobox<number>
         id="testComboBox1"
         label="testComboBox1"
         items={[
