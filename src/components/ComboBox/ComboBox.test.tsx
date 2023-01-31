@@ -11,19 +11,19 @@ describe("ComboBox component", () => {
     };
   };
 
-  test("expands listbox on input", async () => {
+  test("expands listbox on focus", async () => {
     const { user } = setup(
       <ComboBox<number>
         id="testComboBox"
         label=""
-        options={[{ id: "1", text: "test", data: 1 }]}
+        items={[{ id: "1", text: "test", data: 1 }]}
         select={() => {}}
       />
     );
     const input = screen.getByRole("combobox");
     const listbox = screen.queryByRole("listbox");
     expect(listbox).toEqual(null);
-    await user.type(input, "a");
+    await user.click(input);
     screen.getByRole("listbox");
   });
 
@@ -32,7 +32,7 @@ describe("ComboBox component", () => {
       <ComboBox<number>
         id="testComboBox"
         label=""
-        options={[
+        items={[
           { id: "1", text: "test1", data: 1 },
           { id: "2", text: "test2", data: 2 },
         ]}
@@ -52,7 +52,7 @@ describe("ComboBox component", () => {
       <ComboBox<number>
         id="testComboBox"
         label=""
-        options={[
+        items={[
           { id: "1", text: "test1", data: 1 },
           { id: "2", text: "test2", data: 2 },
         ]}
@@ -67,31 +67,12 @@ describe("ComboBox component", () => {
     expect(input.value).toEqual("test1");
   });
 
-  test("cleared input closes listbox", async () => {
-    const { user } = setup(
-      <ComboBox<number>
-        id="testComboBox"
-        label=""
-        options={[
-          { id: "1", text: "test1", data: 1 },
-          { id: "2", text: "test2", data: 2 },
-        ]}
-        select={() => {}}
-      />
-    );
-    const input = screen.getByRole("combobox");
-    await user.type(input, "a");
-    screen.getByRole("listbox");
-    await user.clear(input);
-    expect(screen.queryByRole("listbox")).toEqual(null);
-  });
-
   test("changed input expands listbox", async () => {
     const { user } = setup(
       <ComboBox<number>
         id="testComboBox"
         label=""
-        options={[
+        items={[
           { id: "1", text: "test1", data: 1 },
           { id: "2", text: "test2", data: 2 },
         ]}
@@ -112,7 +93,7 @@ describe("ComboBox component", () => {
       <ComboBox<number>
         id="testComboBox"
         label=""
-        options={[
+        items={[
           { id: "1", text: "test1", data: 1 },
           { id: "2", text: "test2", data: 2 },
         ]}
@@ -128,5 +109,48 @@ describe("ComboBox component", () => {
     expect(screen.queryByRole("listbox")).toEqual(null);
   });
 
-  test.todo("resets keyboard selection on input change");
+  test("resets keyboard selection on input change", async () => {
+    const { user } = setup(
+      <ComboBox<number>
+        id="testComboBox"
+        label=""
+        items={[
+          { id: "1", text: "test1", data: 1 },
+          { id: "2", text: "test2", data: 2 },
+        ]}
+        select={() => {}}
+      />
+    );
+    const input: HTMLInputElement = screen.getByRole("combobox");
+    await user.click(input);
+    await user.keyboard("a{ArrowDown}b{ArrowDown}{Enter}");
+    expect(input.value).toEqual("test1");
+    await user.clear(input);
+    await user.keyboard(
+      "a{ArrowDown}b{ArrowDown}{Backspace}{ArrowDown}{Enter}"
+    );
+    expect(input.value).toEqual("test1");
+  });
+
+  test("reverts input value to selected option if combobox loses focus while typing", async () => {
+    const { user } = setup(
+      <div>
+        <ComboBox<number>
+          id="testComboBox1"
+          label="testComboBox1"
+          items={[
+            { id: "1", text: "test1", data: 1 },
+            { id: "2", text: "test2", data: 2 },
+          ]}
+          select={() => {}}
+        />
+        <input id="testInput" type="text" />
+      </div>
+    );
+    const input: HTMLInputElement = screen.getByLabelText("testComboBox1");
+    await user.click(input);
+    await user.keyboard("a{ArrowDown}{Enter}b");
+    await user.tab();
+    expect(input.value).toEqual("test1");
+  });
 });
