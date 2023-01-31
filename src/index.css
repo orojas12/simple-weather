@@ -1,16 +1,80 @@
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+:root {
+  --clr-light: hsl(0 0% 100%);
+  --clr-light-75: hsl(0 0% 100% / 75%);
+  --clr-light-50: hsl(0 0% 100% / 50%);
+  --clr-light-10: hsl(0 0% 100% / 10%);
+  --clr-dark-10: hsl(0 0% 0% / 10%);
+  --clr-primary: hsl(216 100% 44% / 100%);
+  --clr-secondary: hsl(216 74% 54% / 100%);
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* 
+  VoiceOver and Safari (Webkit) removes ul/ol semantics when "list-style: none" is
+  used unless the element has the "list" aria role.
+*/
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
 }
 
 body {
-	margin: 0;
-	font-size: 62.5%;
-	font-family: "Open Sans";
-	background-image: linear-gradient(
-		to right bottom,
-		rgb(0, 119, 255),
-		rgb(57, 149, 255)
-	);
+  min-height: 100vh;
+  line-height: 1.5;
+  font-size: 1.6rem;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::after,
+  *::before {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html:focus-within {
+    scroll-behavior: auto;
+  }
 }
