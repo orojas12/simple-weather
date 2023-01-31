@@ -1,39 +1,39 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import "./App.css";
 
-import AutoSubmitTextbox from "./components/AutoSubmitTextbox/AutoSubmitTextbox";
 import Navigation from "./components/Navigation/Navigation";
 import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
 import Forecast from "./components/Forecast/Forecast";
 import useWeather from "./weather";
 import useLocation from "./location";
+import Combobox from "./components/Combobox/Combobox";
 
 export default function App() {
   // const [weather, updateWeather, setCoords] = useWeather(43, -75);
   // const { location, setLocation, searchResults, search } = useLocation();
   const [useCelsius, setUseCelsius] = useState(false);
 
-  // const handleSubmit = async (e: FormEvent, text: string) => {
-  //   e.preventDefault();
-  //   search(text);
-  // };
-
   return (
     <div className="App">
-      {/* CREATE SEARCH COMPONENT */}
-      <AutoSubmitTextbox
-        submit={(text: string) => {
-          console.log(text);
-        }}
-      />
-      {/* <Navigation
-        onSubmit={handleSubmit}
-        onScaleSwitch={() => {
-          setUseCelsius((prevState) => !prevState);
-        }}
-        cityAndState={`${location.name}, ${location.state}`}
-        useCelsius={useCelsius}
-      /> */}
+      <header>
+        <div id="controls">
+          <Combobox<number>
+            id="ComboBox1"
+            label="Location"
+            items={[
+              { id: "1", text: "test1", data: 1 },
+              { id: "2", text: "test2", data: 2 },
+            ]}
+            select={(num) => {
+              console.log(num);
+            }}
+            onChange={(text) => console.log("fetch " + text)}
+            onChangeDelay={600}
+          />
+        </div>
+        <nav></nav>
+      </header>
+
       {/* <CurrentWeather
         weather={this.state.weather}
         tempScale={this.state.tempScale}
