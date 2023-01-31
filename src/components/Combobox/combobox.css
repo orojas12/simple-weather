@@ -1,0 +1,43 @@
+.combobox {
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 1.4rem;
+  width: 460px;
+}
+
+.combobox--active {
+  background-color: var(--clr-light-75);
+  padding: 1rem 1rem;
+}
+
+.combobox__input {
+  background-color: var(--clr-light-75);
+  border-radius: 16px;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  outline: none;
+  width: 100%;
+}
+
+.combobox__input--active {
+  background-color: transparent;
+  border-radius: 0;
+  padding: 1rem 1rem;
+}
+
+.combobox__listbox {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.combobox__option {
+  /* border-radius: 16px; */
+  cursor: pointer;
+  padding: 1rem 1rem;
+}
+
+.combobox__option:hover,
+.combobox__option--active {
+  background-color: var(--clr-dark-10);
+}

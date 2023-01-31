@@ -5,6 +5,7 @@ import React, {
   ChangeEvent,
   useRef,
 } from "react";
+import "./combobox.css";
 
 export interface ComboboxProps<T> {
   id: string;
@@ -32,9 +33,12 @@ export default function Combobox<T>(props: ComboboxProps<T>) {
   useEffect(() => {
     if (!selectedOption) return;
     setValue(selectedOption.text);
-    setExpanded(false);
     props.select(selectedOption.data);
   }, [selectedOption]);
+
+  useEffect(() => {
+    if (!expanded) setActiveDesc(null);
+  }, [expanded]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     clearTimeout(timeoutId.current);
@@ -76,11 +80,11 @@ export default function Combobox<T>(props: ComboboxProps<T>) {
         if (activeDesc === null) return;
         if (props.items[activeDesc] === selectedOption) {
           setValue(selectedOption.text);
-          setExpanded(false);
           props.select(selectedOption.data);
         } else {
           setSelectedOption(props.items[activeDesc]);
         }
+        setExpanded(false);
         break;
       case "Escape":
         if (selectedOption) {
@@ -97,6 +101,8 @@ export default function Combobox<T>(props: ComboboxProps<T>) {
 
   const onClick = (option: ComboboxOption<T>) => {
     setSelectedOption(option);
+    setExpanded(false);
+    // setActiveDesc(null);
   };
 
   const listboxId = `${props.id}_listbox`;
@@ -107,8 +113,8 @@ export default function Combobox<T>(props: ComboboxProps<T>) {
       id={optionId + `-${i}`}
       role="option"
       tabIndex={-1}
-      className={`Combobox__option ${
-        activeDesc === i ? "Combobox__option--active" : ""
+      className={`combobox__option ${
+        activeDesc === i ? "combobox__option--active" : ""
       }`}
       onClick={(e) => {
         onClick(option);
@@ -118,16 +124,21 @@ export default function Combobox<T>(props: ComboboxProps<T>) {
     </li>
   ));
   const listbox = expanded ? (
-    <ul id={listboxId} role="listbox">
+    <ul id={listboxId} className="combobox__listbox" role="listbox">
       {options}
     </ul>
   ) : null;
 
   return (
-    <div id={props.id}>
+    <div
+      id={props.id}
+      className={`combobox ${expanded ? "combobox--active" : ""}`}
+    >
       <input
         id={`${props.id}_input`}
-        className="Combobox__input"
+        className={`combobox__input ${
+          expanded ? "combobox__input--active" : ""
+        }`}
         type="text"
         role="combobox"
         aria-label={props.label}
