@@ -47,6 +47,25 @@ describe("ComboBox component", () => {
     expect(listbox).toEqual(null);
   });
 
+  test("pressing escape closes listbox", async () => {
+    const { user } = setup(
+      <ComboBox<number>
+        id="testComboBox"
+        label=""
+        items={[
+          { id: "1", text: "test1", data: 1 },
+          { id: "2", text: "test2", data: 2 },
+        ]}
+        select={() => {}}
+      />
+    );
+    const input = screen.getByRole("combobox");
+    await user.click(input);
+    screen.getByRole("listbox");
+    await user.keyboard("{Escape}");
+    expect(screen.queryByRole("listbox")).toEqual(null);
+  });
+
   test("sets input text to selected item text", async () => {
     const { user } = setup(
       <ComboBox<number>
@@ -152,6 +171,31 @@ describe("ComboBox component", () => {
     await user.keyboard("a{ArrowDown}{Enter}b");
     await user.tab();
     expect(input.value).toEqual("test1");
+  });
+
+  test("sets input blank if no option selected and combobox is closed or loses focus", async () => {
+    const { user } = setup(
+      <>
+        <ComboBox<number>
+          id="testComboBox1"
+          label="testComboBox1"
+          items={[
+            { id: "1", text: "test1", data: 1 },
+            { id: "2", text: "test2", data: 2 },
+          ]}
+          select={() => {}}
+        />
+        <input id="testInput" type="text" />
+      </>
+    );
+    const input: HTMLInputElement = screen.getByLabelText("testComboBox1");
+    await user.click(input);
+    await user.keyboard("a{ArrowDown}{Escape}");
+    expect(input.value).toEqual("");
+    await user.click(input);
+    await user.keyboard("a{ArrowDown}");
+    await user.tab();
+    expect(input.value).toEqual("");
   });
 
   test("calls select prop function", async () => {

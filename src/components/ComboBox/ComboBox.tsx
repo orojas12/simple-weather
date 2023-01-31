@@ -81,7 +81,14 @@ export default function ComboBox<T>(props: ComboBoxProps<T>) {
         } else {
           setSelectedOption(props.items[activeDesc]);
         }
-
+        break;
+      case "Escape":
+        if (selectedOption) {
+          setValue(selectedOption.text);
+        } else {
+          setValue("");
+        }
+        setExpanded(false);
         break;
       default:
         break;
@@ -132,9 +139,13 @@ export default function ComboBox<T>(props: ComboBoxProps<T>) {
         value={value}
         onFocus={() => setExpanded(true)}
         onBlur={(e) => {
-          // skip if focused element is in the combobox
+          // skip if focused element is part of the combobox
           if (!e.target.parentElement.contains(e.relatedTarget)) {
-            if (selectedOption) setValue(selectedOption.text);
+            if (selectedOption) {
+              setValue(selectedOption.text);
+            } else {
+              setValue("");
+            }
             setExpanded(false);
           }
         }}
