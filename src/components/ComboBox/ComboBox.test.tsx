@@ -153,4 +153,67 @@ describe("ComboBox component", () => {
     await user.tab();
     expect(input.value).toEqual("test1");
   });
+
+  test("calls select prop function", async () => {
+    const mockFunc = jest.fn();
+    const { user } = setup(
+      <ComboBox<number>
+        id="testComboBox1"
+        label="testComboBox1"
+        items={[
+          { id: "1", text: "test1", data: 1 },
+          { id: "2", text: "test2", data: 2 },
+        ]}
+        select={mockFunc}
+      />
+    );
+    const input = screen.getByRole("combobox");
+    await user.click(input);
+    await user.click(screen.getByText("test1"));
+    expect(mockFunc).toBeCalledTimes(1);
+  });
+
+  test("calls onChange prop function", async () => {
+    const mockFunc = jest.fn();
+    const { user } = setup(
+      <ComboBox<number>
+        id="testComboBox1"
+        label="testComboBox1"
+        items={[
+          { id: "1", text: "test1", data: 1 },
+          { id: "2", text: "test2", data: 2 },
+        ]}
+        onChange={mockFunc}
+        select={() => {}}
+      />
+    );
+    const input = screen.getByRole("combobox");
+    await user.type(input, "test");
+    expect(mockFunc).toBeCalledTimes(4);
+  });
+
+  test("calls onChange prop function with delay", async () => {
+    const mockFunc = jest.fn();
+    const { user } = setup(
+      <ComboBox<number>
+        id="testComboBox1"
+        label="testComboBox1"
+        items={[
+          { id: "1", text: "test1", data: 1 },
+          { id: "2", text: "test2", data: 2 },
+        ]}
+        onChange={mockFunc}
+        onChangeDelay={500}
+        select={() => {}}
+      />
+    );
+    const input = screen.getByRole("combobox");
+    await user.type(input, "a");
+    expect(mockFunc).not.toBeCalled();
+    // wait 500ms to allow onChange to be called
+    await new Promise((resolve) => {
+      setTimeout(resolve, 500);
+    });
+    expect(mockFunc).toBeCalledTimes(1);
+  });
 });

@@ -31,7 +31,6 @@ export default function ComboBox<T>(props: ComboBoxProps<T>) {
 
   useEffect(() => {
     if (!selectedOption) return;
-    console.log("select");
     setValue(selectedOption.text);
     setExpanded(false);
     props.select(selectedOption.data);
@@ -105,7 +104,6 @@ export default function ComboBox<T>(props: ComboBoxProps<T>) {
         activeDesc === i ? "ComboBox__option--active" : ""
       }`}
       onClick={(e) => {
-        e.stopPropagation();
         onClick(option);
       }}
     >
