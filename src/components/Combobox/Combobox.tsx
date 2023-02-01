@@ -11,10 +11,12 @@ export interface ComboboxProps<T> {
   id: string;
   label: string;
   items: ComboboxOption<T>[];
+  select: (data: T) => void;
   autocomplete?: "list" | "inline" | "both" | "none";
   onChange?: (value: string) => void;
   onChangeWithDelay?: [(value: string) => void, number];
-  select: (data: T) => void;
+  inputIcon?: any;
+  itemIcon?: any;
 }
 
 interface ComboboxOption<T> {
@@ -101,13 +103,21 @@ export default function Combobox<T>(props: ComboboxProps<T>) {
   const onClick = (option: ComboboxOption<T>) => {
     setSelectedOption(option);
     setExpanded(false);
-    // setActiveDesc(null);
   };
 
   const listboxId = `${props.id}_listbox`;
   const optionId = `${props.id}_option`;
+
+  const inputIconWrapper = (
+    <div className="combobox__input-icon-wrapper">{props.inputIcon}</div>
+  );
+
+  const optionIconWrapper = (
+    <div className="combobox__option-icon-wrapper">{props.itemIcon}</div>
+  );
+
   const options = props.items.map((option, i) => (
-    <li
+    <div
       key={i}
       id={optionId + `-${i}`}
       role="option"
@@ -119,9 +129,11 @@ export default function Combobox<T>(props: ComboboxProps<T>) {
         onClick(option);
       }}
     >
-      {option.text}
-    </li>
+      {props.itemIcon && optionIconWrapper}
+      <li className="combobox__option-item">{option.text}</li>
+    </div>
   ));
+
   const listbox = expanded ? (
     <ul id={listboxId} className="combobox__listbox" role="listbox">
       {options}
@@ -133,36 +145,44 @@ export default function Combobox<T>(props: ComboboxProps<T>) {
       id={props.id}
       className={`combobox ${expanded ? "combobox--active" : ""}`}
     >
-      <input
-        id={`${props.id}_input`}
-        className={`combobox__input ${
-          expanded ? "combobox__input--active" : ""
-        }`}
-        type="text"
-        role="combobox"
-        aria-label={props.label}
-        aria-controls={listboxId}
-        aria-autocomplete={props.autocomplete || "none"}
-        aria-expanded={expanded}
-        aria-activedescendant={
-          activeDesc !== null ? optionId + `-${activeDesc}` : ""
-        }
-        value={value}
-        onFocus={() => setExpanded(true)}
-        onBlur={(e) => {
-          // skip if focused element is part of the combobox
-          if (!e.target.parentElement.contains(e.relatedTarget)) {
-            if (selectedOption) {
-              setValue(selectedOption.text);
-            } else {
-              setValue("");
-            }
-            setExpanded(false);
+      <div className="combobox__input-wrapper">
+        {props.inputIcon && inputIconWrapper}
+        <input
+          id={`${props.id}_input`}
+          className={`combobox__input 
+            ${props.inputIcon ? "combobox__input--icon" : ""} 
+            ${expanded ? "combobox__input--active" : ""}
+          `}
+          type="text"
+          role="combobox"
+          aria-label={props.label}
+          aria-controls={listboxId}
+          aria-autocomplete={props.autocomplete || "none"}
+          aria-expanded={expanded}
+          aria-activedescendant={
+            activeDesc !== null ? optionId + `-${activeDesc}` : ""
           }
-        }}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-      />
+          placeholder="search location..."
+          value={value}
+          onFocus={() => setExpanded(true)}
+          onBlur={(e) => {
+            // skip if focused element is part of the combobox
+            if (
+              !e.target.parentElement.parentElement.contains(e.relatedTarget)
+            ) {
+              if (selectedOption) {
+                setValue(selectedOption.text);
+              } else {
+                setValue("");
+              }
+              setExpanded(false);
+            }
+          }}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+        />
+      </div>
+
       {listbox}
     </div>
   );
