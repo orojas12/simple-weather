@@ -14,7 +14,7 @@
   background-color: var(--clr-light-75);
   border-radius: 16px;
   border: none;
-  padding: 0.4rem 0.8rem;
+  padding: 0.4rem 1.2rem;
   outline: none;
   width: 100%;
 }
@@ -25,6 +25,24 @@
   padding: 1rem 1rem;
 }
 
+.combobox__input--icon {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.combobox__input-wrapper {
+  position: relative;
+}
+
+.combobox__input-icon-wrapper {
+  height: 1.4rem;
+  width: 1.4rem;
+  margin-left: 1rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .combobox__listbox {
   list-style: none;
   padding: 0;
@@ -32,9 +50,16 @@
 }
 
 .combobox__option {
-  /* border-radius: 16px; */
   cursor: pointer;
   padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.combobox__option-icon-wrapper {
+  height: 1.4rem;
+  width: 1.4rem;
 }
 
 .combobox__option:hover,

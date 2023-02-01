@@ -3,9 +3,18 @@ import { Outlet } from "react-router-dom";
 import "./App.css";
 
 import Combobox from "./components/Combobox/Combobox";
+import search from "./icons/search.svg";
+import location from "./icons/location.svg";
 
 export default function App() {
   const [useCelsius, setUseCelsius] = useState(false);
+
+  const searchIcon = (
+    <img src={search} style={{ height: "100%", width: "100%" }} />
+  );
+  const locationIcon = (
+    <img src={location} style={{ height: "100%", width: "100%" }} />
+  );
 
   return (
     <div className="App">
@@ -21,6 +30,8 @@ export default function App() {
             select={(num) => {
               console.log(num);
             }}
+            inputIcon={searchIcon}
+            itemIcon={locationIcon}
           />
         </div>
         <nav></nav>
