@@ -246,8 +246,7 @@ describe("ComboBox component", () => {
           { id: "1", text: "test1", data: 1 },
           { id: "2", text: "test2", data: 2 },
         ]}
-        onChange={mockFunc}
-        onChangeDelay={500}
+        onChangeWithDelay={[mockFunc, 500]}
         select={() => {}}
       />
     );

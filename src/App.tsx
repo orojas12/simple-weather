@@ -21,8 +21,6 @@ export default function App() {
             select={(num) => {
               console.log(num);
             }}
-            onChange={(text) => console.log("fetch " + text)}
-            onChangeDelay={600}
           />
         </div>
         <nav></nav>
