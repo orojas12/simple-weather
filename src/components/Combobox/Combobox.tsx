@@ -13,7 +13,7 @@ export interface ComboboxProps<T> {
   items: ComboboxOption<T>[];
   autocomplete?: "list" | "inline" | "both" | "none";
   onChange?: (value: string) => void;
-  onChangeDelay?: number;
+  onChangeWithDelay?: [(value: string) => void, number];
   select: (data: T) => void;
 }
 
@@ -47,13 +47,12 @@ export default function Combobox<T>(props: ComboboxProps<T>) {
     setValue(inputValue);
     setExpanded(true);
     if (props.onChange) {
-      if (props.onChangeDelay) {
-        timeoutId.current = setTimeout(() => {
-          props.onChange(inputValue);
-        }, props.onChangeDelay);
-      } else {
-        props.onChange(inputValue);
-      }
+      props.onChange(inputValue);
+    }
+    if (props.onChangeWithDelay?.length === 2) {
+      timeoutId.current = setTimeout(() => {
+        props.onChangeWithDelay[0](inputValue);
+      }, props.onChangeWithDelay[1]);
     }
   };
 
