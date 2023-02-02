@@ -10,7 +10,14 @@
     "noImplicitAny": true,
     "target": "es5",
     "allowJs": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "components": ["src/components"],
+      "pages": ["src/pages"],
+      "hooks": ["src/hooks"],
+      "icons": ["src/icons"]
+    }
   },
   "include": ["src/**/*"]
 }
