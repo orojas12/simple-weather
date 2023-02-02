@@ -39,6 +39,13 @@ const config = {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
+    modules: [path.resolve(__dirname, "src"), "node_modules"],
+    alias: {
+      components: path.resolve(__dirname, "src/components"),
+      icons: path.resolve(__dirname, "src/icons"),
+      pages: path.resolve(__dirname, "src/pages"),
+      hooks: path.resolve(__dirname, "src/hooks"),
+    },
   },
 };
 
