@@ -35,9 +35,11 @@ export default function Search(props: SearchProps) {
       <Combobox
         id="searchCombobox"
         label="search location"
+        autocomplete="list"
         items={listItems}
         select={(prediction) => {
           console.log(prediction);
+          geocode(prediction.placeId);
         }}
         onChangeWithDelay={[autocomplete, 1000]}
         inputIcon={searchIconEl}

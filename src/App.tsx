@@ -11,7 +11,11 @@ export default function App() {
     <div className="App">
       <header>
         <div id="controls">
-          <Search setLocation={() => {}} />
+          <Search
+            setLocation={(location) => {
+              console.log(location);
+            }}
+          />
         </div>
         <nav></nav>
       </header>

@@ -10,31 +10,31 @@ interface Prediction {
 const fakePredictions = [
   {
     description: "Paris, France",
-    placeId: "100",
+    placeId: "ChIJD7fiBh9u5kcRYJSMaMOCCwQ",
     mainText: "Paris",
     secondaryText: "France",
   },
   {
     description: "Paris, TX, USA",
-    placeId: "101",
+    placeId: "ChIJmysnFgZYSoYRSfPTL2YJuck",
     mainText: "Paris",
     secondaryText: "TX, USA",
   },
   {
     description: "Paris, TN, USA",
-    placeId: "102",
+    placeId: "ChIJ4zHP-Sije4gRBDEsVxunOWg",
     mainText: "Paris",
     secondaryText: "TN, USA",
   },
   {
     description: "Paris, Brant, ON, Canada",
-    placeId: "103",
+    placeId: "ChIJsamfQbVtLIgR-X18G75Hyi0",
     mainText: "Paris",
     secondaryText: "Brant, ON, Canada",
   },
   {
     description: "Paris, KY, USA",
-    placeId: "104",
+    placeId: "ChIJsU7_xMfKQ4gReI89RJn0-RQ",
     mainText: "Paris",
     secondaryText: "KY, USA",
   },
@@ -49,7 +49,7 @@ export default function usePlaceAutocomplete() {
     }
     // call api here and update state
     // fetch(
-    //   "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=Paris&types=geocode&key=YOUR_API_KEY"
+    //   `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${value}&types=geocode&key=${API_KEY}`
     // );
     const results = fakePredictions.filter((prediction) =>
       prediction.description.toLowerCase().includes(value.toLowerCase())
