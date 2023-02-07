@@ -1,4 +1,4 @@
-# weather-app
+# weather-dashboard
 
 This is a simple weather dashboard that displays weather data and alerts by location.
 
