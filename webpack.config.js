@@ -45,6 +45,7 @@ const config = {
       icons: path.resolve(__dirname, "src/icons"),
       pages: path.resolve(__dirname, "src/pages"),
       hooks: path.resolve(__dirname, "src/hooks"),
+      layout: path.resolve(__dirname, "src/layout"),
     },
   },
 };
