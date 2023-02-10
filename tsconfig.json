@@ -16,7 +16,8 @@
       "components": ["src/components"],
       "pages": ["src/pages"],
       "hooks": ["src/hooks"],
-      "icons": ["src/icons"]
+      "icons": ["src/icons"],
+      "layout": ["src/layout"]
     }
   },
   "include": ["src/**/*"]

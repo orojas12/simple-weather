@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { Combobox } from "components";
 import { usePlaceAutocomplete, useGeocoding } from "hooks";
+import { SearchIcon, LocationIcon } from "icons";
 import "./search.css";
-import searchIcon from "icons/search.svg";
-import locationIcon from "icons/location.svg";
 
 export interface SearchProps {
   setLocation: (location: any) => void;
@@ -17,12 +16,12 @@ export default function Search(props: SearchProps) {
     if (location) props.setLocation(location);
   }, [location]);
 
-  const searchIconEl = (
-    <img src={searchIcon} style={{ height: "100%", width: "100%" }} />
-  );
-  const locationIconEl = (
-    <img src={locationIcon} style={{ height: "100%", width: "100%" }} />
-  );
+  // const searchIconEl = (
+  //   <img src={searchIcon} style={{ height: "100%", width: "100%" }} />
+  // );
+  // const locationIconEl = (
+  //   <img src={locationIcon} style={{ height: "100%", width: "100%" }} />
+  // );
 
   const listItems = predictions.map((prediction, i) => ({
     id: prediction.placeId,
@@ -42,8 +41,8 @@ export default function Search(props: SearchProps) {
           geocode(prediction.placeId);
         }}
         onChangeWithDelay={[autocomplete, 1000]}
-        inputIcon={searchIconEl}
-        itemIcon={locationIconEl}
+        inputIcon={SearchIcon}
+        itemIcon={LocationIcon}
       />
     </div>
   );

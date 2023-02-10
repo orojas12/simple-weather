@@ -1,0 +1,54 @@
+:root {
+  --clr-primary: 216 100% 64%;
+  --clr-secondary: 238 100% 68%;
+  --clr-tertiary: 149 56% 45%;
+  --clr-accent: 50 100% 50%;
+  --clr-light: 216 74% 99%;
+  --clr-dark-100: 216 10% 50%;
+  --clr-dark-200: 216 10% 35%;
+  --clr-gray-100: 216 30% 96%;
+  --clr-gray-200: 216 30% 90%;
+  --clr-gray-300: 216 25% 80%;
+  --clr-gray-400: 216 20% 70%;
+  --clr-alert-100: 360 100% 85%;
+  --clr-alert-200: 360 100% 45%;
+  --clr-alert-300: 360 100% 20%;
+  --fs-1: 1rem;
+  --fs-2: 1.2rem;
+  --fs-3: 1.6rem;
+  --fs-4: 2rem;
+  --fs-5: 2.5rem;
+  --fs-6: 3.1rem;
+  --fs-7: 3.9rem;
+  --fs-8: 4.9rem;
+  --fs-9: 6.1rem;
+  --bp-sm: 576px;
+  --bp-md: 768px;
+  --bp-lg: 992px;
+  --bp-xl: 1200px;
+  --bp-xxl: 1400px;
+  --box-shadow-100: 0 0 3px hsl(var(--clr-gray-400));
+}
+
+.App {
+  background-color: hsl(var(--clr-gray-100));
+  font-family: "Roboto", sans-serif;
+  font-size: var(--fs-3);
+  color: hsl(var(--clr-dark-200));
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+main {
+  padding: 1.6rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .App {
+    flex-direction: column;
+  }
+}

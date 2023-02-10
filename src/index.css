@@ -1,12 +1,4 @@
-:root {
-  --clr-light: hsl(0 0% 100%);
-  --clr-light-75: hsl(0 0% 100% / 75%);
-  --clr-light-50: hsl(0 0% 100% / 50%);
-  --clr-light-10: hsl(0 0% 100% / 10%);
-  --clr-dark-10: hsl(0 0% 0% / 10%);
-  --clr-primary: hsl(216 100% 44% / 100%);
-  --clr-secondary: hsl(216 74% 54% / 100%);
-}
+/* CSS Reset */
 
 *,
 *::after,
