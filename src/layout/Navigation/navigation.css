@@ -1,7 +1,0 @@
-.navigation {
-  background-color: hsl(var(--clr-light));
-  box-shadow: var(--box-shadow-100);
-  position: absolute;
-  height: 100%;
-  width: 300px;
-}
