@@ -11,9 +11,10 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <div>Today</div> },
-      { path: "hourly", element: <div>Hourly</div> },
-      { path: "daily", element: <div>Daily</div> },
+      { index: true, element: <div>Dashboard</div> },
+      { path: "locations", element: <div>Locations</div> },
+      { path: "map", element: <div>Weather Map</div> },
+      { path: "settings", element: <div>Settings</div> },
     ],
   },
 ]);
