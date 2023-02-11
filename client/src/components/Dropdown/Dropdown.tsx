@@ -25,7 +25,7 @@ export default function Dropdown({
     typeof btnText === "string" ? <button>{btnText}</button> : btnText;
 
   return (
-    <div className={`dropdown ${className}`}>
+    <div className={`dropdown ${className || ""}`}>
       <div
         className="dropdown__button"
         onClick={() => {
