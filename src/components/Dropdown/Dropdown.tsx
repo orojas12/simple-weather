@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ArrowDownIcon } from "icons";
 import "./dropdown.css";
 
 export interface DropdownProps {
@@ -27,12 +28,16 @@ export default function Dropdown({
   return (
     <div className={`dropdown ${className || ""}`}>
       <div
+        role="button"
         className="dropdown__button"
         onClick={() => {
           setOpen((prevState) => !prevState);
         }}
       >
         {btn}
+        <ArrowDownIcon
+          className={`dropdown__icon ${open && "dropdown__icon--active"}`}
+        />
       </div>
       {open ? (
         <>
@@ -40,12 +45,14 @@ export default function Dropdown({
             className="dropdown__backdrop"
             onClick={() => setOpen(false)}
           ></div>
-          <div
-            className="dropdown__content"
-            style={style}
-            onClick={() => setOpen(false)}
-          >
-            {children}
+          <div className="dropdown__content-wrapper">
+            <div
+              className="dropdown__content"
+              style={style}
+              onClick={() => setOpen(false)}
+            >
+              {children}
+            </div>
           </div>
         </>
       ) : undefined}
