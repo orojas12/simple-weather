@@ -27,10 +27,11 @@ interface ComboboxOption<T> {
 
 export default function Combobox<T>(props: ComboboxProps<T>) {
   const [value, setValue] = useState("");
-  const [activeDesc, setActiveDesc] = useState<number>(null);
+  const [activeDesc, setActiveDesc] = useState<number | null>(null);
   const [expanded, setExpanded] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<ComboboxOption<T>>(null);
-  const timeoutId = useRef(null);
+  const [selectedOption, setSelectedOption] =
+    useState<ComboboxOption<T> | null>(null);
+  const timeoutId = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     if (!selectedOption) return;
@@ -53,7 +54,7 @@ export default function Combobox<T>(props: ComboboxProps<T>) {
     }
     if (props.onChangeWithDelay?.length === 2) {
       timeoutId.current = setTimeout(() => {
-        props.onChangeWithDelay[0](inputValue);
+        props.onChangeWithDelay![0](inputValue);
       }, props.onChangeWithDelay[1]);
     }
   };
@@ -66,7 +67,7 @@ export default function Combobox<T>(props: ComboboxProps<T>) {
         if (activeDesc === props.items.length - 1 || activeDesc === null) {
           setActiveDesc(0);
         } else {
-          setActiveDesc((prevActiveDesc) => prevActiveDesc + 1);
+          setActiveDesc((prevActiveDesc) => prevActiveDesc! + 1);
         }
         break;
       case "ArrowUp":
@@ -74,7 +75,7 @@ export default function Combobox<T>(props: ComboboxProps<T>) {
         if (activeDesc === 0 || activeDesc === null) {
           setActiveDesc(props.items.length - 1);
         } else {
-          setActiveDesc((prevActiveDesc) => prevActiveDesc - 1);
+          setActiveDesc((prevActiveDesc) => prevActiveDesc! - 1);
         }
         break;
       case "Enter":
@@ -168,7 +169,7 @@ export default function Combobox<T>(props: ComboboxProps<T>) {
           onBlur={(e) => {
             // skip if focused element is part of the combobox
             if (
-              !e.target.parentElement.parentElement.contains(e.relatedTarget)
+              !e.target.parentElement?.parentElement?.contains(e.relatedTarget)
             ) {
               if (selectedOption) {
                 setValue(selectedOption.text);
