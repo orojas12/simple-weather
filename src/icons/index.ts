@@ -6,6 +6,7 @@ import HomeIcon from "./HomeIcon";
 import LocationIcon from "./LocationIcon";
 import SearchIcon from "./SearchIcon";
 import MenuIcon from "./MenuIcon";
+import ArrowDownIcon from "./ArrowDownIcon";
 
 export type { IconProps };
 
@@ -17,4 +18,5 @@ export {
   LocationIcon,
   SearchIcon,
   MenuIcon,
+  ArrowDownIcon,
 };
