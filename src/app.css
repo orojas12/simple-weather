@@ -35,7 +35,7 @@
   font-family: "Roboto", sans-serif;
   font-size: var(--fs-3);
   color: hsl(var(--clr-dark-200));
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
@@ -45,6 +45,7 @@
 
 main {
   padding: 1.6rem;
+  width: 100%;
 }
 
 @media screen and (max-width: 1200px) {
