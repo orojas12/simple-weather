@@ -31,7 +31,7 @@
   padding: 0;
   margin: 0;
   animation: 0.3s 1 normal slide-in-top;
-  background-color: hsl(var(--clr-light));
+  background-color: hsl(var(--clr-base-100));
   box-shadow: var(--box-shadow-100);
   border-radius: 8px;
   display: flex;
@@ -42,12 +42,12 @@
 }
 
 .dropdown__menu-item {
-  padding: 0.6em 0.7em;
+  padding: 0.7em 0.8em;
   z-index: 2;
 }
 
 .dropdown__menu-item:hover {
-  background-color: hsl(var(--clr-gray-200));
+  background-color: hsl(var(--clr-base-300));
 }
 
 .dropdown__icon {
