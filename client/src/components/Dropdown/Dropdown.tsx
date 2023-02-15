@@ -108,6 +108,7 @@ function Menu({ items, align = "start" }: MenuProps) {
                 onClick={() => onClick(item.action)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
                     onClick(item.action);
                   }
                 }}
