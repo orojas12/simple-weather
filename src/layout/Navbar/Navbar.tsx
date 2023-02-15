@@ -13,7 +13,9 @@ import { Dropdown } from "components";
 import "./navbar.css";
 
 function getLinkClassName({ isActive }: any) {
-  return isActive ? "navbar__link navbar__link--active" : "navbar__link";
+  return isActive
+    ? "btn btn--primary navbar__link navbar__link--active"
+    : "btn navbar__link";
 }
 
 function getNavLinkContentRenderer(
@@ -44,7 +46,9 @@ export default function Navbar() {
         <ul className="navbar__list">
           <li>
             <NavLink to="/" className={getLinkClassName}>
-              {getNavLinkContentRenderer(HomeIcon, "Dashboard")}
+              {getNavLinkContentRenderer(HomeIcon, "Dashboard", {
+                style: { height: ".9em" },
+              })}
             </NavLink>
           </li>
           <li>
@@ -63,34 +67,6 @@ export default function Navbar() {
             </NavLink>
           </li>
         </ul>
-        <Dropdown
-          btnText={<MenuIcon className="navbar__menu-icon" />}
-          align="end"
-          className="navbar__dropdown"
-        >
-          <ul className="navbar__dropdown-list">
-            <li>
-              <NavLink to="/" className={getLinkClassName}>
-                {getNavLinkContentRenderer(HomeIcon, "Dashboard")}
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="locations" className={getLinkClassName}>
-                {getNavLinkContentRenderer(GpsIcon, "Locations")}
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="map" className={getLinkClassName}>
-                {getNavLinkContentRenderer(LocationIcon, "Map")}
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="settings" className={getLinkClassName}>
-                {getNavLinkContentRenderer(GearIcon, "Settings")}
-              </NavLink>
-            </li>
-          </ul>
-        </Dropdown>
       </nav>
     </div>
   );

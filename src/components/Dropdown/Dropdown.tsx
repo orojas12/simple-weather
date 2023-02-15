@@ -46,7 +46,7 @@ function Toggle({ children }: { children: React.ReactNode }) {
   return (
     <button
       ref={ctx?.toggle}
-      className={`dropdown__button ${
+      className={`btn dropdown__button ${
         ctx?.open ? "dropdown__button--active" : ""
       }`}
       onClick={() => ctx?.setOpen((prevState) => !prevState)}
