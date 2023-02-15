@@ -1,6 +1,5 @@
 export default interface IconProps {
   color?: string;
-  height?: string;
-  width?: string;
+  style?: { [property: string]: any };
   className?: string;
 }
