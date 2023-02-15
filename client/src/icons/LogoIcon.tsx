@@ -3,8 +3,7 @@ import React from "react";
 export interface LogoProps {
   primaryColor?: string;
   secondaryColor?: string;
-  width?: string;
-  height?: string;
+  style?: { [property: string]: any };
   className?: string;
 }
 
@@ -21,7 +20,7 @@ export default function Logo(props: LogoProps) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className={props.className}
-        style={{ width: props.width, height: props.height }}
+        style={props.style}
       >
         <g clipPath="url(#clip0_16_180)">
           <g clipPath="url(#clip1_16_180)">

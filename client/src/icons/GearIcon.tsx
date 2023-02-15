@@ -1,12 +1,7 @@
 import React from "react";
 import IconProps from "./IconProps";
 
-export default function GearIcon({
-  color,
-  width,
-  height,
-  className,
-}: IconProps) {
+export default function GearIcon({ color, style, className }: IconProps) {
   const fill = color || "black";
 
   return (
@@ -17,7 +12,7 @@ export default function GearIcon({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      style={{ width, height }}
+      style={style}
     >
       <path
         fillRule="evenodd"
