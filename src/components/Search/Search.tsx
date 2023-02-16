@@ -1,33 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Combobox } from "components";
-import { usePlaceAutocomplete, useGeocoding } from "hooks";
 import { SearchIcon, LocationIcon } from "icons";
+import { LocationContext } from "hooks";
+import { placeAutocomplete } from "services";
 import "./search.css";
+import { Place } from "services";
 
-export interface SearchProps {
-  setLocation: (location: any) => void;
-}
-
-export default function Search(props: SearchProps) {
-  const [predictions, autocomplete] = usePlaceAutocomplete();
-  const [location, geocode] = useGeocoding();
-
-  useEffect(() => {
-    if (location) props.setLocation(location);
-  }, [location]);
-
-  // const searchIconEl = (
-  //   <img src={searchIcon} style={{ height: "100%", width: "100%" }} />
-  // );
-  // const locationIconEl = (
-  //   <img src={locationIcon} style={{ height: "100%", width: "100%" }} />
-  // );
+export default function Search() {
+  const [predictions, setPredictions] = useState<Place[]>([]);
+  const location = useContext(LocationContext);
 
   const listItems = predictions.map((prediction, i) => ({
     id: prediction.placeId,
     text: prediction.description,
     data: prediction,
   }));
+
+  const onChange = (value: string) => {
+    setPredictions(placeAutocomplete(value));
+  };
 
   return (
     <div className="search">
@@ -38,9 +29,9 @@ export default function Search(props: SearchProps) {
         items={listItems}
         select={(prediction) => {
           console.log(prediction);
-          geocode(prediction.placeId);
+          location?.setPlace(prediction);
         }}
-        onChangeWithDelay={[autocomplete, 1000]}
+        onChangeWithDelay={[onChange, 1000]}
         inputIcon={SearchIcon}
         itemIcon={LocationIcon}
       />
