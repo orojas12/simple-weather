@@ -1,4 +1,4 @@
-import useGeocoding from "./useGeocoding/useGeocoding";
-import usePlaceAutocomplete from "./usePlaceAutocomplete/usePlaceAutocomplete";
+import useLocation, { Location, Coords } from "./useLocation";
 
-export { useGeocoding, usePlaceAutocomplete };
+export type { Location, Coords };
+export { useLocation };
