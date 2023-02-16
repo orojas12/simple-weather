@@ -1,4 +1,4 @@
-import useLocation, { Location, Coords } from "./useLocation";
+import useLocation, { Location, Coords, LocationContext } from "./useLocation";
 
 export type { Location, Coords };
-export { useLocation };
+export { useLocation, LocationContext };

@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import { Place, geocode } from "services";
+
+export const LocationContext = createContext<Location | null>(null);
 
 export interface Location {
   coords: Coords | null;
