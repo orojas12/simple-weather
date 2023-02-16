@@ -12,6 +12,7 @@ export interface DropdownProps {
   id: string;
   className?: string;
   children?: React.ReactNode;
+  size?: "small" | "normal";
 }
 
 interface MenuProps {
@@ -24,17 +25,27 @@ interface IOpenContext {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   toggle: React.RefObject<HTMLButtonElement>;
+  size: "small" | "normal";
 }
 
 const DropdownContext = createContext<IOpenContext | null>(null);
 
-export default function Dropdown({ id, className, children }: DropdownProps) {
+export default function Dropdown({
+  id,
+  className,
+  children,
+  size = "normal",
+}: DropdownProps) {
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
 
   return (
-    <div className={`dropdown ${className || ""}`}>
-      <DropdownContext.Provider value={{ id, open, setOpen, toggle }}>
+    <div
+      className={`dropdown ${size === "small" ? "dropdown--sm" : ""} ${
+        className || ""
+      }`}
+    >
+      <DropdownContext.Provider value={{ id, open, setOpen, toggle, size }}>
         {children}
       </DropdownContext.Provider>
     </div>
@@ -43,6 +54,7 @@ export default function Dropdown({ id, className, children }: DropdownProps) {
 
 function Toggle({ children }: { children: React.ReactNode }) {
   const ctx = useContext(DropdownContext);
+
   return (
     <button
       ref={ctx?.toggle}
