@@ -46,6 +46,7 @@ const config = {
       pages: path.resolve(__dirname, "src/pages"),
       hooks: path.resolve(__dirname, "src/hooks"),
       layout: path.resolve(__dirname, "src/layout"),
+      services: path.resolve(__dirname, "src/services"),
     },
   },
 };
