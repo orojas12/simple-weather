@@ -1,13 +1,11 @@
-import { useState, useEffect } from "react";
-
-interface Prediction {
+export interface Place {
   description: string;
   placeId: string;
   mainText: string;
   secondaryText: string;
 }
 
-const fakePredictions = [
+const fakePredictions: Place[] = [
   {
     description: "Paris, France",
     placeId: "ChIJD7fiBh9u5kcRYJSMaMOCCwQ",
@@ -40,22 +38,16 @@ const fakePredictions = [
   },
 ];
 
-export default function usePlaceAutocomplete() {
-  const [predictions, setPredictions] = useState<Prediction[]>([]);
-
-  const autocomplete = async (value: string) => {
-    if (!value.trim()) {
-      return setPredictions([]);
-    }
-    // call api here and update state
-    // fetch(
-    //   `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${value}&types=geocode&key=${API_KEY}`
-    // );
-    const results = fakePredictions.filter((prediction) =>
-      prediction.description.toLowerCase().includes(value.toLowerCase())
-    );
-    setPredictions(results);
-  };
-
-  return [predictions, autocomplete] as const;
+export default function placeAutocomplete(value: string) {
+  if (!value.trim()) {
+    return [];
+  }
+  // call api here and update state
+  // fetch(
+  //   `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${value}&types=geocode&key=${API_KEY}`
+  // );
+  const results = fakePredictions.filter((prediction) =>
+    prediction.description.toLowerCase().includes(value.toLowerCase())
+  );
+  return results;
 }

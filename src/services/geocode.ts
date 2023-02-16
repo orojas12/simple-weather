@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 interface GeocodeResult {
   placeId: string;
   address: string;
@@ -40,21 +38,16 @@ const fakeGeocodeResults = [
   },
 ];
 
-export default function useGeocoding() {
-  const [location, setLocation] = useState<GeocodeResult>(null);
-
-  const geocode = (placeId: string) => {
-    // call geocoding api and update state
-    // fetch(`https://maps.googleapis.com/maps/api/geocode/json?place_id=${placeId}&key=API_KEY`)
-    const result = fakeGeocodeResults.find(
-      (result) => result.placeId === placeId
-    );
-    if (result) {
-      setLocation(result);
-    } else {
-      console.error("Geocoding failed: Invalid place id.");
-    }
-  };
-
-  return [location, geocode] as const;
+export default async function geocode(placeId: string) {
+  // call geocoding api and update state
+  // fetch(`https://maps.googleapis.com/maps/api/geocode/json?place_id=${placeId}&key=API_KEY`)
+  const result = fakeGeocodeResults.find(
+    (result) => result.placeId === placeId
+  );
+  if (result) {
+    return result;
+  } else {
+    console.error("Geocoding failed: Invalid place id.");
+    return null;
+  }
 }
