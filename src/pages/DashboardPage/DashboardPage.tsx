@@ -1,6 +1,17 @@
 import React, { useContext } from "react";
-import { Dropdown } from "components";
-import { LocationIcon } from "icons";
+import { Dropdown, Card } from "components";
+import { LocationIcon } from "icons/ui";
+import {
+  CloudyIcon,
+  PartlyCloudyIcon,
+  RainyIcon,
+  SnowIcon,
+  ThunderstormIcon,
+  SunnyIcon,
+  HazeIcon,
+  TornadoIcon,
+  PrecipitationIcon,
+} from "icons/weather";
 import { LocationContext } from "hooks";
 import Clock from "./Clock";
 import "./dashboard.css";
@@ -37,6 +48,142 @@ export default function DashboardPage() {
           />
         </Dropdown>
       </header>
+      <main>
+        <div className="dashboard__cards">
+          <Card className="dashboard__card dashboard__card--active">
+            <Card.Title
+              align="center"
+              className="dashboard__card-title dashboard__card-title--active"
+            >
+              Today
+            </Card.Title>
+            <Card.Content className="dashboard__card-content">
+              <ThunderstormIcon style={{ height: "3em", width: "auto" }} />
+              <span>57&deg;/45&deg;</span>
+              <div className="flex align-center fs-2">
+                <PrecipitationIcon
+                  style={{
+                    height: "1.2em",
+                    width: "auto",
+                    marginRight: ".3em",
+                  }}
+                />
+                40%
+              </div>
+            </Card.Content>
+          </Card>
+          <Card className="dashboard__card">
+            <Card.Title
+              align="center"
+              className="dashboard__card-title dashboard__card-title--active"
+            >
+              Today
+            </Card.Title>
+            <Card.Content className="dashboard__card-content">
+              <ThunderstormIcon style={{ height: "3em", width: "auto" }} />
+              <span>57&deg;/45&deg;</span>
+              <div className="flex align-center fs-2">
+                <PrecipitationIcon
+                  style={{
+                    height: "1.2em",
+                    width: "auto",
+                    marginRight: ".3em",
+                  }}
+                />
+                40%
+              </div>
+            </Card.Content>
+          </Card>
+          <Card className="dashboard__card">
+            <Card.Title
+              align="center"
+              className="dashboard__card-title dashboard__card-title--active"
+            >
+              Today
+            </Card.Title>
+            <Card.Content className="dashboard__card-content">
+              <ThunderstormIcon style={{ height: "3em", width: "auto" }} />
+              <span>57&deg;/45&deg;</span>
+              <div className="flex align-center fs-2">
+                <PrecipitationIcon
+                  style={{
+                    height: "1.2em",
+                    width: "auto",
+                    marginRight: ".3em",
+                  }}
+                />
+                40%
+              </div>
+            </Card.Content>
+          </Card>
+          <Card className="dashboard__card">
+            <Card.Title
+              align="center"
+              className="dashboard__card-title dashboard__card-title--active"
+            >
+              Today
+            </Card.Title>
+            <Card.Content className="dashboard__card-content">
+              <ThunderstormIcon style={{ height: "3em", width: "auto" }} />
+              <span>57&deg;/45&deg;</span>
+              <div className="flex align-center fs-2">
+                <PrecipitationIcon
+                  style={{
+                    height: "1.2em",
+                    width: "auto",
+                    marginRight: ".3em",
+                  }}
+                />
+                40%
+              </div>
+            </Card.Content>
+          </Card>
+          <Card className="dashboard__card">
+            <Card.Title
+              align="center"
+              className="dashboard__card-title dashboard__card-title--active"
+            >
+              Today
+            </Card.Title>
+            <Card.Content className="dashboard__card-content">
+              <ThunderstormIcon style={{ height: "3em", width: "auto" }} />
+              <span>57&deg;/45&deg;</span>
+              <div className="flex align-center fs-2">
+                <PrecipitationIcon
+                  style={{
+                    height: "1.2em",
+                    width: "auto",
+                    marginRight: ".3em",
+                  }}
+                />
+                40%
+              </div>
+            </Card.Content>
+          </Card>
+          <Card className="dashboard__card">
+            <Card.Title
+              align="center"
+              className="dashboard__card-title dashboard__card-title--active"
+            >
+              Today
+            </Card.Title>
+            <Card.Content className="dashboard__card-content">
+              <ThunderstormIcon style={{ height: "3em", width: "auto" }} />
+              <span>57&deg;/45&deg;</span>
+              <div className="flex align-center fs-2">
+                <PrecipitationIcon
+                  style={{
+                    height: "1.2em",
+                    width: "auto",
+                    marginRight: ".3em",
+                  }}
+                />
+                40%
+              </div>
+            </Card.Content>
+          </Card>
+        </div>
+      </main>
     </article>
   );
 }
