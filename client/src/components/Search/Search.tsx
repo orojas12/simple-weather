@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Combobox } from "components";
-import { SearchIcon, LocationIcon } from "icons";
+import { SearchIcon, LocationIcon } from "icons/ui";
 import { LocationContext } from "hooks";
 import { placeAutocomplete } from "services";
 import "./search.css";
