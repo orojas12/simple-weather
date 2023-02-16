@@ -1,14 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { IconProps } from "icons";
 import {
-  IconProps,
   LogoIcon,
   HomeIcon,
   GpsIcon,
   LocationIcon,
   GearIcon,
   MenuIcon,
-} from "icons";
+} from "icons/ui";
 import { Dropdown } from "components";
 import "./navbar.css";
 
