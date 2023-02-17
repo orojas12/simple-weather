@@ -8,7 +8,7 @@ import React, {
 import { ArrowDownIcon } from "icons/ui";
 import "./dropdown.css";
 
-export interface DropdownProps {
+interface DropdownProps {
   id: string;
   className?: string;
   children?: React.ReactNode;
@@ -18,9 +18,23 @@ export interface DropdownProps {
 interface MenuProps {
   items: { content: React.ReactNode; action?: () => void }[];
   align?: "start" | "end";
+  className?: string;
+  style?: React.CSSProperties;
 }
 
-interface IOpenContext {
+interface ToggleProps {
+  className?: string;
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
+}
+
+interface ToggleIconProps {
+  className?: string;
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
+}
+
+interface IDropdownContext {
   id: string;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,7 +42,7 @@ interface IOpenContext {
   size: "small" | "normal";
 }
 
-const DropdownContext = createContext<IOpenContext | null>(null);
+const DropdownContext = createContext<IDropdownContext | null>(null);
 
 export default function Dropdown({
   id,
@@ -52,7 +66,7 @@ export default function Dropdown({
   );
 }
 
-function Toggle({ children }: { children: React.ReactNode }) {
+function Toggle({ className = "", style, children }: ToggleProps) {
   const ctx = useContext(DropdownContext);
 
   return (
@@ -60,7 +74,7 @@ function Toggle({ children }: { children: React.ReactNode }) {
       ref={ctx?.toggle}
       className={`btn dropdown__button ${
         ctx?.open ? "dropdown__button--active" : ""
-      }`}
+      } ${className}`}
       onClick={() => ctx?.setOpen((prevState) => !prevState)}
       aria-haspopup="true"
       aria-controls={`${ctx?.id}-menu`}
@@ -70,18 +84,20 @@ function Toggle({ children }: { children: React.ReactNode }) {
   );
 }
 
-function ToggleIcon({ children }: { children?: React.ReactNode }) {
+function ToggleIcon({ className = "", style, children }: ToggleIconProps) {
   const ctx = useContext(DropdownContext);
   return children ? (
-    <div>{children}</div>
+    <>{children}</>
   ) : (
     <ArrowDownIcon
-      className={`dropdown__icon ${ctx?.open && "dropdown__icon--active"}`}
+      className={`dropdown__icon ${
+        ctx?.open && "dropdown__icon--active"
+      } ${className}`}
     />
   );
 }
 
-function Menu({ items, align = "start" }: MenuProps) {
+function Menu({ items, align = "start", className = "", style }: MenuProps) {
   const ctx = useContext(DropdownContext);
 
   const firstChild = useRef<HTMLLIElement>(null);
@@ -109,7 +125,8 @@ function Menu({ items, align = "start" }: MenuProps) {
       >
         <ul
           id={`${ctx?.id}-menu`}
-          className={"dropdown__menu"}
+          className={`dropdown__menu ${className}`}
+          style={style}
           role="menu"
           onKeyDown={(e) => e.key === "Escape" && onClick()}
         >
