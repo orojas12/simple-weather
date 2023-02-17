@@ -67,6 +67,49 @@ export default function Navbar() {
             </NavLink>
           </li>
         </ul>
+        <Dropdown id="navbar-dropdown" className="navbar__dropdown">
+          <Dropdown.Toggle className="navbar__dropdown-toggle">
+            <Dropdown.ToggleIcon>
+              <MenuIcon />
+            </Dropdown.ToggleIcon>
+          </Dropdown.Toggle>
+          <Dropdown.Menu
+            align="end"
+            className="navbar__dropdown-menu"
+            items={[
+              {
+                content: (
+                  <NavLink to="/" className={getLinkClassName}>
+                    {getNavLinkContentRenderer(HomeIcon, "Dashboard", {
+                      style: { height: ".9em" },
+                    })}
+                  </NavLink>
+                ),
+              },
+              {
+                content: (
+                  <NavLink to="locations" className={getLinkClassName}>
+                    {getNavLinkContentRenderer(GpsIcon, "Locations")}
+                  </NavLink>
+                ),
+              },
+              {
+                content: (
+                  <NavLink to="map" className={getLinkClassName}>
+                    {getNavLinkContentRenderer(LocationIcon, "Map")}
+                  </NavLink>
+                ),
+              },
+              {
+                content: (
+                  <NavLink to="settings" className={getLinkClassName}>
+                    {getNavLinkContentRenderer(GearIcon, "Settings")}
+                  </NavLink>
+                ),
+              },
+            ]}
+          />
+        </Dropdown>
       </nav>
     </div>
   );
