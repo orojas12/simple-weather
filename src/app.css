@@ -43,8 +43,8 @@
   display: flex;
 }
 
-main {
-  padding: 1.6rem;
+.App > main {
+  padding: 1em;
   width: 100%;
 }
 
@@ -53,6 +53,8 @@ main {
     flex-direction: column;
   }
 }
+
+/* Components */
 
 .btn {
   color: inherit;
@@ -69,7 +71,7 @@ main {
 }
 
 .btn--sm {
-  padding: 0.5em;
+  font-size: var(--fs-2);
 }
 
 .btn--block {
@@ -89,4 +91,53 @@ main {
 .btn--tertiary {
   color: hsl(var(--clr-base-100));
   background-color: hsl(var(--clr-tertiary));
+}
+
+/* Utilities */
+.flex {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.fs-1 {
+  font-size: var(--fs-1);
+}
+
+.fs-2 {
+  font-size: var(--fs-2);
+}
+
+.fs-3 {
+  font-size: var(--fs-3);
 }
