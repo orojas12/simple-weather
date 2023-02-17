@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { WEATHER_API_KEY } from "../config";
 import WeatherCurrent from "./WeatherCurrent";
 import WeatherDay from "./WeatherDay";
 import WeatherHour from "./WeatherHour";
+
+const WEATHER_API_KEY = "";
 
 interface WeatherState {
   current: WeatherCurrent;
@@ -12,7 +13,7 @@ interface WeatherState {
 
 export default function useWeather(latitude: number, longitude: number) {
   const [coords, setCoords] = useState({ latitude, longitude });
-  const [weather, setWeather] = useState<WeatherState>(null);
+  const [weather, setWeather] = useState<WeatherState | null>(null);
 
   useEffect(() => {
     async function fetchWeather(latitude: number, longitude: number) {
