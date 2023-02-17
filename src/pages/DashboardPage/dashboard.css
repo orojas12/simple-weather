@@ -1,13 +1,14 @@
 .dashboard {
   display: flex;
   flex-direction: column;
-  gap: 1em;
 }
 
 .dashboard header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 1em;
+  padding: 1em;
 }
 
 .dashboard__location-icon {
@@ -29,11 +30,12 @@
 
 .dashboard__cards {
   display: flex;
+  padding: 1em;
   gap: 1em;
 }
 
 .dashboard__card {
-  width: 8em;
+  min-width: 8em;
   display: flex;
   flex-direction: column;
   gap: 0.4em;
@@ -50,4 +52,15 @@
   align-items: center;
   justify-content: center;
   gap: 0.4em;
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard header {
+    padding: 0.8em;
+  }
+
+  .dashboard__cards {
+    overflow-x: scroll;
+    font-size: var(--fs-2);
+  }
 }
