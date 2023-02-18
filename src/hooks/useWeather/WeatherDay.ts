@@ -37,4 +37,12 @@ export default class WeatherDay extends Weather {
     if (typeof this.temp === "object")
       return useCelsius ? this.toCelsius(this.temp.max) : this.temp.max;
   }
+
+  /**
+   * Determines if the date is the same as today's date.
+   */
+  isToday() {
+    const today = new Date();
+    return this.dt.toDateString() === today.toDateString();
+  }
 }
