@@ -18,7 +18,8 @@
       "icons/*": ["src/icons/*"],
       "layout": ["src/layout"],
       "services": ["src/services"]
-    }
+    },
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"]
 }
