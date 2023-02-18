@@ -1,13 +1,13 @@
 import React from "react";
 
-export interface LogoProps {
+export interface LogoIconProps {
   primaryColor?: string;
   secondaryColor?: string;
   style?: { [property: string]: any };
   className?: string;
 }
 
-export default function Logo(props: LogoProps) {
+export default function LogoIcon(props: LogoIconProps) {
   const primaryColor = props.primaryColor || "#4791FF";
   const secondaryColor = props.secondaryColor || "#FFD500";
 
