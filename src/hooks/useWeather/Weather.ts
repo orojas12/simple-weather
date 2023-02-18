@@ -1,3 +1,14 @@
+import {
+  SunnyIcon,
+  CloudyIcon,
+  PartlyCloudyIcon,
+  RainyIcon,
+  SnowIcon,
+  HazeIcon,
+  ThunderstormIcon,
+  TornadoIcon,
+} from "icons/weather";
+
 const cardinalDirections = new Map([
   [0, "N"],
   [1, "NE"],
@@ -8,6 +19,64 @@ const cardinalDirections = new Map([
   [6, "W"],
   [7, "NW"],
   [8, "N"],
+]);
+
+const weatherIcons = new Map([
+  [200, ThunderstormIcon],
+  [201, ThunderstormIcon],
+  [202, ThunderstormIcon],
+  [210, ThunderstormIcon],
+  [211, ThunderstormIcon],
+  [212, ThunderstormIcon],
+  [221, ThunderstormIcon],
+  [230, ThunderstormIcon],
+  [231, ThunderstormIcon],
+  [232, ThunderstormIcon],
+  [300, RainyIcon],
+  [301, RainyIcon],
+  [302, RainyIcon],
+  [310, RainyIcon],
+  [311, RainyIcon],
+  [312, RainyIcon],
+  [313, RainyIcon],
+  [314, RainyIcon],
+  [321, RainyIcon],
+  [500, RainyIcon],
+  [501, RainyIcon],
+  [502, RainyIcon],
+  [503, RainyIcon],
+  [504, RainyIcon],
+  [511, RainyIcon],
+  [520, RainyIcon],
+  [521, RainyIcon],
+  [522, RainyIcon],
+  [531, RainyIcon],
+  [600, SnowIcon],
+  [601, SnowIcon],
+  [602, SnowIcon],
+  [611, SnowIcon],
+  [612, SnowIcon],
+  [613, SnowIcon],
+  [615, SnowIcon],
+  [616, SnowIcon],
+  [620, SnowIcon],
+  [621, SnowIcon],
+  [622, SnowIcon],
+  [701, HazeIcon],
+  [711, HazeIcon],
+  [721, HazeIcon],
+  [731, HazeIcon],
+  [741, HazeIcon],
+  [751, HazeIcon],
+  [761, HazeIcon],
+  [762, HazeIcon],
+  [771, HazeIcon],
+  [781, TornadoIcon],
+  [800, SunnyIcon],
+  [801, PartlyCloudyIcon],
+  [802, PartlyCloudyIcon],
+  [803, CloudyIcon],
+  [804, CloudyIcon],
 ]);
 
 export default abstract class Weather {
@@ -57,7 +126,7 @@ export default abstract class Weather {
       };
 
   constructor(data: any) {
-    this.dt = new Date(data.dt);
+    this.dt = new Date(data.dt * 1000);
     this.temp = data.temp;
     this.feels_like = data.feels_like;
     this.pressure = data.pressure;
@@ -89,11 +158,11 @@ export default abstract class Weather {
    * @param useCelsius Get temperature in celsius. Uses fahrenheit if false.
    * @returns Temperature
    */
-  getTemp(useCelsius = false, time?: "morn" | "day" | "eve" | "night") {
-    if (typeof this.temp === "number") {
-      return useCelsius ? this.toCelsius(this.temp) : this.temp;
-    } else if (typeof this.temp === "object") {
+  getTemp(useCelsius = false, time: "morn" | "day" | "eve" | "night" = "day") {
+    if (typeof this.temp === "object") {
       return useCelsius ? this.toCelsius(this.temp[time]) : this.temp[time];
+    } else {
+      return useCelsius ? this.toCelsius(this.temp) : this.temp;
     }
   }
 
@@ -105,14 +174,14 @@ export default abstract class Weather {
    */
   getFeelsLikeTemp(
     useCelsius = false,
-    time?: "morn" | "day" | "eve" | "night"
+    time: "morn" | "day" | "eve" | "night" = "day"
   ) {
-    if (typeof this.feels_like === "number") {
-      return useCelsius ? this.toCelsius(this.feels_like) : this.feels_like;
-    } else if (typeof this.feels_like === "object") {
+    if (typeof this.feels_like === "object") {
       return useCelsius
         ? this.toCelsius(this.feels_like[time])
         : this.feels_like[time];
+    } else {
+      return useCelsius ? this.toCelsius(this.feels_like) : this.feels_like;
     }
   }
 
@@ -125,5 +194,12 @@ export default abstract class Weather {
     const interval = 45; // 8 directions from 360 degrees (360 / 8)
     const key = Math.round(this.wind_deg / interval);
     return cardinalDirections.get(key);
+  }
+
+  /**
+   * Gets the icon that illustrates the weather condition.
+   */
+  getIcon() {
+    return weatherIcons.get(this.conditions[0].id);
   }
 }
