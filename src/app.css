@@ -1,0 +1,147 @@
+:root {
+  --clr-primary: 216 100% 64%;
+  --clr-secondary: 238 100% 68%;
+  --clr-tertiary: 149 56% 45%;
+  --clr-accent: 29 100% 64%;
+  --clr-base-100: 216 45% 99%;
+  --clr-base-200: 216 45% 97%;
+  --clr-base-300: 216 45% 94%;
+  --clr-base-400: 216 45% 90%;
+  --clr-base-500: 216 45% 85%;
+  --clr-dark-100: 216 10% 50%;
+  --clr-dark-200: 216 10% 35%;
+  --clr-alert-100: 360 100% 85%;
+  --clr-alert-200: 360 100% 45%;
+  --clr-alert-300: 360 100% 20%;
+  --fs-1: 1rem;
+  --fs-2: 1.2rem;
+  --fs-3: 1.6rem;
+  --fs-4: 2rem;
+  --fs-5: 2.5rem;
+  --fs-6: 3.1rem;
+  --fs-7: 3.9rem;
+  --fs-8: 4.9rem;
+  --fs-9: 6.1rem;
+  --bp-sm: 576px;
+  --bp-md: 768px;
+  --bp-lg: 992px;
+  --bp-xl: 1200px;
+  --bp-xxl: 1400px;
+  --box-shadow-100: 0 0 3px hsl(var(--clr-base-500));
+}
+
+.App {
+  background-color: hsl(var(--clr-base-200));
+  font-family: "Roboto", sans-serif;
+  font-size: var(--fs-3);
+  color: hsl(var(--clr-dark-200));
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.App > main {
+  padding: 1em;
+  width: 100%;
+}
+
+@media screen and (max-width: 1200px) {
+  .App {
+    flex-direction: column;
+  }
+
+  .App > main {
+    padding: 0;
+  }
+}
+
+/* Components */
+
+.btn {
+  color: inherit;
+  font-weight: 500;
+  line-height: 1;
+  background-color: hsl(var(--clr-base-100));
+  border: none;
+  padding: 0.8em;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  box-shadow: var(--box-shadow-100);
+  cursor: pointer;
+}
+
+.btn--sm {
+  font-size: var(--fs-2);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn--primary {
+  color: hsl(var(--clr-base-100));
+  background-color: hsl(var(--clr-primary));
+}
+
+.btn--secondary {
+  color: hsl(var(--clr-base-100));
+  background-color: hsl(var(--clr-secondary));
+}
+
+.btn--tertiary {
+  color: hsl(var(--clr-base-100));
+  background-color: hsl(var(--clr-tertiary));
+}
+
+/* Utilities */
+.flex {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.fs-1 {
+  font-size: var(--fs-1);
+}
+
+.fs-2 {
+  font-size: var(--fs-2);
+}
+
+.fs-3 {
+  font-size: var(--fs-3);
+}
