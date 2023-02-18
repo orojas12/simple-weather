@@ -1,28 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import WeatherCurrent from "./WeatherCurrent";
 import WeatherDay from "./WeatherDay";
 import WeatherHour from "./WeatherHour";
+import json from "../../response.json";
 
-const WEATHER_API_KEY = "";
-
-interface WeatherState {
+export interface WeatherData {
   current: WeatherCurrent;
   hourly: WeatherHour[];
   daily: WeatherDay[];
 }
 
+export const WeatherContext = createContext<WeatherData | null>(null);
+
 export default function useWeather(latitude: number, longitude: number) {
   const [coords, setCoords] = useState({ latitude, longitude });
-  const [weather, setWeather] = useState<WeatherState | null>(null);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
 
   useEffect(() => {
     async function fetchWeather(latitude: number, longitude: number) {
       try {
-        const res = await fetch(
-          `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude.toString()}&lon=${longitude.toString()}&exclude=minutely&units=imperial&appid=${WEATHER_API_KEY}`
-        );
-        if (!res.ok) throw new Error(`${res.status} Failed to fetch weather.`);
-        const data = await res.json();
+        // const res = await fetch("./src/response.json");
+        // if (!res.ok) throw new Error(`${res.status} Failed to fetch weather.`);
+
+        const data = json;
         setWeather({
           current: new WeatherCurrent(data.current),
           hourly: data.hourly.map((hourData: any) => new WeatherHour(hourData)),
@@ -40,5 +40,5 @@ export default function useWeather(latitude: number, longitude: number) {
     setCoords((prevCoords) => ({ ...prevCoords }));
   };
 
-  return [weather, updateWeather, setCoords] as const;
+  return { weather, updateWeather, setCoords };
 }
