@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Dropdown, Card } from "components";
 import { LocationIcon } from "icons/ui";
 import {
@@ -12,12 +12,30 @@ import {
   TornadoIcon,
   PrecipitationIcon,
 } from "icons/weather";
-import { LocationContext } from "hooks";
+import { LocationContext, WeatherContext, WeatherData } from "hooks";
 import Clock from "./Clock";
 import "./dashboard.css";
+import DailyWeatherCard from "./DailyWeatherCard";
 
 export default function DashboardPage() {
   const location = useContext(LocationContext);
+  const weather = useContext(WeatherContext);
+  const [currentCard, setCurrentCard] = useState(0);
+
+  const getCards = () => {
+    return weather?.daily.map((day, i) => {
+      const isToday = day.isToday();
+
+      return (
+        <DailyWeatherCard
+          key={i}
+          weather={day}
+          onClick={() => setCurrentCard(i)}
+          active={currentCard === i}
+        />
+      );
+    });
+  };
 
   return (
     <article className="dashboard">
@@ -49,140 +67,7 @@ export default function DashboardPage() {
         </Dropdown>
       </header>
       <main>
-        <div className="dashboard__cards">
-          <Card className="dashboard__card dashboard__card--active">
-            <Card.Title
-              align="center"
-              className="dashboard__card-title dashboard__card-title--active"
-            >
-              Today
-            </Card.Title>
-            <Card.Content className="dashboard__card-content">
-              <ThunderstormIcon style={{ height: "3em", width: "auto" }} />
-              <span>57&deg;/45&deg;</span>
-              <div className="flex align-center fs-2">
-                <PrecipitationIcon
-                  style={{
-                    height: "1.2em",
-                    width: "auto",
-                    marginRight: ".3em",
-                  }}
-                />
-                40%
-              </div>
-            </Card.Content>
-          </Card>
-          <Card className="dashboard__card">
-            <Card.Title
-              align="center"
-              className="dashboard__card-title dashboard__card-title--active"
-            >
-              Today
-            </Card.Title>
-            <Card.Content className="dashboard__card-content">
-              <ThunderstormIcon style={{ height: "3em", width: "auto" }} />
-              <span>57&deg;/45&deg;</span>
-              <div className="flex align-center fs-2">
-                <PrecipitationIcon
-                  style={{
-                    height: "1.2em",
-                    width: "auto",
-                    marginRight: ".3em",
-                  }}
-                />
-                40%
-              </div>
-            </Card.Content>
-          </Card>
-          <Card className="dashboard__card">
-            <Card.Title
-              align="center"
-              className="dashboard__card-title dashboard__card-title--active"
-            >
-              Today
-            </Card.Title>
-            <Card.Content className="dashboard__card-content">
-              <ThunderstormIcon style={{ height: "3em", width: "auto" }} />
-              <span>57&deg;/45&deg;</span>
-              <div className="flex align-center fs-2">
-                <PrecipitationIcon
-                  style={{
-                    height: "1.2em",
-                    width: "auto",
-                    marginRight: ".3em",
-                  }}
-                />
-                40%
-              </div>
-            </Card.Content>
-          </Card>
-          <Card className="dashboard__card">
-            <Card.Title
-              align="center"
-              className="dashboard__card-title dashboard__card-title--active"
-            >
-              Today
-            </Card.Title>
-            <Card.Content className="dashboard__card-content">
-              <ThunderstormIcon style={{ height: "3em", width: "auto" }} />
-              <span>57&deg;/45&deg;</span>
-              <div className="flex align-center fs-2">
-                <PrecipitationIcon
-                  style={{
-                    height: "1.2em",
-                    width: "auto",
-                    marginRight: ".3em",
-                  }}
-                />
-                40%
-              </div>
-            </Card.Content>
-          </Card>
-          <Card className="dashboard__card">
-            <Card.Title
-              align="center"
-              className="dashboard__card-title dashboard__card-title--active"
-            >
-              Today
-            </Card.Title>
-            <Card.Content className="dashboard__card-content">
-              <ThunderstormIcon style={{ height: "3em", width: "auto" }} />
-              <span>57&deg;/45&deg;</span>
-              <div className="flex align-center fs-2">
-                <PrecipitationIcon
-                  style={{
-                    height: "1.2em",
-                    width: "auto",
-                    marginRight: ".3em",
-                  }}
-                />
-                40%
-              </div>
-            </Card.Content>
-          </Card>
-          <Card className="dashboard__card">
-            <Card.Title
-              align="center"
-              className="dashboard__card-title dashboard__card-title--active"
-            >
-              Today
-            </Card.Title>
-            <Card.Content className="dashboard__card-content">
-              <ThunderstormIcon style={{ height: "3em", width: "auto" }} />
-              <span>57&deg;/45&deg;</span>
-              <div className="flex align-center fs-2">
-                <PrecipitationIcon
-                  style={{
-                    height: "1.2em",
-                    width: "auto",
-                    marginRight: ".3em",
-                  }}
-                />
-                40%
-              </div>
-            </Card.Content>
-          </Card>
-        </div>
+        <div className="dashboard__cards">{getCards()}</div>
       </main>
     </article>
   );
