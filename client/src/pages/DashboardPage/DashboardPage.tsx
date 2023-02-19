@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Dropdown, Card } from "components";
 import { LocationIcon } from "icons/ui";
 import {
@@ -12,30 +12,51 @@ import {
   TornadoIcon,
   PrecipitationIcon,
 } from "icons/weather";
-import { LocationContext, WeatherContext, WeatherData } from "hooks";
+import {
+  LocationContext,
+  WeatherContext,
+  WeatherData,
+  WeatherCurrent,
+  WeatherDay,
+} from "hooks";
 import Clock from "./Clock";
 import "./dashboard.css";
-import DailyWeatherCard from "./DailyWeatherCard";
+import WeatherCard from "./WeatherCard";
 
 export default function DashboardPage() {
   const location = useContext(LocationContext);
   const weather = useContext(WeatherContext);
-  const [currentCard, setCurrentCard] = useState(0);
+  const [displayedWeather, setDisplayedWeather] = useState<
+    WeatherCurrent | WeatherDay | undefined
+  >(weather?.current);
 
-  const getCards = () => {
+  useEffect(() => {
+    setDisplayedWeather(weather?.current);
+  }, [weather]);
+
+  const getDailyCards = () => {
     return weather?.daily.map((day, i) => {
-      const isToday = day.isToday();
-
       return (
-        <DailyWeatherCard
+        <WeatherCard
           key={i}
           weather={day}
-          onClick={() => setCurrentCard(i)}
-          active={currentCard === i}
+          onClick={() => setDisplayedWeather(day)}
+          active={displayedWeather === day}
         />
       );
     });
   };
+
+  const locationString = location?.place?.description;
+  let heading;
+
+  if (displayedWeather instanceof WeatherCurrent) {
+    heading = `Currently in ${locationString}`;
+  } else if (displayedWeather?.isToday()) {
+    heading = `Today in ${locationString}`;
+  } else {
+    heading = `${displayedWeather?.getWeekDayString()} in ${locationString}`;
+  }
 
   return (
     <article className="dashboard">
@@ -67,7 +88,17 @@ export default function DashboardPage() {
         </Dropdown>
       </header>
       <main>
-        <div className="dashboard__cards">{getCards()}</div>
+        <div className="dashboard__cards">
+          <WeatherCard
+            weather={weather?.current}
+            onClick={() => setDisplayedWeather(weather?.current)}
+            active={displayedWeather === weather?.current}
+          />
+          {getDailyCards()}
+        </div>
+        <div className="dashboard__overview">
+          <h1 className="fs-4">{heading}</h1>
+        </div>
       </main>
     </article>
   );
