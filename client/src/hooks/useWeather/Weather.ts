@@ -202,4 +202,20 @@ export default abstract class Weather {
   getIcon() {
     return weatherIcons.get(this.conditions[0].id);
   }
+
+  getWeekDayString() {
+    return this.dt.toLocaleDateString([], { weekday: "long" });
+  }
+
+  getShortDateString() {
+    return this.dt.toLocaleDateString([], { day: "2-digit", weekday: "short" });
+  }
+
+  /**
+   * Determines if the date is the same as today's date.
+   */
+  isToday() {
+    const today = new Date();
+    return this.dt.toDateString() === today.toDateString();
+  }
 }
