@@ -1,5 +1,21 @@
 import useLocation, { Location, Coords, LocationContext } from "./useLocation";
-import useWeather, { WeatherContext, WeatherData } from "./useWeather";
+import useWeather, {
+  WeatherContext,
+  WeatherData,
+  Weather,
+  WeatherCurrent,
+  WeatherDay,
+  WeatherHour,
+} from "./useWeather";
 
 export type { Location, Coords, WeatherData };
-export { useLocation, LocationContext, useWeather, WeatherContext };
+export {
+  useLocation,
+  LocationContext,
+  useWeather,
+  WeatherContext,
+  Weather,
+  WeatherCurrent,
+  WeatherDay,
+  WeatherHour,
+};
