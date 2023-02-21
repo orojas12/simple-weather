@@ -6,7 +6,7 @@ import {
   useWeather,
   WeatherContext,
 } from "hooks";
-import { Navbar } from "layout";
+import { Navbar } from "components";
 import "./app.css";
 
 export default function App() {
