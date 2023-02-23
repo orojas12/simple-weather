@@ -6,6 +6,7 @@ import useWeather, {
   WeatherCurrent,
   WeatherDay,
   WeatherHour,
+  WeatherAlert,
 } from "./useWeather";
 
 export type { Location, Coords, WeatherData };
@@ -18,4 +19,5 @@ export {
   WeatherCurrent,
   WeatherDay,
   WeatherHour,
+  WeatherAlert,
 };
