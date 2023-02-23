@@ -1,27 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Dropdown, Card } from "components";
-import { LocationIcon } from "icons/ui";
-import {
-  CloudyIcon,
-  PartlyCloudyIcon,
-  RainyIcon,
-  SnowIcon,
-  ThunderstormIcon,
-  SunnyIcon,
-  HazeIcon,
-  TornadoIcon,
-  PrecipitationIcon,
-} from "icons/weather";
+import { Card, Dropdown } from "components";
+import { LocationIcon, EyeIcon } from "icons/ui";
 import {
   LocationContext,
   WeatherContext,
-  WeatherData,
   WeatherCurrent,
   WeatherDay,
 } from "hooks";
 import Clock from "./Clock";
 import "./dashboard.css";
 import WeatherCard from "./WeatherCard";
+import WeatherDetailCard from "./WeatherDetailCard";
+import { TempIcon, WindIcon } from "icons/weather";
 
 export default function DashboardPage() {
   const location = useContext(LocationContext);
@@ -48,6 +38,7 @@ export default function DashboardPage() {
   };
 
   const locationString = location?.place?.description;
+  const WeatherIcon = displayedWeather?.getIcon();
   let heading;
 
   if (displayedWeather instanceof WeatherCurrent) {
@@ -88,7 +79,7 @@ export default function DashboardPage() {
         </Dropdown>
       </header>
       <main>
-        <div className="dashboard__cards">
+        <div className="dashboard__days">
           <WeatherCard
             weather={weather?.current}
             onClick={() => setDisplayedWeather(weather?.current)}
@@ -97,7 +88,37 @@ export default function DashboardPage() {
           {getDailyCards()}
         </div>
         <div className="dashboard__overview">
-          <h1 className="fs-4">{heading}</h1>
+          <h1 className="dashboard__heading">{heading}</h1>
+          <div className="dashboard__overview-grid">
+            <WeatherDetailCard
+              title="Current"
+              content="50&deg;"
+              icon={
+                WeatherIcon ? (
+                  <WeatherIcon className="dashboard__card-icon" />
+                ) : null
+              }
+              subtitle={displayedWeather?.condition.description || ""}
+            />
+            <WeatherDetailCard
+              title="Temperature"
+              content={`${weather?.daily[0].getMaxTemp()}\u00b0/${weather?.daily[0].getMinTemp()}\u00b0`}
+              icon={<TempIcon className="dashboard__card-icon" />}
+              subtitle="Mild"
+            />
+            <WeatherDetailCard
+              title="Wind"
+              content={`${Math.round(displayedWeather?.wind_speed || 0)} mph`}
+              icon={<WindIcon className="dashboard__card-icon" />}
+              subtitle={displayedWeather?.getWindDirection() || ""}
+            />
+            <WeatherDetailCard
+              title="Visibility"
+              content={`${Math.round(displayedWeather?.visibility || 0)} ft`}
+              icon={<EyeIcon className="dashboard__card-icon" />}
+              subtitle="Good"
+            />
+          </div>
         </div>
       </main>
     </article>

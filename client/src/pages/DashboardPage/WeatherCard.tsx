@@ -57,15 +57,15 @@ export default function WeatherCard({
   return (
     <div onClick={onClick}>
       <Card
-        className={`dashboard__card ${active ? "dashboard__card--active" : ""}`}
+        className={`dashboard__day ${active ? "dashboard__day--active" : ""}`}
       >
         <Card.Title
           align="center"
-          className="dashboard__card-title dashboard__card-title--active"
+          className="dashboard__day-title dashboard__day-title--active"
         >
           {title}
         </Card.Title>
-        <Card.Content className="dashboard__card-content">
+        <Card.Content className="dashboard__day-content">
           {WeatherIcon ? (
             <WeatherIcon style={{ height: "3em", width: "auto" }} />
           ) : null}
