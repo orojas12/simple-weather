@@ -6,6 +6,7 @@ import LocationIcon from "./LocationIcon";
 import LogoIcon from "./LogoIcon";
 import MenuIcon from "./MenuIcon";
 import SearchIcon from "./SearchIcon";
+import EyeIcon from "./EyeIcon";
 
 export {
   ArrowDownIcon,
@@ -16,4 +17,5 @@ export {
   LogoIcon,
   MenuIcon,
   SearchIcon,
+  EyeIcon,
 };

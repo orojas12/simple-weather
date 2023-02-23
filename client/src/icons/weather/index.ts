@@ -7,6 +7,8 @@ import SunnyIcon from "./SunnyIcon";
 import HazeIcon from "./HazeIcon";
 import TornadoIcon from "./TornadoIcon";
 import PrecipitationIcon from "./PrecipitationIcon";
+import TempIcon from "./TempIcon";
+import WindIcon from "./WindIcon";
 
 export {
   CloudyIcon,
@@ -18,4 +20,6 @@ export {
   HazeIcon,
   TornadoIcon,
   PrecipitationIcon,
+  TempIcon,
+  WindIcon,
 };
