@@ -108,12 +108,12 @@ export default abstract class Weather {
   readonly wind_speed: number;
   readonly wind_deg: number;
   readonly wind_gust?: number;
-  readonly conditions: Array<{
+  readonly condition: {
     id: number;
     main: string;
     description: string;
     icon: string;
-  }>;
+  };
   readonly rain?:
     | number
     | {
@@ -126,6 +126,8 @@ export default abstract class Weather {
       };
 
   constructor(data: any) {
+    const condition = data.weather[0];
+
     this.dt = new Date(data.dt * 1000);
     this.temp = data.temp;
     this.feels_like = data.feels_like;
@@ -138,7 +140,13 @@ export default abstract class Weather {
     this.wind_speed = data.wind_speed;
     this.wind_deg = data.wind_deg;
     this.wind_gust = data.wind_gust;
-    this.conditions = data.weather;
+    this.condition = {
+      ...condition,
+      description:
+        // capitalize first letter of description
+        condition.description.charAt(0).toUpperCase() +
+        condition.description.slice(1),
+    };
     this.rain = data.rain;
     this.snow = data.snow;
   }
@@ -200,7 +208,7 @@ export default abstract class Weather {
    * Gets the icon that illustrates the weather condition.
    */
   getIcon() {
-    return weatherIcons.get(this.conditions[0].id);
+    return weatherIcons.get(this.condition.id);
   }
 
   getWeekDayString() {
