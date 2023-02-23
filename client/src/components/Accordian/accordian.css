@@ -1,0 +1,15 @@
+.accordian {
+  border-radius: 8px;
+}
+
+.accordian__toggle {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5em;
+  padding: 1em;
+  cursor: pointer;
+}
+
+.accordian__panel {
+  padding: 0 1em 1em 1em;
+}
