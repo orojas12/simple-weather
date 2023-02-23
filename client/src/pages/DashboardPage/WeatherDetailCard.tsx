@@ -10,7 +10,7 @@ interface WeatherDetailCardProps {
 
 export default function WeatherDetailCard(props: WeatherDetailCardProps) {
   return (
-    <Card>
+    <Card className="dashboard__card">
       <Card.Title className="dashboard__card-title" align="start">
         {props.title}
       </Card.Title>
