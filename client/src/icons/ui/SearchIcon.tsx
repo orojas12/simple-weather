@@ -1,5 +1,5 @@
 import React from "react";
-import IconProps from "./IconProps";
+import IconProps from "../IconProps";
 
 export default function SearchIcon({ color, style, className }: IconProps) {
   const fill = color || "black";
