@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Card, Dropdown } from "components";
-import { LocationIcon, EyeIcon } from "icons/ui";
+import { Accordian, Card, Dropdown } from "components";
+import { LocationIcon, EyeIcon, AlertIcon } from "icons/ui";
 import {
   LocationContext,
   WeatherContext,
@@ -11,6 +11,7 @@ import Clock from "./Clock";
 import "./dashboard.css";
 import WeatherCard from "./WeatherCard";
 import WeatherDetailCard from "./WeatherDetailCard";
+import WeatherAlertAccordian from "./WeatherAlertAccordian";
 import { TempIcon, WindIcon } from "icons/weather";
 
 export default function DashboardPage() {
@@ -89,19 +90,24 @@ export default function DashboardPage() {
         </div>
         <div className="dashboard__overview">
           <h1 className="dashboard__heading">{heading}</h1>
+          <div className="dashboard__alerts">
+            {weather?.alerts.map((alert) => (
+              <WeatherAlertAccordian alert={alert} />
+            ))}
+          </div>
           <div className="dashboard__overview-grid">
             <WeatherDetailCard
               title="Current"
-              content="50&deg;"
+              content={`${weather?.current.getTemp()}\u00b0`}
               icon={
                 WeatherIcon ? (
-                  <WeatherIcon className="dashboard__card-icon" />
+                  <WeatherIcon className="dashboard__current-icon" />
                 ) : null
               }
               subtitle={displayedWeather?.condition.description || ""}
             />
             <WeatherDetailCard
-              title="Temperature"
+              title="High/Low"
               content={`${weather?.daily[0].getMaxTemp()}\u00b0/${weather?.daily[0].getMinTemp()}\u00b0`}
               icon={<TempIcon className="dashboard__card-icon" />}
               subtitle="Mild"
@@ -110,7 +116,9 @@ export default function DashboardPage() {
               title="Wind"
               content={`${Math.round(displayedWeather?.wind_speed || 0)} mph`}
               icon={<WindIcon className="dashboard__card-icon" />}
-              subtitle={displayedWeather?.getWindDirection() || ""}
+              subtitle={`${
+                displayedWeather?.getWindDirection() || ""
+              } - Gusts of ${Math.round(displayedWeather?.wind_gust || 0)} mph`}
             />
             <WeatherDetailCard
               title="Visibility"
