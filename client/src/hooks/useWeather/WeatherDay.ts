@@ -25,7 +25,9 @@ export default class WeatherDay extends Weather {
    */
   getMinTemp(useCelsius = false) {
     if (typeof this.temp === "object")
-      return useCelsius ? this.toCelsius(this.temp.min) : this.temp.min;
+      return Math.round(
+        useCelsius ? this.toCelsius(this.temp.min) : this.temp.min
+      );
   }
 
   /**
@@ -35,6 +37,8 @@ export default class WeatherDay extends Weather {
    */
   getMaxTemp(useCelsius = false) {
     if (typeof this.temp === "object")
-      return useCelsius ? this.toCelsius(this.temp.max) : this.temp.max;
+      return Math.round(
+        useCelsius ? this.toCelsius(this.temp.max) : this.temp.max
+      );
   }
 }
