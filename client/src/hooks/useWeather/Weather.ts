@@ -168,9 +168,11 @@ export default abstract class Weather {
    */
   getTemp(useCelsius = false, time: "morn" | "day" | "eve" | "night" = "day") {
     if (typeof this.temp === "object") {
-      return useCelsius ? this.toCelsius(this.temp[time]) : this.temp[time];
+      return Math.round(
+        useCelsius ? this.toCelsius(this.temp[time]) : this.temp[time]
+      );
     } else {
-      return useCelsius ? this.toCelsius(this.temp) : this.temp;
+      return Math.round(useCelsius ? this.toCelsius(this.temp) : this.temp);
     }
   }
 
