@@ -228,4 +228,31 @@ export default abstract class Weather {
     const today = new Date();
     return this.dt.toDateString() === today.toDateString();
   }
+
+  /**
+   * Gets UV Index as a percentage
+   */
+  getUviPercentage() {
+    return (this.uvi / 11) * 100;
+  }
+
+  /**
+   * Gets UV Index exposure category
+   */
+  getUviCategory() {
+    const uvi = Math.round(this.uvi);
+    let category = "";
+    if (uvi <= 2) {
+      category = "Low";
+    } else if (uvi <= 5) {
+      category = "Moderate";
+    } else if (uvi <= 7) {
+      category = "High";
+    } else if (uvi <= 10) {
+      category = "Very High";
+    } else {
+      category = "Extreme";
+    }
+    return category;
+  }
 }
