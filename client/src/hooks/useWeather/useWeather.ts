@@ -24,12 +24,12 @@ export default function useWeather(latitude: number, longitude: number) {
         // const res = await fetch("./src/response.json");
         // if (!res.ok) throw new Error(`${res.status} Failed to fetch weather.`);
 
-        const data = json;
+        const data: any = json;
         setWeather({
           current: new WeatherCurrent(data.current),
           hourly: data.hourly.map((hourData: any) => new WeatherHour(hourData)),
           daily: data.daily.map((dayData: any) => new WeatherDay(dayData)),
-          alerts: data.alerts.map((data) => new WeatherAlert(data)),
+          alerts: data.alerts?.map((data: any) => new WeatherAlert(data)),
         });
       } catch (error) {
         console.error(error);
