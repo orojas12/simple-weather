@@ -41,4 +41,25 @@ export default class WeatherDay extends Weather {
         useCelsius ? this.toCelsius(this.temp.max) : this.temp.max
       );
   }
+
+  /**
+   * Gets a short description of this day's temperature in terms of cold or hot.
+   * @returns Description of the temperature.
+   */
+  getTempDesc() {
+    let desc = ""
+    const maxTemp = this.getMaxTemp()!
+    if (maxTemp <= 32) {
+      desc = "Very Cold";
+    } else if (maxTemp <= 60) {
+      desc = "Cold";
+    } else if (maxTemp <= 85) {
+      desc = "Moderate";
+    } else if (maxTemp < 100) {
+      desc = "Hot";
+    } else {
+      desc = "Very Hot"
+    }
+    return desc;
+  }
 }

@@ -20,10 +20,15 @@ export default function DashboardPage() {
   const [displayedWeather, setDisplayedWeather] = useState<
     WeatherCurrent | WeatherDay | undefined
   >(weather?.current);
+  const [isCurrent, setIsCurrent] = useState(true);
 
   useEffect(() => {
     setDisplayedWeather(weather?.current);
   }, [weather]);
+
+  useEffect(() => {
+    setIsCurrent(displayedWeather instanceof WeatherCurrent);
+  }, [displayedWeather]);
 
   const getDailyCards = () => {
     return weather?.daily.map((day, i) => {
@@ -42,7 +47,7 @@ export default function DashboardPage() {
   const WeatherIcon = displayedWeather?.getIcon();
   let heading;
 
-  if (displayedWeather instanceof WeatherCurrent) {
+  if (isCurrent) {
     heading = `Currently in ${locationString}`;
   } else if (displayedWeather?.isToday()) {
     heading = `Today in ${locationString}`;
@@ -96,36 +101,39 @@ export default function DashboardPage() {
             ))}
           </div>
           <div className="dashboard__overview-grid">
-            <WeatherDetailCard
-              title="Current"
-              content={`${weather?.current.getTemp()}\u00b0`}
-              icon={
-                WeatherIcon ? (
-                  <WeatherIcon className="dashboard__current-icon" />
-                ) : null
-              }
-              subtitle={displayedWeather?.condition.description || ""}
-            />
+            {isCurrent ? (
+              <WeatherDetailCard
+                title="Current"
+                content={`${weather?.current.getTemp()}\u00b0`}
+                icon={
+                  WeatherIcon ? (
+                    <WeatherIcon className="dashboard__current-icon" />
+                  ) : null
+                }
+                subtitle={displayedWeather?.condition.description || ""}
+              />
+            ) : null}
             <WeatherDetailCard
               title="High/Low"
-              content={`${weather?.daily[0].getMaxTemp()}\u00b0/${weather?.daily[0].getMinTemp()}\u00b0`}
+              content={`${displayedWeather instanceof WeatherDay ? displayedWeather.getMaxTemp() : weather?.daily[0].getMaxTemp()}\u00b0/${weather?.daily[0].getMinTemp()}\u00b0`}
               icon={<TempIcon className="dashboard__card-icon" />}
-              subtitle="Mild"
+              subtitle={displayedWeather instanceof WeatherDay ? displayedWeather.getTempDesc() : weather?.daily[0].getTempDesc() || ""}
             />
             <WeatherDetailCard
               title="Wind"
               content={`${Math.round(displayedWeather?.wind_speed || 0)} mph`}
               icon={<WindIcon className="dashboard__card-icon" />}
-              subtitle={`${
-                displayedWeather?.getWindDirection() || ""
-              } - Gusts of ${Math.round(displayedWeather?.wind_gust || 0)} mph`}
+              subtitle={`${displayedWeather?.getWindDirection() || ""
+                } - Gusts of ${Math.round(displayedWeather?.wind_gust || 0)} mph`}
             />
-            <WeatherDetailCard
-              title="Visibility"
-              content={`${Math.round(displayedWeather?.visibility || 0)} ft`}
-              icon={<EyeIcon className="dashboard__card-icon" />}
-              subtitle="Good"
-            />
+            {isCurrent ? (
+              <WeatherDetailCard
+                title="Visibility"
+                content={`${Math.round(displayedWeather?.visibility || 0)} ft`}
+                icon={<EyeIcon className="dashboard__card-icon" />}
+                subtitle="Good"
+              />
+            ) : null}
           </div>
         </div>
       </main>
