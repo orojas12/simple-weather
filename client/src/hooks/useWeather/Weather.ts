@@ -10,15 +10,15 @@ import {
 } from "icons/weather";
 
 const cardinalDirections = new Map([
-  [0, "N"],
-  [1, "NE"],
-  [2, "E"],
-  [3, "SE"],
-  [4, "S"],
-  [5, "SW"],
-  [6, "W"],
-  [7, "NW"],
-  [8, "N"],
+  [0, "S"],
+  [1, "SW"],
+  [2, "W"],
+  [3, "NW"],
+  [4, "N"],
+  [5, "NE"],
+  [6, "E"],
+  [7, "SE"],
+  [8, "S"],
 ]);
 
 const weatherIcons = new Map([
