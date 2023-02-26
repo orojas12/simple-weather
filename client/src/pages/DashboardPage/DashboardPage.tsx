@@ -1,4 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Bar, Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  BarElement,
+  LineElement,
+  Tooltip,
+} from "chart.js";
 import { Accordian, Card, Dropdown, Progress } from "components";
 import { LocationIcon, EyeIcon, AlertIcon } from "icons/ui";
 import {
@@ -13,6 +23,15 @@ import WeatherCard from "./WeatherCard";
 import WeatherDetailCard from "./WeatherDetailCard";
 import WeatherAlertAccordian from "./WeatherAlertAccordian";
 import { TempIcon, WindIcon } from "icons/weather";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  Tooltip
+);
 
 export default function DashboardPage() {
   const location = useContext(LocationContext);
@@ -53,6 +72,26 @@ export default function DashboardPage() {
     heading = `Today in ${locationString}`;
   } else {
     heading = `${displayedWeather?.getWeekDayString()} in ${locationString}`;
+  }
+
+  let hourLabels = [];
+  for (let i = 0; i < 25; i++) {
+    hourLabels.push(
+      weather?.hourly[i].dt.toLocaleTimeString([], {
+        hour: "numeric",
+        hour12: true,
+      })
+    );
+  }
+
+  let precipitationData: number[] = [];
+  for (let i = 0; i < 25; i++) {
+    precipitationData.push(weather?.hourly[i].pop as number);
+  }
+
+  let windData: number[] = [];
+  for (let i = 0; i < 25; i++) {
+    windData.push(weather?.hourly[i].wind_speed as number);
   }
 
   return (
@@ -96,7 +135,7 @@ export default function DashboardPage() {
         <div className="dashboard__overview">
           <h1 className="dashboard__heading">{heading}</h1>
           <div className="dashboard__alerts">
-            {weather?.alerts.map((alert) => (
+            {weather?.alerts?.map((alert) => (
               <WeatherAlertAccordian alert={alert} />
             ))}
           </div>
@@ -119,7 +158,11 @@ export default function DashboardPage() {
                 displayedWeather instanceof WeatherDay
                   ? displayedWeather.getMaxTemp()
                   : weather?.daily[0].getMaxTemp()
-              }\u00b0/${weather?.daily[0].getMinTemp()}\u00b0`}
+              }\u00b0/${
+                displayedWeather instanceof WeatherDay
+                  ? displayedWeather.getMinTemp()
+                  : weather?.daily[0].getMinTemp()
+              }\u00b0`}
               icon={<TempIcon className="dashboard__card-icon" />}
               subtitle={
                 displayedWeather instanceof WeatherDay
@@ -156,6 +199,70 @@ export default function DashboardPage() {
               }
               subtitle={displayedWeather?.getUviCategory()!}
             />
+            <Card
+              className="dashboard__card"
+              style={{ width: "100%", maxWidth: "40em" }}
+            >
+              <Card.Title align="start" className="dashboard__card-title">
+                Precipitation
+              </Card.Title>
+              <Card.Content className="dashboard__precipitation">
+                <Bar
+                  options={{
+                    aspectRatio: 3,
+                    responsive: true,
+                    scales: {
+                      x: {
+                        ticks: {
+                          autoSkip: false,
+                        },
+                      },
+                    },
+                  }}
+                  data={{
+                    labels: hourLabels,
+                    datasets: [
+                      {
+                        label: "Precipitation",
+                        data: precipitationData,
+                      },
+                    ],
+                  }}
+                />
+              </Card.Content>
+            </Card>
+            <Card
+              className="dashboard__card"
+              style={{ width: "100%", maxWidth: "40em" }}
+            >
+              <Card.Title align="start" className="dashboard__card-title">
+                Wind Speed
+              </Card.Title>
+              <Card.Content className="dashboard__precipitation">
+                <Line
+                  options={{
+                    aspectRatio: 3,
+                    responsive: true,
+                    scales: {
+                      x: {
+                        ticks: {
+                          autoSkip: false,
+                        },
+                      },
+                    },
+                  }}
+                  data={{
+                    labels: hourLabels,
+                    datasets: [
+                      {
+                        label: "Wind Speed",
+                        data: windData,
+                      },
+                    ],
+                  }}
+                />
+              </Card.Content>
+            </Card>
           </div>
         </div>
       </main>

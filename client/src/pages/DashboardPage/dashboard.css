@@ -63,7 +63,9 @@
 .dashboard__cards {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
   gap: 1em;
+  width: 100%;
 }
 
 .dashboard__heading {
@@ -153,6 +155,10 @@
   width: 4.9rem;
 }
 
+.dashboard__precipitation {
+  aspect-ratio: 3 / 1;
+}
+
 @media screen and (max-width: 768px) {
   .dashboard header {
     padding: 0.8em;
@@ -162,5 +168,6 @@
 @media screen and (max-width: 576px) {
   .dashboard__card {
     width: 100%;
+    padding: 1em;
   }
 }
