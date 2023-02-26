@@ -1,0 +1,21 @@
+.progress {
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  background-color: hsl(var(--clr-base-500));
+}
+
+.progress--horizontal {
+  height: 1em;
+  width: 100%;
+}
+
+.progress--vertical {
+  width: 1em;
+  height: 100%;
+  align-items: flex-end;
+}
+
+.progress__bar {
+  background-color: hsl(var(--clr-primary));
+}
