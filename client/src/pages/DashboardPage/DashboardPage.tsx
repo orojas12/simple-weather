@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Accordian, Card, Dropdown } from "components";
+import { Accordian, Card, Dropdown, Progress } from "components";
 import { LocationIcon, EyeIcon, AlertIcon } from "icons/ui";
 import {
   LocationContext,
@@ -100,7 +100,7 @@ export default function DashboardPage() {
               <WeatherAlertAccordian alert={alert} />
             ))}
           </div>
-          <div className="dashboard__overview-grid">
+          <div className="dashboard__cards">
             {isCurrent ? (
               <WeatherDetailCard
                 title="Current"
@@ -115,16 +115,25 @@ export default function DashboardPage() {
             ) : null}
             <WeatherDetailCard
               title="High/Low"
-              content={`${displayedWeather instanceof WeatherDay ? displayedWeather.getMaxTemp() : weather?.daily[0].getMaxTemp()}\u00b0/${weather?.daily[0].getMinTemp()}\u00b0`}
+              content={`${
+                displayedWeather instanceof WeatherDay
+                  ? displayedWeather.getMaxTemp()
+                  : weather?.daily[0].getMaxTemp()
+              }\u00b0/${weather?.daily[0].getMinTemp()}\u00b0`}
               icon={<TempIcon className="dashboard__card-icon" />}
-              subtitle={displayedWeather instanceof WeatherDay ? displayedWeather.getTempDesc() : weather?.daily[0].getTempDesc() || ""}
+              subtitle={
+                displayedWeather instanceof WeatherDay
+                  ? displayedWeather.getTempDesc()
+                  : weather?.daily[0].getTempDesc() || ""
+              }
             />
             <WeatherDetailCard
               title="Wind"
               content={`${Math.round(displayedWeather?.wind_speed || 0)} mph`}
               icon={<WindIcon className="dashboard__card-icon" />}
-              subtitle={`${displayedWeather?.getWindDirection() || ""
-                } - Gusts of ${Math.round(displayedWeather?.wind_gust || 0)} mph`}
+              subtitle={`${
+                displayedWeather?.getWindDirection() || ""
+              } - Gusts of ${Math.round(displayedWeather?.wind_gust || 0)} mph`}
             />
             {isCurrent ? (
               <WeatherDetailCard
@@ -134,6 +143,19 @@ export default function DashboardPage() {
                 subtitle="Good"
               />
             ) : null}
+            <WeatherDetailCard
+              title="UV Index"
+              content={displayedWeather?.uvi}
+              icon={
+                <div className="dashboard__uvi-progress-wrapper">
+                  <Progress
+                    type="vertical"
+                    value={displayedWeather?.getUviPercentage()!}
+                  />
+                </div>
+              }
+              subtitle={displayedWeather?.getUviCategory()!}
+            />
           </div>
         </div>
       </main>
