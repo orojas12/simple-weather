@@ -1,10 +1,8 @@
 {
   "compilerOptions": {
+    "strict": true,
     "jsx": "react",
-    // Ensure that .d.ts files are created by tsc, but not .js files
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    // Ensure that Babel can safely transpile files in the TypeScript project
+    "noEmit": true,
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
@@ -17,8 +15,11 @@
       "pages": ["src/pages"],
       "hooks": ["src/hooks"],
       "icons": ["src/icons"],
-      "layout": ["src/layout"]
-    }
+      "icons/*": ["src/icons/*"],
+      "layout": ["src/layout"],
+      "services": ["src/services"]
+    },
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"]
 }
