@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "start": "nodemon -w ./src ./dist/server.js"
+    "start": "nodemon -w ./dist ./dist/server.js"
   },
   "author": "",
   "license": "ISC",
