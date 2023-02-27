@@ -12,11 +12,34 @@ const accessLogStream = fs.createWriteStream(
   { flags: "a" }
 );
 
+const errorLogStream = fs.createWriteStream(
+  path.resolve(__dirname, "../logs/error.log"),
+  { flags: "a" }
+);
+
 const app = express();
 const host = process.env.HOST || "127.0.0.1";
 const port = parseInt(process.env.PORT || "8080");
 
-app.use(morgan("short", { stream: accessLogStream }));
+app.use(
+  morgan(
+    ':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :response-time ms',
+    {
+      stream: errorLogStream,
+      skip: function (req, res) {
+        return res.statusCode < 500;
+      },
+    }
+  )
+);
+
+app.use(
+  morgan(
+    ':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :response-time ms',
+    { stream: accessLogStream }
+  )
+);
+
 app.use("/weather", weatherRouter);
 
 app.listen(port, host, () => {
