@@ -2,11 +2,11 @@
   "name": "simple-weather-server",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "start": "nodemon"
+    "start": "nodemon --inspect --verbose ./dist/server.js"
   },
   "author": "",
   "license": "ISC",
