@@ -21,10 +21,12 @@ export default function useWeather(latitude: number, longitude: number) {
   useEffect(() => {
     async function fetchWeather(latitude: number, longitude: number) {
       try {
-        // const res = await fetch("./src/response.json");
-        // if (!res.ok) throw new Error(`${res.status} Failed to fetch weather.`);
+        const res = await fetch(
+          `/api/weather?lat=${latitude}&lng=${longitude}`
+        );
+        if (!res.ok) throw new Error(`${res.status} Failed to fetch weather.`);
 
-        const data: any = json;
+        const data = await res.json();
         setWeather({
           current: new WeatherCurrent(data.current),
           hourly: data.hourly.map((hourData: any) => new WeatherHour(hourData)),
