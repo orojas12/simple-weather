@@ -60,14 +60,6 @@
   padding: 1em;
 }
 
-.dashboard__cards {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 1em;
-  width: 100%;
-}
-
 .dashboard__heading {
   margin-bottom: 1em;
   font-size: var(--fs-4);
@@ -94,6 +86,15 @@
   color: hsl(var(--clr-alert-300));
   font-size: var(--fs-3);
   font-weight: 500;
+}
+
+.dashboard__cards {
+  display: grid;
+  grid-template-columns: repeat(4, 15em);
+  /* grid-template-rows: auto 30em; */
+  align-items: flex-start;
+  gap: 1em;
+  width: 100%;
 }
 
 .dashboard__card {
@@ -155,7 +156,22 @@
   width: 4.9rem;
 }
 
-.dashboard__precipitation {
+.dashboard__precipitation-card {
+  grid-row: 2 / 3;
+  grid-column: 1 / 4;
+}
+
+.dashboard__wind-speed-card {
+  grid-row: 3 / 4;
+  grid-column: 1 / 4;
+}
+
+.dashboard__temperature-card {
+  grid-row: 4 / 5;
+  grid-column: 1 / 4;
+}
+
+.dashboard__weather-chart {
   aspect-ratio: 3 / 1;
 }
 

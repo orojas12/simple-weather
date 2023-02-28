@@ -15,6 +15,11 @@ const config = {
     host: "127.0.0.1",
     port: 3000,
     historyApiFallback: true,
+    proxy: {
+      "/api": {
+        target: "http://localhost:8080",
+      },
+    },
   },
   devtool: "inline-source-map",
   plugins: [],

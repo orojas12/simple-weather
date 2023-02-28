@@ -13,7 +13,7 @@ weatherRouter.get("/", async (req, res) => {
 
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${req.query.lat}&lon=${req.query.lng}&exclude=minutely&appid=${WEATHER_API_KEY}`
+      `https://api.openweathermap.org/data/3.0/onecall?lat=${req.query.lat}&lon=${req.query.lng}&exclude=minutely&units=imperial&appid=${WEATHER_API_KEY}`
     );
     const data = await response.json();
     if (!response.ok) {
