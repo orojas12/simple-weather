@@ -1,16 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Bar, Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  BarElement,
-  LineElement,
-  Tooltip,
-} from "chart.js";
-import { Accordian, Card, Dropdown, Progress } from "components";
-import { LocationIcon, EyeIcon, AlertIcon } from "icons/ui";
+import { Dropdown, Progress } from "components";
+import { LocationIcon, EyeIcon } from "icons/ui";
 import {
   LocationContext,
   WeatherContext,
@@ -22,16 +12,8 @@ import "./dashboard.css";
 import WeatherCard from "./WeatherCard";
 import WeatherDetailCard from "./WeatherDetailCard";
 import WeatherAlertAccordian from "./WeatherAlertAccordian";
+import WeatherChart from "./WeatherChart";
 import { TempIcon, WindIcon } from "icons/weather";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-  Tooltip
-);
 
 export default function DashboardPage() {
   const location = useContext(LocationContext);
@@ -74,25 +56,19 @@ export default function DashboardPage() {
     heading = `${displayedWeather?.getWeekDayString()} in ${locationString}`;
   }
 
-  let hourLabels = [];
-  for (let i = 0; i < 25; i++) {
-    hourLabels.push(
-      weather?.hourly[i].dt.toLocaleTimeString([], {
-        hour: "numeric",
-        hour12: true,
-      })
-    );
-  }
-
-  let precipitationData: number[] = [];
-  for (let i = 0; i < 25; i++) {
-    precipitationData.push(weather?.hourly[i].pop as number);
-  }
-
-  let windData: number[] = [];
-  for (let i = 0; i < 25; i++) {
-    windData.push(weather?.hourly[i].wind_speed as number);
-  }
+  const hourLabels = weather?.hourly.slice(0, 25).map((hour) =>
+    hour.dt.toLocaleTimeString([], {
+      hour: "numeric",
+      hour12: true,
+    })
+  );
+  const precipitationData = weather?.hourly
+    .slice(0, 25)
+    .map((hour) => hour.pop);
+  const windData = weather?.hourly.slice(0, 25).map((hour) => hour.wind_speed);
+  const temperatureData = weather?.hourly
+    .slice(0, 25)
+    .map((hour) => hour.getTemp());
 
   return (
     <article className="dashboard">
@@ -199,70 +175,51 @@ export default function DashboardPage() {
               }
               subtitle={displayedWeather?.getUviCategory()!}
             />
-            <Card
-              className="dashboard__card"
-              style={{ width: "100%", maxWidth: "40em" }}
-            >
-              <Card.Title align="start" className="dashboard__card-title">
-                Precipitation
-              </Card.Title>
-              <Card.Content className="dashboard__precipitation">
-                <Bar
-                  options={{
-                    aspectRatio: 3,
-                    responsive: true,
-                    scales: {
-                      x: {
-                        ticks: {
-                          autoSkip: false,
-                        },
-                      },
-                    },
-                  }}
-                  data={{
-                    labels: hourLabels,
-                    datasets: [
-                      {
-                        label: "Precipitation",
-                        data: precipitationData,
-                      },
-                    ],
-                  }}
-                />
-              </Card.Content>
-            </Card>
-            <Card
-              className="dashboard__card"
-              style={{ width: "100%", maxWidth: "40em" }}
-            >
-              <Card.Title align="start" className="dashboard__card-title">
-                Wind Speed
-              </Card.Title>
-              <Card.Content className="dashboard__precipitation">
-                <Line
-                  options={{
-                    aspectRatio: 3,
-                    responsive: true,
-                    scales: {
-                      x: {
-                        ticks: {
-                          autoSkip: false,
-                        },
-                      },
-                    },
-                  }}
-                  data={{
-                    labels: hourLabels,
-                    datasets: [
-                      {
-                        label: "Wind Speed",
-                        data: windData,
-                      },
-                    ],
-                  }}
-                />
-              </Card.Content>
-            </Card>
+            <WeatherChart
+              className="dashboard__precipitation-card"
+              type="bar"
+              title="Precipitation"
+              data={{
+                labels: hourLabels as string[],
+                datasets: [
+                  {
+                    label: "Precipitation",
+                    data: precipitationData,
+                  },
+                ],
+              }}
+              yMax={1}
+            />
+            <WeatherChart
+              className="dashboard__wind-speed-card"
+              type="line"
+              title="Wind Speed"
+              data={{
+                labels: hourLabels as string[],
+                datasets: [
+                  {
+                    label: "Wind Speed (mph)",
+                    data: windData,
+                  },
+                ],
+              }}
+              yMax={100}
+            />
+            <WeatherChart
+              className="dashboard__temperature-card"
+              type="line"
+              title="Temperature"
+              data={{
+                labels: hourLabels as string[],
+                datasets: [
+                  {
+                    label: "Temperature (F)",
+                    data: temperatureData,
+                  },
+                ],
+              }}
+              yMax={100}
+            />
           </div>
         </div>
       </main>
