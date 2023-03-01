@@ -11,6 +11,8 @@ export default function AddIcon({ color, style, className }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      style={style}
     >
       <path
         fillRule="evenodd"
