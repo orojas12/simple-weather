@@ -1,24 +1,13 @@
 import React, { createContext } from "react";
 import { Outlet } from "react-router-dom";
-import {
-  useLocation,
-  LocationContext,
-  useWeather,
-  WeatherContext,
-} from "hooks";
+import { useLocation, useWeather, WeatherContext } from "hooks";
+import { LocationContext } from "hooks/useLocation";
 import { Navbar } from "components";
 import "./app.css";
 
 export default function App() {
   const location = useLocation();
-  const { weather, updateWeather, setCoords } = useWeather(33.44, -94.04);
-
-  location.place = {
-    placeId: "1",
-    description: "El Paso, TX, USA",
-    mainText: "El Paso",
-    secondaryText: "TX, USA",
-  };
+  const { weather, updateWeather, setCoords } = useWeather(31.77, -106.46);
 
   return (
     <div className="App">

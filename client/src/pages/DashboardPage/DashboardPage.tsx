@@ -1,12 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Dropdown, Progress } from "components";
 import { LocationIcon, EyeIcon } from "icons/ui";
-import {
-  LocationContext,
-  WeatherContext,
-  WeatherCurrent,
-  WeatherDay,
-} from "hooks";
+import { WeatherContext, WeatherCurrent, WeatherDay } from "hooks";
+import { LocationContext } from "hooks/useLocation";
 import Clock from "./Clock";
 import "./dashboard.css";
 import WeatherCard from "./WeatherCard";
@@ -44,7 +40,7 @@ export default function DashboardPage() {
     });
   };
 
-  const locationString = location?.place?.description;
+  const locationString = location?.data.activeLocation.description;
   const WeatherIcon = displayedWeather?.getIcon();
   let heading;
 
@@ -77,7 +73,7 @@ export default function DashboardPage() {
         <Dropdown id="dropdown1" size="small">
           <Dropdown.Toggle>
             <LocationIcon className="dashboard__location-icon" />
-            {location?.place?.description}
+            {location?.data.activeLocation.description}
             <Dropdown.ToggleIcon />
           </Dropdown.Toggle>
           <Dropdown.Menu
