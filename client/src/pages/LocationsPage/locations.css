@@ -1,0 +1,67 @@
+.locations {
+  max-width: 50em;
+}
+
+.locations header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+}
+
+.locations main {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+}
+
+.locations main h2 {
+  font-size: var(--fs-3);
+  color: hsl(var(--clr-dark-100));
+  font-weight: 400;
+}
+
+.locations header h1 {
+  font-size: var(--fs-4);
+}
+
+.locations__btn {
+  box-shadow: none;
+}
+
+.locations__add path {
+  fill: hsl(var(--clr-dark-200));
+}
+
+.locations__favorite {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.locations__other {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.locations__location-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.locations__location-title {
+  color: hsl(var(--clr-dark-200));
+  font-weight: 500;
+}
+
+.locations__location-subtitle {
+  color: hsl(var(--clr-dark-100));
+  font-size: var(--fs-3);
+}
+
+.locations__location-options path {
+  fill: hsl(var(--clr-dark-200));
+}
