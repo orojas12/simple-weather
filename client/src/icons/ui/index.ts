@@ -9,6 +9,7 @@ import SearchIcon from "./SearchIcon";
 import EyeIcon from "./EyeIcon";
 import AlertIcon from "./AlertIcon";
 import AddIcon from "./AddIcon";
+import VerticalDotsIcon from "./VerticalDotsIcon";
 
 export {
   ArrowDownIcon,
@@ -22,4 +23,5 @@ export {
   EyeIcon,
   AlertIcon,
   AddIcon,
+  VerticalDotsIcon,
 };
