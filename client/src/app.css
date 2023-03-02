@@ -115,15 +115,15 @@
 }
 
 .gap-1 {
-  gap: 1em;
+  gap: 0.5em;
 }
 
 .gap-2 {
-  gap: 2em;
+  gap: 1em;
 }
 
 .gap-3 {
-  gap: 3em;
+  gap: 2em;
 }
 
 .justify-start {
