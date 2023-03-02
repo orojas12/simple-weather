@@ -10,6 +10,7 @@ import EyeIcon from "./EyeIcon";
 import AlertIcon from "./AlertIcon";
 import AddIcon from "./AddIcon";
 import VerticalDotsIcon from "./VerticalDotsIcon";
+import CheckIcon from "./CheckIcon";
 
 export {
   ArrowDownIcon,
@@ -24,4 +25,5 @@ export {
   AlertIcon,
   AddIcon,
   VerticalDotsIcon,
+  CheckIcon,
 };
