@@ -69,9 +69,17 @@ const initialLocationData = {
 };
 
 function loadLocationData() {
-  const data = localStorage.getItem("locations");
-  if (data) {
-    return JSON.parse(data);
+  const json = localStorage.getItem("locations");
+  if (json) {
+    const data = JSON.parse(json);
+    if (data.favoriteLocation) {
+      data.activeLocation = data.favoriteLocation;
+    } else if (data.savedLocations.length) {
+      data.activeLocation = data.savedLocations[0];
+    } else {
+      data.activeLocation = data.defaultLocation;
+    }
+    return data;
   } else {
     return initialLocationData;
   }
