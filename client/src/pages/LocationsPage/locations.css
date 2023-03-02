@@ -62,6 +62,10 @@
   font-size: var(--fs-3);
 }
 
+.locations__location-check path {
+  fill: hsl(var(--clr-tertiary));
+}
+
 .locations__location-options path {
   fill: hsl(var(--clr-dark-200));
 }
