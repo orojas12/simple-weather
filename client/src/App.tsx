@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { useLocation, useWeather, WeatherContext } from "hooks";
 import { LocationContext } from "hooks/useLocation";
@@ -7,7 +7,16 @@ import "./app.css";
 
 export default function App() {
   const location = useLocation();
-  const { weather, updateWeather, setCoords } = useWeather(31.77, -106.46);
+  const { lat, lng } =
+    location?.data.favoriteLocation || location?.data.savedLocations[0];
+  const { weather, updateWeather, setCoords } = useWeather(lat, lng);
+
+  useEffect(() => {
+    setCoords({
+      latitude: location.data.activeLocation.lat,
+      longitude: location.data.activeLocation.lng,
+    });
+  }, [location.data.activeLocation.placeId]);
 
   return (
     <div className="App">

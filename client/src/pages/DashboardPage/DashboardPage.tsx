@@ -78,20 +78,14 @@ export default function DashboardPage() {
           </Dropdown.Toggle>
           <Dropdown.Menu
             align="end"
-            items={[
-              {
-                content: "Location 123",
-                action: () => console.log("Location 123"),
-              },
-              {
-                content: <div>Location 2</div>,
-                action: () => console.log("Location 2"),
-              },
-              {
-                content: "Location 3",
-                action: () => console.log("Location 3"),
-              },
-            ]}
+            items={
+              location?.data.savedLocations.map((value) => {
+                return {
+                  content: value.description,
+                  action: () => location.setLocation(value.placeId),
+                };
+              }) || []
+            }
           />
         </Dropdown>
       </header>
@@ -108,7 +102,7 @@ export default function DashboardPage() {
           <h1 className="dashboard__heading">{heading}</h1>
           <div className="dashboard__alerts">
             {weather?.alerts?.map((alert) => (
-              <WeatherAlertAccordian alert={alert} />
+              <WeatherAlertAccordian key={alert.event} alert={alert} />
             ))}
           </div>
           <div className="dashboard__cards">
