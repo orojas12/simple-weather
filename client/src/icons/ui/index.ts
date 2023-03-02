@@ -12,6 +12,8 @@ import AddIcon from "./AddIcon";
 import VerticalDotsIcon from "./VerticalDotsIcon";
 import CheckIcon from "./CheckIcon";
 import CloseIcon from "./CloseIcon";
+import CheckCircleIcon from "./CheckCircleIcon";
+import CloseCircleIcon from "./CloseCircleIcon";
 
 export {
   ArrowDownIcon,
@@ -27,5 +29,7 @@ export {
   AddIcon,
   VerticalDotsIcon,
   CheckIcon,
+  CheckCircleIcon,
   CloseIcon,
+  CloseCircleIcon,
 };
