@@ -7,9 +7,10 @@ import "./app.css";
 
 export default function App() {
   const location = useLocation();
-  const { lat, lng } =
-    location?.data.favoriteLocation || location?.data.savedLocations[0];
-  const { weather, updateWeather, setCoords } = useWeather(lat, lng);
+  const { weather, updateWeather, setCoords } = useWeather(
+    location.data.activeLocation.lat,
+    location.data.activeLocation.lat
+  );
 
   useEffect(() => {
     setCoords({
