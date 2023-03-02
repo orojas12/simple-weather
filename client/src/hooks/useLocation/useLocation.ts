@@ -1,3 +1,4 @@
+import useGeocode from "hooks/useGeocode";
 import { useReducer, useEffect, createContext } from "react";
 import { Place, geocode } from "services";
 import { locationReducer } from "./location";
@@ -87,12 +88,20 @@ function loadLocationData() {
 
 export default function useLocation() {
   const [state, dispatch] = useReducer(locationReducer, loadLocationData());
+  const { geocode } = useGeocode();
 
   useEffect(() => {
     localStorage.setItem("locations", JSON.stringify(state));
   }, [state]);
 
   const addLocation = async (place: Place) => {
+    const result = await geocode(place.placeId);
+    if (result) {
+      dispatch({
+        type: "add",
+        location: { ...place, lat: result.lat, lng: result.lng },
+      });
+    }
     console.log("Added location");
   };
 
