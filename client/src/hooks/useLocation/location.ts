@@ -12,14 +12,19 @@ interface LocationState {
   savedLocations: Location[] | [];
   favoriteLocation: Location | undefined;
   defaultLocation: Location;
+  status: {
+    error: boolean;
+    msg: string | null;
+  };
 }
 
 type ActionType =
   | { type: "add"; location: Location }
-  | { type: "delete"; placeId: string }
-  | { type: "setActive"; placeId: string }
-  | { type: "setFavorite"; placeId: string }
-  | { type: "removeFavorite" };
+  | { type: "delete"; location: Location }
+  | { type: "setActive"; location: Location }
+  | { type: "setFavorite"; location: Location }
+  | { type: "removeFavorite" }
+  | { type: "clearStatus" };
 
 export function locationReducer(
   state: LocationState,
@@ -27,30 +32,53 @@ export function locationReducer(
 ): LocationState {
   switch (action.type) {
     case "add":
-      return {
-        ...state,
-        savedLocations: [...state.savedLocations, action.location],
-      };
+      if (
+        state.savedLocations.some(
+          (value) => value.placeId === action.location.placeId
+        )
+      ) {
+        return {
+          ...state,
+          status: {
+            error: true,
+            msg: `${action.location.description} is already added.`,
+          },
+        };
+      } else {
+        return {
+          ...state,
+          savedLocations: [...state.savedLocations, action.location],
+          status: {
+            error: false,
+            msg: `${action.location.description} added.`,
+          },
+        };
+      }
 
     case "delete":
       return {
         ...state,
 
         activeLocation:
-          state.activeLocation.placeId === action.placeId
+          state.activeLocation.placeId === action.location.placeId
             ? state.savedLocations.find(
-                (location) => location.placeId !== action.placeId
+                (location) => location.placeId !== action.location.placeId
               ) || state.defaultLocation
             : state.activeLocation,
 
         favoriteLocation:
-          state.favoriteLocation?.placeId === action.placeId
+          state.favoriteLocation?.placeId === action.location.placeId
             ? undefined
             : state.favoriteLocation,
 
         savedLocations: state.savedLocations.filter((location) => {
-          return location.placeId !== action.placeId;
+          return location.placeId !== action.location.placeId;
         }),
+
+        status: {
+          error: false,
+          msg: `${action.location.description} deleted.`,
+        },
       };
 
     case "setActive":
@@ -58,22 +86,43 @@ export function locationReducer(
         ...state,
         activeLocation:
           state.savedLocations.find(
-            (location) => location.placeId === action.placeId
+            (location) => location.placeId === action.location.placeId
           ) || state.activeLocation,
+        status: {
+          error: false,
+          msg: null,
+        },
       };
 
     case "setFavorite":
       return {
         ...state,
         favoriteLocation: state.savedLocations.find(
-          (location) => location.placeId === action.placeId
+          (location) => location.placeId === action.location.placeId
         ),
+        status: {
+          error: false,
+          msg: `Favorited ${action.location.description}.`,
+        },
       };
 
     case "removeFavorite":
       return {
         ...state,
         favoriteLocation: undefined,
+        status: {
+          error: false,
+          msg: `Unfavorited ${state.favoriteLocation?.description}.`,
+        },
+      };
+
+    case "clearStatus":
+      return {
+        ...state,
+        status: {
+          error: false,
+          msg: null,
+        },
       };
 
     default:

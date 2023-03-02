@@ -1,7 +1,7 @@
 import useGeocode from "hooks/useGeocode";
 import { useReducer, useEffect, createContext } from "react";
 import { Place, geocode } from "services";
-import { locationReducer } from "./location";
+import { locationReducer, Location } from "./location";
 
 export const LocationContext = createContext<ReturnType<
   typeof useLocation
@@ -102,23 +102,26 @@ export default function useLocation() {
         location: { ...place, lat: result.lat, lng: result.lng },
       });
     }
-    console.log("Added location");
   };
 
-  const deleteLocation = (placeId: string) => {
-    dispatch({ type: "delete", placeId });
+  const deleteLocation = (location: Location) => {
+    dispatch({ type: "delete", location });
   };
 
-  const setLocation = (placeId: string) => {
-    dispatch({ type: "setActive", placeId });
+  const setLocation = (location: Location) => {
+    dispatch({ type: "setActive", location });
   };
 
-  const setFavorite = (placeId: string) => {
-    dispatch({ type: "setFavorite", placeId });
+  const setFavorite = (location: Location) => {
+    dispatch({ type: "setFavorite", location });
   };
 
   const removeFavorite = () => {
     dispatch({ type: "removeFavorite" });
+  };
+
+  const clearStatus = () => {
+    dispatch({ type: "clearStatus" });
   };
 
   return {
@@ -128,5 +131,6 @@ export default function useLocation() {
     setLocation,
     setFavorite,
     removeFavorite,
+    clearStatus,
   };
 }

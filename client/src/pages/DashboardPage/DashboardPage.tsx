@@ -82,7 +82,7 @@ export default function DashboardPage() {
               location?.data.savedLocations.map((value) => {
                 return {
                   content: value.description,
-                  action: () => location.setLocation(value.placeId),
+                  action: () => location.setLocation(value),
                 };
               }) || []
             }

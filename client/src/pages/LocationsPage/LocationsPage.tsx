@@ -1,13 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { LocationContext } from "hooks/useLocation";
 import { AddIcon } from "icons/ui";
 import "./locations.css";
-import { Card } from "components";
+import { Card, ToastContext } from "components";
 import Location from "./Location";
 
 export default function LocationsPage() {
   const location = useContext(LocationContext);
+  const toast = useContext(ToastContext);
+
+  useEffect(() => {
+    const status = location?.data.status;
+    if (status?.error) {
+      toast?.setToast({
+        type: "alert",
+        msg: status.msg as string,
+      });
+      location?.clearStatus();
+    } else if (status?.msg) {
+      toast?.setToast({
+        type: "success",
+        msg: status.msg,
+      });
+      location?.clearStatus();
+    }
+  }, [location?.data.status]);
 
   return (
     <article className="locations">
@@ -33,9 +51,7 @@ export default function LocationsPage() {
                 {
                   content: "Delete",
                   action: () =>
-                    location.deleteLocation(
-                      location.data.favoriteLocation?.placeId || ""
-                    ),
+                    location.deleteLocation(location.data.favoriteLocation!),
                 },
               ]}
               active={
@@ -63,11 +79,11 @@ export default function LocationsPage() {
                 options={[
                   {
                     content: "Set as favorite",
-                    action: () => location.setFavorite(value.placeId),
+                    action: () => location.setFavorite(value),
                   },
                   {
                     content: "Delete",
-                    action: () => location.deleteLocation(value.placeId),
+                    action: () => location.deleteLocation(value),
                   },
                 ]}
                 active={location.data.activeLocation.placeId === value.placeId}

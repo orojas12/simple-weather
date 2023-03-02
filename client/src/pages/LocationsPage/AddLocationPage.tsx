@@ -1,14 +1,34 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LocationContext } from "hooks/useLocation";
 import { ArrowDownIcon } from "icons/ui";
 import LocationSearch from "./LocationSearch";
-import "./addLocation.css";
 import { Place } from "hooks/usePlaceAutocomplete";
+import { ToastContext } from "components";
+import "./addLocation.css";
 
 export default function AddLocationPage() {
+  const toast = useContext(ToastContext);
   const location = useContext(LocationContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const status = location?.data.status;
+    if (status?.error) {
+      toast?.setToast({
+        type: "alert",
+        msg: status.msg as string,
+      });
+      location?.clearStatus();
+    } else if (status?.msg) {
+      toast?.setToast({
+        type: "success",
+        msg: status.msg,
+      });
+      navigate("/locations");
+      location?.clearStatus();
+    }
+  }, [location?.data.status]);
 
   return (
     <article className="add-location">
@@ -25,11 +45,12 @@ export default function AddLocationPage() {
           addLocation={async (place: Place) => {
             try {
               await location?.addLocation(place);
-              // show success toast
-              navigate("/locations");
-            } catch (err) {
-              // show error toast
-              console.error(err);
+            } catch (err: any) {
+              toast?.setToast({
+                type: "alert",
+                msg: err.message,
+              });
+              location?.clearStatus();
             }
           }}
         />
