@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Combobox } from "components";
 import { SearchIcon, LocationIcon } from "icons/ui";
-import { LocationContext } from "hooks";
+import { LocationContext } from "hooks/useLocation";
 import { placeAutocomplete } from "services";
 import "./search.css";
 import { Place } from "services";
@@ -29,7 +29,7 @@ export default function Search() {
         items={listItems}
         select={(prediction) => {
           console.log(prediction);
-          location?.setPlace(prediction);
+          location?.addLocation(prediction);
         }}
         onChangeWithDelay={[onChange, 1000]}
         inputIcon={SearchIcon}

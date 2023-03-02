@@ -1,12 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Dropdown, Progress } from "components";
 import { LocationIcon, EyeIcon } from "icons/ui";
-import {
-  LocationContext,
-  WeatherContext,
-  WeatherCurrent,
-  WeatherDay,
-} from "hooks";
+import { WeatherContext, WeatherCurrent, WeatherDay } from "hooks";
+import { LocationContext } from "hooks/useLocation";
 import Clock from "./Clock";
 import "./dashboard.css";
 import WeatherCard from "./WeatherCard";
@@ -44,7 +40,7 @@ export default function DashboardPage() {
     });
   };
 
-  const locationString = location?.place?.description;
+  const locationString = location?.data.activeLocation.description;
   const WeatherIcon = displayedWeather?.getIcon();
   let heading;
 
@@ -77,25 +73,19 @@ export default function DashboardPage() {
         <Dropdown id="dropdown1" size="small">
           <Dropdown.Toggle>
             <LocationIcon className="dashboard__location-icon" />
-            {location?.place?.description}
+            {location?.data.activeLocation.description}
             <Dropdown.ToggleIcon />
           </Dropdown.Toggle>
           <Dropdown.Menu
             align="end"
-            items={[
-              {
-                content: "Location 123",
-                action: () => console.log("Location 123"),
-              },
-              {
-                content: <div>Location 2</div>,
-                action: () => console.log("Location 2"),
-              },
-              {
-                content: "Location 3",
-                action: () => console.log("Location 3"),
-              },
-            ]}
+            items={
+              location?.data.savedLocations.map((value) => {
+                return {
+                  content: value.description,
+                  action: () => location.setLocation(value),
+                };
+              }) || []
+            }
           />
         </Dropdown>
       </header>
@@ -112,7 +102,7 @@ export default function DashboardPage() {
           <h1 className="dashboard__heading">{heading}</h1>
           <div className="dashboard__alerts">
             {weather?.alerts?.map((alert) => (
-              <WeatherAlertAccordian alert={alert} />
+              <WeatherAlertAccordian key={alert.event} alert={alert} />
             ))}
           </div>
           <div className="dashboard__cards">

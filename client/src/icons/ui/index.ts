@@ -8,6 +8,12 @@ import MenuIcon from "./MenuIcon";
 import SearchIcon from "./SearchIcon";
 import EyeIcon from "./EyeIcon";
 import AlertIcon from "./AlertIcon";
+import AddIcon from "./AddIcon";
+import VerticalDotsIcon from "./VerticalDotsIcon";
+import CheckIcon from "./CheckIcon";
+import CloseIcon from "./CloseIcon";
+import CheckCircleIcon from "./CheckCircleIcon";
+import CloseCircleIcon from "./CloseCircleIcon";
 
 export {
   ArrowDownIcon,
@@ -20,4 +26,10 @@ export {
   SearchIcon,
   EyeIcon,
   AlertIcon,
+  AddIcon,
+  VerticalDotsIcon,
+  CheckIcon,
+  CheckCircleIcon,
+  CloseIcon,
+  CloseCircleIcon,
 };

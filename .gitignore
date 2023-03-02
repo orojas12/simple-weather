@@ -6,7 +6,8 @@ node_modules
 .pnp.js
 
 # production
-dist
+server/dist
+client/dist/*.js
 
 # misc
 .env

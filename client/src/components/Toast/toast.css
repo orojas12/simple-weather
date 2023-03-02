@@ -1,0 +1,39 @@
+.toast {
+  transition: transform 0.3s linear;
+  transform: translateY(200%);
+  font-weight: 500;
+}
+
+.toast--success {
+  background-color: hsl(var(--clr-success-100));
+  color: hsl(var(--clr-success-300));
+}
+
+.toast--success path {
+  fill: hsl(var(--clr-success-300));
+}
+
+.toast--alert {
+  background-color: hsl(var(--clr-alert-100));
+  color: hsl(var(--clr-alert-300));
+}
+
+.toast--alert path {
+  fill: hsl(var(--clr-alert-300));
+}
+
+.toast--active {
+  transform: none;
+}
+
+.toast--hidden {
+  visibility: hidden;
+}
+
+.toast__wrapper {
+  position: fixed;
+  left: 50%;
+  bottom: 2em;
+  transform: translateX(-50%);
+  cursor: pointer;
+}

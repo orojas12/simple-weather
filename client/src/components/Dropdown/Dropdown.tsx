@@ -133,6 +133,7 @@ function Menu({ items, align = "start", className = "", style }: MenuProps) {
           {items.map((item, index) => {
             return (
               <li
+                key={index}
                 className="dropdown__menu-item"
                 onClick={() => onClick(item.action)}
                 onKeyDown={(e) => {

@@ -1,4 +1,4 @@
-import useLocation, { Location, Coords, LocationContext } from "./useLocation";
+import { useLocation } from "./useLocation";
 import useWeather, {
   WeatherContext,
   WeatherData,
@@ -8,12 +8,15 @@ import useWeather, {
   WeatherHour,
   WeatherAlert,
 } from "./useWeather";
+import usePlaceAutocomplete from "./usePlaceAutocomplete";
+import useGeocode from "./useGeocode";
 
-export type { Location, Coords, WeatherData };
+export type { WeatherData };
 export {
   useLocation,
-  LocationContext,
   useWeather,
+  usePlaceAutocomplete,
+  useGeocode,
   WeatherContext,
   Weather,
   WeatherCurrent,
