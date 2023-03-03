@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { AddIcon, CloseIcon, SearchIcon } from "icons/ui";
 import { usePlaceAutocomplete } from "hooks";
 import { Place } from "hooks/usePlaceAutocomplete";
-import { Card } from "components";
+import { Card, ToastContext } from "components";
 
 interface LocationSearchProps {
   addLocation: (place: Place) => void;
 }
 
 export default function LocationSearch({ addLocation }: LocationSearchProps) {
+  const toast = useContext(ToastContext);
   const [value, setValue] = useState("");
   const [places, setPlaces] = useState<Place[] | []>([]);
   const { getPlaces } = usePlaceAutocomplete();
@@ -16,8 +17,14 @@ export default function LocationSearch({ addLocation }: LocationSearchProps) {
 
   useEffect(() => {
     clearTimeout(timeoutId.current);
-    timeoutId.current = setTimeout(() => {
-      setPlaces(getPlaces(value));
+    timeoutId.current = setTimeout(async () => {
+      try {
+        const places = await getPlaces(value);
+        setPlaces(places);
+      } catch (err: any) {
+        console.error(err);
+        toast?.setToast({ type: "alert", msg: "Oops, something went wrong." });
+      }
     }, 1000);
   }, [value]);
 
@@ -42,26 +49,32 @@ export default function LocationSearch({ addLocation }: LocationSearchProps) {
         )}
       </div>
       <div className="location-search__results">
-        {places.map((place) => (
-          <Card key={place.placeId}>
-            <Card.Content className="flex justify-between align-center">
-              <div>
-                <div className="location-search__result-title">
-                  {place.mainText}
+        {places.length ? (
+          places.map((place, i) => (
+            <Card key={place.placeId || i} className="location-search__result">
+              <Card.Content className="flex justify-between align-center">
+                <div>
+                  <div className="location-search__result-title">
+                    {place.mainText}
+                  </div>
+                  <div className="location-search__result-subtitle">
+                    {place.secondaryText}
+                  </div>
                 </div>
-                <div className="location-search__result-subtitle">
-                  {place.secondaryText}
-                </div>
-              </div>
-              <button
-                className="btn btn--sm location-search__add"
-                onClick={() => addLocation(place)}
-              >
-                <AddIcon />
-              </button>
-            </Card.Content>
+                <button
+                  className="btn btn--sm location-search__add"
+                  onClick={() => addLocation(place)}
+                >
+                  <AddIcon />
+                </button>
+              </Card.Content>
+            </Card>
+          ))
+        ) : (
+          <Card className="location-search__result">
+            <Card.Content>No locations matched your search.</Card.Content>
           </Card>
-        ))}
+        )}
       </div>
     </div>
   );

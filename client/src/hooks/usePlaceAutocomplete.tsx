@@ -39,19 +39,14 @@ const fakePredictions: Place[] = [
 ];
 
 export default function usePlaceAutocomplete() {
-  // call api here and update state
-  // fetch(
-  //   `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${value}&types=geocode&key=${API_KEY}`
-  // );
-
-  const getPlaces = (value: string) => {
+  const getPlaces = async (value: string) => {
     if (!value.trim()) {
       return [];
     }
 
-    return fakePredictions.filter((prediction) =>
-      prediction.description.toLowerCase().includes(value.toLowerCase())
-    );
+    const res = await fetch(`/api/places?search=${value}`);
+    const predictions: Place[] = await res.json();
+    return predictions;
   };
 
   return { getPlaces };
