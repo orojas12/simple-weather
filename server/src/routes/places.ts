@@ -25,11 +25,12 @@ placesRouter.get("/places", async (req, res) => {
     const data = await response.json();
     if (!response.ok) {
       res.status(response.status).json(data);
+      return;
     }
     const predictions: any[] = data.predictions;
     const places: Place[] = predictions.map((prediction) => {
       return {
-        placeId: prediction.placeId,
+        placeId: prediction.place_id,
         description: prediction.description,
         mainText: prediction.structured_formatting.main_text,
         secondaryText: prediction.structured_formatting.secondary_text,
