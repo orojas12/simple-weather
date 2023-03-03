@@ -65,3 +65,7 @@
   flex-direction: column;
   gap: 1em;
 }
+
+.location-search__result {
+  border-radius: 16px;
+}

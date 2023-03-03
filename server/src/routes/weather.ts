@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 const { WEATHER_API_KEY } = process.env;
 const weatherRouter = Router();
 
-weatherRouter.get("/", async (req, res) => {
+weatherRouter.get("/weather", async (req, res) => {
   if (!(req.query.lat && req.query.lng)) {
     return res
       .status(400)
