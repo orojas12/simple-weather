@@ -14,36 +14,33 @@ export interface WeatherData {
 
 export const WeatherContext = createContext<WeatherData | null>(null);
 
-export default function useWeather(latitude: number, longitude: number) {
-  const [coords, setCoords] = useState({ latitude, longitude });
+export default function useWeather(lat: number, lng: number) {
   const [weather, setWeather] = useState<WeatherData | null>(null);
 
   useEffect(() => {
-    async function fetchWeather(latitude: number, longitude: number) {
-      try {
-        const res = await fetch(
-          `/api/weather?lat=${latitude}&lng=${longitude}`
-        );
-        if (!res.ok) throw new Error(`${res.status} Failed to fetch weather.`);
+    fetchWeather(lat, lng);
+  }, [lat, lng]);
 
-        const data = await res.json();
-        setWeather({
-          current: new WeatherCurrent(data.current),
-          hourly: data.hourly.map((hourData: any) => new WeatherHour(hourData)),
-          daily: data.daily.map((dayData: any) => new WeatherDay(dayData)),
-          alerts: data.alerts?.map((data: any) => new WeatherAlert(data)),
-        });
-      } catch (error) {
-        console.error(error);
-      }
+  async function fetchWeather(lat: number, lng: number) {
+    try {
+      const res = await fetch(`/api/weather?lat=${lat}&lng=${lng}`);
+      if (!res.ok) throw new Error(`${res.status} Failed to fetch weather.`);
+
+      const data = await res.json();
+      setWeather({
+        current: new WeatherCurrent(data.current),
+        hourly: data.hourly.map((hourData: any) => new WeatherHour(hourData)),
+        daily: data.daily.map((dayData: any) => new WeatherDay(dayData)),
+        alerts: data.alerts?.map((data: any) => new WeatherAlert(data)),
+      });
+    } catch (error) {
+      console.error(error);
     }
+  }
 
-    fetchWeather(coords.latitude, coords.longitude);
-  }, [coords]);
+  function update() {
+    fetchWeather(lat, lng);
+  }
 
-  const updateWeather = () => {
-    setCoords((prevCoords) => ({ ...prevCoords }));
-  };
-
-  return { weather, updateWeather, setCoords };
+  return { weather, update };
 }

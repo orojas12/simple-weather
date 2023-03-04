@@ -17,9 +17,9 @@ weatherRouter.get("/weather", async (req, res) => {
     );
     const data = await response.json();
     if (!response.ok) {
-      res.status(response.status).json(data);
+      return res.status(response.status).json(data);
     }
-    res.json(data);
+    res.set("Cache-Control", "public, max-age=300").json(data);
   } catch (error) {
     console.error(error);
     res.status(500).json({

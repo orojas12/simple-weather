@@ -7,21 +7,14 @@ import "./app.css";
 
 export default function App() {
   const location = useLocation();
-  const { weather, updateWeather, setCoords } = useWeather(
+  const { weather, update } = useWeather(
     location.data.activeLocation.lat,
-    location.data.activeLocation.lat
+    location.data.activeLocation.lng
   );
   const [toast, setToast] = useState<ToastProps | null>(null);
   const [toastActive, setToastActive] = useState(false);
   const toastTimeout = useRef<NodeJS.Timeout | null>(null);
   const toastActiveTimeout = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    setCoords({
-      latitude: location.data.activeLocation.lat,
-      longitude: location.data.activeLocation.lng,
-    });
-  }, [location.data.activeLocation.placeId]);
 
   useEffect(() => {
     if (toast) {
