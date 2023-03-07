@@ -104,7 +104,6 @@ export default abstract class Weather {
   readonly dew_point: number;
   readonly uvi: number;
   readonly clouds: number;
-  readonly visibility: number;
   readonly wind_speed: number;
   readonly wind_deg: number;
   readonly wind_gust?: number;
@@ -136,7 +135,6 @@ export default abstract class Weather {
     this.dew_point = data.dew_point;
     this.uvi = data.uvi;
     this.clouds = data.clouds;
-    this.visibility = data.visibility;
     this.wind_speed = data.wind_speed;
     this.wind_deg = data.wind_deg;
     this.wind_gust = data.wind_gust;
@@ -254,5 +252,51 @@ export default abstract class Weather {
       category = "Extreme";
     }
     return category;
+  }
+
+  /**
+   * Gets a short description of the temperature in terms of cold or hot.
+   * @returns Description of the temperature.
+   */
+  getTempDesc() {
+    let desc = "";
+    const temp = this.getTemp();
+    if (temp <= 32) {
+      desc = "Very Cold";
+    } else if (temp <= 60) {
+      desc = "Cold";
+    } else if (temp <= 85) {
+      desc = "Moderate";
+    } else if (temp < 100) {
+      desc = "Hot";
+    } else {
+      desc = "Very Hot";
+    }
+    return desc;
+  }
+
+  /**
+   * Converts meters to miles rounded to the nearest hundreth.
+   * @returns Miles
+   */
+  metersToMiles(meters: number) {
+    return Math.round((meters / 1609.34) * 100) / 100;
+  }
+
+  /**
+   * Gets a short description of the visibility
+   */
+  getVisibilityDesc(meters: number) {
+    let desc = "";
+    if (meters >= 5000) {
+      desc = "Good";
+    } else if (meters >= 2000) {
+      desc = "Moderate";
+    } else if (meters >= 1000) {
+      desc = "Poor";
+    } else {
+      desc = "Very Poor";
+    }
+    return desc;
   }
 }
