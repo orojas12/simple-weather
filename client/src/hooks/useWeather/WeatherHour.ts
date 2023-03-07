@@ -2,6 +2,7 @@ import Weather from "./Weather";
 
 export default class WeatherHour extends Weather {
   pop: number;
+  visibility: number;
 
   constructor(data: any) {
     const newData = {
@@ -11,5 +12,6 @@ export default class WeatherHour extends Weather {
     };
     super(newData);
     this.pop = data.pop;
+    this.visibility = data.visibility;
   }
 }
