@@ -11,8 +11,8 @@ import { LocationContext } from "hooks/useLocation";
 import Clock from "./Clock";
 import WeatherCard from "./WeatherCard";
 import WeatherAlertAccordian from "./WeatherAlertAccordian";
-import CurrentWeatherCards from "./CurrentWeatherCards";
-import DailyWeatherCards from "./DailyWeatherCards";
+import CurrentWeatherOverview from "./CurrentWeatherOverview";
+import DailyWeatherOverview from "./DailyWeatherOverview";
 import "./dashboard.css";
 
 function getDashboardHeading(weather: Weather | undefined, location: string) {
@@ -29,6 +29,23 @@ function getDashboardHeading(weather: Weather | undefined, location: string) {
   return heading;
 }
 
+function getDailyCards(
+  days: WeatherDay[],
+  onCardClick: (day: WeatherDay) => void,
+  activeWeather: WeatherCurrent | WeatherDay | undefined
+) {
+  return days.map((day, i) => {
+    return (
+      <WeatherCard
+        key={i}
+        weather={day}
+        onClick={() => onCardClick(day)}
+        active={activeWeather === day}
+      />
+    );
+  });
+}
+
 export default function DashboardPage() {
   const location = useContext(LocationContext);
   const weather = useContext(WeatherContext);
@@ -40,18 +57,13 @@ export default function DashboardPage() {
     setDisplayedWeather(weather?.current);
   }, [weather]);
 
-  const getDailyCards = () => {
-    return weather?.daily.map((day, i) => {
-      return (
-        <WeatherCard
-          key={i}
-          weather={day}
-          onClick={() => setDisplayedWeather(day)}
-          active={displayedWeather === day}
-        />
-      );
-    });
-  };
+  const dailyCards = weather?.daily
+    ? getDailyCards(
+        weather.daily,
+        (day) => setDisplayedWeather(day),
+        displayedWeather
+      )
+    : null;
 
   const heading = getDashboardHeading(
     displayedWeather,
@@ -105,7 +117,7 @@ export default function DashboardPage() {
     <article className="dashboard">
       <header>
         <Clock />
-        <Dropdown id="dropdown1" size="small">
+        <Dropdown id="dropdown_location" size="small">
           <Dropdown.Toggle>
             <LocationIcon className="dashboard__location-icon" />
             {location?.data.activeLocation.description}
@@ -131,7 +143,7 @@ export default function DashboardPage() {
             onClick={() => setDisplayedWeather(weather?.current)}
             active={displayedWeather === weather?.current}
           />
-          {getDailyCards()}
+          {dailyCards}
         </div>
         <div className="dashboard__overview">
           <h1 className="dashboard__heading">{heading}</h1>
@@ -141,14 +153,14 @@ export default function DashboardPage() {
             ))}
           </div>
           {displayedWeather instanceof WeatherCurrent ? (
-            <CurrentWeatherCards
+            <CurrentWeatherOverview
               weather={displayedWeather}
               hourlyPrecipData={hourlyPrecipData}
               hourlyWindData={hourlyWindData}
               hourlyTempData={hourlyTempData}
             />
           ) : displayedWeather instanceof WeatherDay ? (
-            <DailyWeatherCards weather={displayedWeather as WeatherDay} />
+            <DailyWeatherOverview weather={displayedWeather as WeatherDay} />
           ) : (
             <h1>Loading...</h1>
           )}

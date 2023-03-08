@@ -4,11 +4,13 @@ import { TempIcon, WindIcon } from "icons/weather";
 import React from "react";
 import WeatherDetailCard from "./WeatherDetailCard";
 
-interface DailyWeatherCardsProps {
+interface DailyWeatherOverviewProps {
   weather: WeatherDay;
 }
 
-export default function DailyWeatherCards({ weather }: DailyWeatherCardsProps) {
+export default function DailyWeatherOverview({
+  weather,
+}: DailyWeatherOverviewProps) {
   return (
     <div className="dashboard__cards">
       <WeatherDetailCard

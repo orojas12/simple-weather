@@ -6,7 +6,7 @@ import { WindIcon, TempIcon } from "icons/weather";
 import WeatherChart from "./WeatherChart";
 import WeatherDetailCard from "./WeatherDetailCard";
 
-interface CurrentWeatherCardsProps {
+interface CurrentWeatherOverviewProps {
   weather: WeatherCurrent;
   hourlyWindData: {
     labels: string[];
@@ -31,12 +31,12 @@ interface CurrentWeatherCardsProps {
   };
 }
 
-export default function CurrentWeatherCards({
+export default function CurrentWeatherOverview({
   weather,
   hourlyWindData,
   hourlyPrecipData,
   hourlyTempData,
-}: CurrentWeatherCardsProps) {
+}: CurrentWeatherOverviewProps) {
   const WeatherIcon = weather.getIcon();
 
   return (
