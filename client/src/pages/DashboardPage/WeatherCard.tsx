@@ -14,7 +14,25 @@ export default function WeatherCard({
   onClick,
   active = false,
 }: WeatherCardProps) {
-  if (!weather) return null;
+  if (!weather)
+    return (
+      <Card
+        loading={true}
+        className={`dashboard__day ${active ? "dashboard__day--active" : ""}`}
+      >
+        <Card.Title
+          align="center"
+          className="dashboard__day-title dashboard__day-title--active"
+        >
+          Title
+        </Card.Title>
+        <Card.Content className="dashboard__day-content">
+          <div style={{ height: "3em", width: "3em" }}></div>
+          0&deg;
+          <div className="fs-2">0</div>
+        </Card.Content>
+      </Card>
+    );
   let title: string;
   let temperature: React.ReactNode;
   let precipitation: React.ReactNode;

@@ -7,6 +7,15 @@
   box-shadow: var(--box-shadow-100);
 }
 
+.card--loading {
+  color: transparent;
+}
+
+.card--loading > * {
+  background-color: hsl(var(--clr-base-400));
+  animation: 2s pulse linear infinite;
+}
+
 .card__title {
   display: flex;
 }
@@ -21,4 +30,18 @@
 
 .card__title--end {
   justify-content: flex-end;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 20%;
+  }
+
+  50% {
+    opacity: 100%;
+  }
+
+  100% {
+    opacity: 20%;
+  }
 }

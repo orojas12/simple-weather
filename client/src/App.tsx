@@ -7,7 +7,7 @@ import "./app.css";
 
 export default function App() {
   const location = useLocation();
-  const { weather, update } = useWeather(
+  const { weather, update, isLoading } = useWeather(
     location.data.activeLocation.lat,
     location.data.activeLocation.lng
   );
@@ -42,7 +42,7 @@ export default function App() {
       <Navbar />
       <main>
         <LocationContext.Provider value={location}>
-          <WeatherContext.Provider value={weather}>
+          <WeatherContext.Provider value={{ weather, update, isLoading }}>
             <ToastContext.Provider value={{ setToast }}>
               <Outlet />
             </ToastContext.Provider>

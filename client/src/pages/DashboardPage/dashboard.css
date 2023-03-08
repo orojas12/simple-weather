@@ -175,6 +175,13 @@
   aspect-ratio: 3 / 1;
 }
 
+.dashboard__loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2em;
+}
+
 @media screen and (max-width: 768px) {
   .dashboard header {
     padding: 0.8em;

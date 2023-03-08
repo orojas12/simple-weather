@@ -2,6 +2,7 @@ import React from "react";
 import "./card.css";
 
 interface CardProps {
+  loading?: boolean;
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
@@ -20,9 +21,17 @@ interface ContentProps {
   children?: React.ReactNode;
 }
 
-export default function Card({ style, className = "", children }: CardProps) {
+export default function Card({
+  loading = false,
+  style,
+  className = "",
+  children,
+}: CardProps) {
   return (
-    <div className={`card ${className}`} style={style}>
+    <div
+      className={`card ${loading ? "card--loading" : ""} ${className}`}
+      style={style}
+    >
       {children}
     </div>
   );

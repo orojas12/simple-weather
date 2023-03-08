@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Dropdown } from "components";
+import { Dropdown, Spinner } from "components";
 import { LocationIcon } from "icons/ui";
 import {
   Weather,
@@ -29,6 +29,15 @@ function getDashboardHeading(weather: Weather | undefined, location: string) {
   return heading;
 }
 
+function getDailyCardPlaceholders() {
+  const days = Array(8).fill(undefined);
+  return days.map((day, i) => {
+    return (
+      <WeatherCard key={i} weather={day} onClick={() => {}} active={false} />
+    );
+  });
+}
+
 function getDailyCards(
   days: WeatherDay[],
   onCardClick: (day: WeatherDay) => void,
@@ -40,7 +49,7 @@ function getDailyCards(
         key={i}
         weather={day}
         onClick={() => onCardClick(day)}
-        active={activeWeather === day}
+        active={activeWeather && activeWeather === day}
       />
     );
   });
@@ -48,7 +57,7 @@ function getDailyCards(
 
 export default function DashboardPage() {
   const location = useContext(LocationContext);
-  const weather = useContext(WeatherContext);
+  const { weather, update, isLoading } = useContext(WeatherContext);
   const [displayedWeather, setDisplayedWeather] = useState<
     WeatherCurrent | WeatherDay | undefined
   >(weather?.current);
@@ -57,13 +66,14 @@ export default function DashboardPage() {
     setDisplayedWeather(weather?.current);
   }, [weather]);
 
-  const dailyCards = weather?.daily
-    ? getDailyCards(
-        weather.daily,
-        (day) => setDisplayedWeather(day),
-        displayedWeather
-      )
-    : null;
+  const dailyCards =
+    isLoading || !weather?.daily
+      ? getDailyCardPlaceholders()
+      : getDailyCards(
+          weather.daily,
+          (day) => setDisplayedWeather(day),
+          displayedWeather
+        );
 
   const heading = getDashboardHeading(
     displayedWeather,
@@ -139,7 +149,7 @@ export default function DashboardPage() {
       <main>
         <div className="dashboard__days">
           <WeatherCard
-            weather={weather?.current}
+            weather={isLoading ? undefined : weather?.current}
             onClick={() => setDisplayedWeather(weather?.current)}
             active={displayedWeather === weather?.current}
           />
@@ -152,17 +162,19 @@ export default function DashboardPage() {
               <WeatherAlertAccordian key={alert.event} alert={alert} />
             ))}
           </div>
-          {displayedWeather instanceof WeatherCurrent ? (
+          {isLoading || !displayedWeather ? (
+            <div className="dashboard__loader">
+              <Spinner />
+            </div>
+          ) : displayedWeather instanceof WeatherCurrent ? (
             <CurrentWeatherOverview
               weather={displayedWeather}
               hourlyPrecipData={hourlyPrecipData}
               hourlyWindData={hourlyWindData}
               hourlyTempData={hourlyTempData}
             />
-          ) : displayedWeather instanceof WeatherDay ? (
-            <DailyWeatherOverview weather={displayedWeather as WeatherDay} />
           ) : (
-            <h1>Loading...</h1>
+            <DailyWeatherOverview weather={displayedWeather as WeatherDay} />
           )}
         </div>
       </main>
