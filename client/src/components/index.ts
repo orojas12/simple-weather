@@ -6,6 +6,7 @@ import Navbar from "./Navbar/Navbar";
 import Accordian from "./Accordian/Accordian";
 import Progress from "./Progress/Progress";
 import Toast, { ToastContext, ToastProps } from "./Toast/Toast";
+import Spinner from "./Spinner/Spinner";
 
 export type { ToastProps };
 export {
@@ -18,4 +19,5 @@ export {
   Progress,
   Toast,
   ToastContext,
+  Spinner,
 };
