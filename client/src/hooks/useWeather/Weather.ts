@@ -75,7 +75,7 @@ const weatherIcons = new Map([
   [800, SunnyIcon],
   [801, PartlyCloudyIcon],
   [802, PartlyCloudyIcon],
-  [803, CloudyIcon],
+  [803, PartlyCloudyIcon],
   [804, CloudyIcon],
 ]);
 
