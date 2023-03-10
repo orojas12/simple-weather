@@ -9,6 +9,9 @@ import TornadoIcon from "./TornadoIcon";
 import PrecipitationIcon from "./PrecipitationIcon";
 import TempIcon from "./TempIcon";
 import WindIcon from "./WindIcon";
+import HorizonIcon from "./HorizonIcon";
+import NightIcon from "./NightIcon";
+import MoonIcon from "./MoonIcon";
 
 export {
   CloudyIcon,
@@ -22,4 +25,7 @@ export {
   PrecipitationIcon,
   TempIcon,
   WindIcon,
+  HorizonIcon,
+  NightIcon,
+  MoonIcon,
 };
