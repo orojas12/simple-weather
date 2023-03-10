@@ -49,7 +49,7 @@ export default function CurrentWeatherOverview({
             <WeatherIcon className="dashboard__current-icon" />
           ) : null
         }
-        subtitle={weather.condition.description || ""}
+        subtitle={weather.condition.description}
       />
       <WeatherDetailCard
         title="Feels Like"
