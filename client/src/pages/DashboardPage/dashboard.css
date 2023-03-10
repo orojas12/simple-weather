@@ -91,14 +91,9 @@
 .dashboard__cards {
   display: grid;
   grid-template-columns: repeat(4, 15em);
-  /* grid-template-rows: auto 30em; */
   align-items: flex-start;
   gap: 1em;
   width: 100%;
-}
-
-.dashboard__card {
-  padding: 1.5em;
 }
 
 .dashboard__card-title {
@@ -148,6 +143,17 @@
   grid-column: 1 / 3;
 }
 
+.dashboard__day-temps {
+  grid-row: 2 / 3;
+  grid-column: 1 / 3;
+}
+
+.dashboard__day-temp {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
 .dashboard__uvi-progress-wrapper {
   justify-self: flex-end;
   height: 100%;
@@ -173,6 +179,11 @@
 
 .dashboard__weather-chart {
   aspect-ratio: 3 / 1;
+}
+
+.dashboard__weather-icon {
+  height: var(--fs-8);
+  width: auto;
 }
 
 .dashboard__loader {
