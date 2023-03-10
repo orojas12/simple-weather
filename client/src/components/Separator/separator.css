@@ -1,0 +1,12 @@
+.separator {
+  border: 1px solid hsl(var(--clr-base-400));
+}
+
+.separator--vertical {
+  width: 1px;
+}
+
+.separator--horizontal {
+  height: 1px;
+  width: 100%;
+}

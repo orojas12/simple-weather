@@ -7,6 +7,7 @@ import Accordian from "./Accordian/Accordian";
 import Progress from "./Progress/Progress";
 import Toast, { ToastContext, ToastProps } from "./Toast/Toast";
 import Spinner from "./Spinner/Spinner";
+import Separator from "./Separator/Separator";
 
 export type { ToastProps };
 export {
@@ -20,4 +21,5 @@ export {
   Toast,
   ToastContext,
   Spinner,
+  Separator,
 };
