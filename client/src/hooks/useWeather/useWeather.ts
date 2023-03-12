@@ -16,21 +16,21 @@ export const WeatherContext = createContext<ReturnType<typeof useWeather>>({
   weather: null,
   update: () => {},
   isLoading: true,
+  error: null,
 });
 
 export default function useWeather(lat: number, lng: number) {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    setIsLoading(true);
+    fetchWeather(lat, lng);
   }, [lat, lng]);
 
-  useEffect(() => {
-    if (isLoading) fetchWeather(lat, lng);
-  }, [isLoading]);
-
   async function fetchWeather(lat: number, lng: number) {
+    setIsLoading(true);
+
     try {
       const res = await fetch(`/api/weather?lat=${lat}&lng=${lng}`);
       if (!res.ok) throw new Error(`${res.status} Failed to fetch weather.`);
@@ -43,8 +43,10 @@ export default function useWeather(lat: number, lng: number) {
         alerts: data.alerts?.map((data: any) => new WeatherAlert(data)),
       });
       setIsLoading(false);
-    } catch (error) {
-      console.error(error);
+      setError(null);
+    } catch (err: any) {
+      console.error(err);
+      setError(err);
     }
   }
 
@@ -52,5 +54,5 @@ export default function useWeather(lat: number, lng: number) {
     fetchWeather(lat, lng);
   }
 
-  return { weather, update, isLoading };
+  return { weather, update, isLoading, error };
 }

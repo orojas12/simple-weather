@@ -7,7 +7,7 @@ import "./app.css";
 
 export default function App() {
   const location = useLocation();
-  const { weather, update, isLoading } = useWeather(
+  const { weather, update, isLoading, error } = useWeather(
     location.data.activeLocation.lat,
     location.data.activeLocation.lng
   );
@@ -37,12 +37,23 @@ export default function App() {
     return () => clearTimeout(toastActiveTimeout.current || undefined);
   }, [toastActive]);
 
+  useEffect(() => {
+    if (error) {
+      setToast({
+        type: "alert",
+        msg: "Something went wrong. Please try again later.",
+      });
+    }
+  }, [error]);
+
   return (
     <div className="App">
       <Navbar />
       <main>
         <LocationContext.Provider value={location}>
-          <WeatherContext.Provider value={{ weather, update, isLoading }}>
+          <WeatherContext.Provider
+            value={{ weather, update, isLoading, error }}
+          >
             <ToastContext.Provider value={{ setToast }}>
               <Outlet />
             </ToastContext.Provider>
