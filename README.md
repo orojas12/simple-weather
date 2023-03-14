@@ -17,3 +17,7 @@ This project uses [Docker](https://www.docker.com/) for local development. Ensur
 3. Run docker compose to start application: `sudo docker compose -f docker-compose.dev.yml up`
 
 4. Source files will automatically be reloaded by the client and server when changed.
+
+## License
+
+This software is licensed under the [MIT License](https://github.com/orojas12/simple-weather/license.txt).
