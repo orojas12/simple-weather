@@ -6,7 +6,7 @@ Simple Weather is a weather dashboard application that provides current weather 
 
 ### Prerequisites
 
-This project uses (Docker)[https://www.docker.com/] for local development. Ensure you have it installed on your machine.
+This project uses [Docker](https://www.docker.com/) for local development. Ensure you have it installed on your machine.
 
 ### Setup
 
