@@ -20,4 +20,4 @@ This project uses [Docker](https://www.docker.com/) for local development. Ensur
 
 ## License
 
-This software is licensed under the [MIT License](https://github.com/orojas12/simple-weather/license.txt).
+This software is licensed under the [MIT License](https://github.com/orojas12/simple-weather/LICENSE.md).
