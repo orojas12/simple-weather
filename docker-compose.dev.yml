@@ -1,0 +1,18 @@
+services:
+  server:
+    build: ./server
+    container_name: simpleweather_server
+    volumes:
+      - ./server:/app
+  client:
+    build: ./client
+    container_name: simpleweather_client
+    volumes: 
+      - ./client:/app
+  proxy:
+    image: nginx:1.23
+    container_name: simpleweather_proxy
+    volumes:
+      - ./nginx/nginx.dev.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8080:80"

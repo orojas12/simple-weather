@@ -12,14 +12,15 @@ const config = {
       directory: path.resolve(__dirname, "dist"),
     },
     open: true,
-    host: "127.0.0.1",
+    host: "0.0.0.0",
     port: 3000,
-    historyApiFallback: true,
-    proxy: {
-      "/api": {
-        target: "http://127.0.0.1:8080",
-      },
+    allowedHosts: [
+      "all"
+    ],
+    client: {
+      webSocketURL: "ws://localhost:8080/ws"
     },
+    historyApiFallback: true,
   },
   devtool: "inline-source-map",
   plugins: [],
