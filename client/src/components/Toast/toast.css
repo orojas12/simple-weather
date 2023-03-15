@@ -37,3 +37,10 @@
   transform: translateX(-50%);
   cursor: pointer;
 }
+
+@media screen and (max-width: 576px) {
+  .toast__wrapper {
+    width: 90%;
+    bottom: 1em;
+  }
+}
