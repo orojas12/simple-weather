@@ -33,7 +33,7 @@ function getDailyCardPlaceholders() {
   const days = Array(8).fill(undefined);
   return days.map((day, i) => {
     return (
-      <WeatherCard key={i} weather={day} onClick={() => {}} active={false} />
+      <WeatherCard key={i} weather={day} onClick={() => { }} active={false} />
     );
   });
 }
@@ -70,10 +70,10 @@ export default function DashboardPage() {
     isLoading || !weather?.daily
       ? getDailyCardPlaceholders()
       : getDailyCards(
-          weather.daily,
-          (day) => setDisplayedWeather(day),
-          displayedWeather
-        );
+        weather.daily,
+        (day) => setDisplayedWeather(day),
+        displayedWeather
+      );
 
   const heading = getDashboardHeading(
     displayedWeather,
@@ -127,13 +127,16 @@ export default function DashboardPage() {
     <article className="dashboard">
       <header>
         <Clock />
-        <Dropdown id="dropdown_location" size="small">
-          <Dropdown.Toggle>
-            <LocationIcon className="dashboard__location-icon" />
-            {location?.data.activeLocation.description}
+        <Dropdown id="dropdown_location" className="dashboard__dropdown">
+          <Dropdown.Toggle className="flex justify-between">
+            <div>
+              <LocationIcon className="dashboard__location-icon" />
+              {location?.data.activeLocation.description}
+            </div>
             <Dropdown.ToggleIcon />
           </Dropdown.Toggle>
           <Dropdown.Menu
+            className="dashboard__dropdown"
             align="end"
             items={
               location?.data.savedLocations.map((value) => {
