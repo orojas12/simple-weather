@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
+  z-index: 10;
 }
 
 .navbar__logo {
@@ -81,11 +82,11 @@
     width: 100%;
     max-width: 100%;
     padding: 0.8rem;
-    font-size: var(--fs-2);
+    /* font-size: var(--fs-2); */
   }
 
   .navbar__icon {
-    height: var(--fs-2);
+    /* height: var(--fs-2); */
   }
 
   .navbar__list {
@@ -94,13 +95,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .navbar {
-    padding: 0.4rem;
-  }
-
-  .navbar__logo {
-    width: 140px;
-  }
 
   .navbar__list {
     display: none;
