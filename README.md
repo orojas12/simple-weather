@@ -16,7 +16,9 @@ This project uses [Docker](https://www.docker.com/) for local development. Ensur
 
 3. Run docker compose to start application: `sudo docker compose -f docker-compose.dev.yml up`
 
-4. Source files will automatically be reloaded by the client and server when changed.
+4. The client app is served on `http://localhost:8080/` and server app listens on `http://localhost:8080/api`
+
+5. Source files will automatically be reloaded by the client and server when changed.
 
 ## License
 
