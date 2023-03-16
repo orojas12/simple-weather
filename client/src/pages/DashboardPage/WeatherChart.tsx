@@ -31,6 +31,8 @@ interface WeatherChartProps {
   yMax?: number;
   className?: string;
   style?: React.CSSProperties;
+  aspectRatio: number;
+  variant: "lg" | "sm";
 }
 
 export default function WeatherChart(props: WeatherChartProps) {
@@ -47,16 +49,16 @@ export default function WeatherChart(props: WeatherChartProps) {
       <Card.Title align="start" className="dashboard__card-title">
         {props.title}
       </Card.Title>
-      <Card.Content className="dashboard__weather-chart">
+      <Card.Content className={`dashboard__weather-chart--${props.variant}`}>
         {Chart ? (
           <Chart
             options={{
-              aspectRatio: 3,
+              aspectRatio: props.aspectRatio,
               responsive: true,
               scales: {
                 x: {
                   ticks: {
-                    autoSkip: false,
+                    autoSkip: true,
                   },
                 },
                 y: {

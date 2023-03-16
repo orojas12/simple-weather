@@ -84,25 +84,58 @@ export default function CurrentWeatherOverview({
         subtitle={weather.getUviCategory()!}
       />
       <WeatherChart
-        className="dashboard__precipitation-card"
+        className="dashboard__precipitation-card dashboard__chart--lg"
         type="bar"
         title="Probability of Precipitation (%)"
         data={hourlyPrecipData}
         yMax={100}
+        aspectRatio={3}
+        variant="lg"
       />
       <WeatherChart
-        className="dashboard__wind-speed-card"
+        className="dashboard__precipitation-card dashboard__chart--sm"
+        type="bar"
+        title="Probability of Precipitation (%)"
+        data={hourlyPrecipData}
+        yMax={100}
+        aspectRatio={2}
+        variant="sm"
+      />
+      <WeatherChart
+        className="dashboard__wind-speed-card dashboard__chart--lg"
         type="line"
         title="Wind Speed"
         data={hourlyWindData}
         yMax={100}
+        aspectRatio={3}
+        variant="lg"
       />
       <WeatherChart
-        className="dashboard__temperature-card"
+        className="dashboard__wind-speed-card dashboard__chart--sm"
+        type="line"
+        title="Wind Speed"
+        data={hourlyWindData}
+        yMax={100}
+        aspectRatio={2}
+        variant="sm"
+      />
+      <WeatherChart
+        className="dashboard__temperature-card dashboard__chart--lg"
         type="line"
         title="Temperature"
         data={hourlyTempData}
         yMax={100}
+        aspectRatio={3}
+        variant="lg"
+      />
+      <WeatherChart
+        className="dashboard__temperature-card dashboard__chart--sm"
+        type="line"
+        title="Temperature"
+        data={hourlyTempData}
+        yMax={100}
+        aspectRatio={2}
+        variant="sm"
       />
     </div>
   );
