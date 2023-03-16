@@ -54,6 +54,7 @@ export default function LocationsPage() {
                     location.deleteLocation(location.data.favoriteLocation!),
                 },
               ]}
+              onClick={() => location.data.favoriteLocation ? location.setLocation(location.data.favoriteLocation) : undefined}
               active={
                 location.data.activeLocation.placeId ===
                 location.data.favoriteLocation.placeId
@@ -86,6 +87,7 @@ export default function LocationsPage() {
                     action: () => location.deleteLocation(value),
                   },
                 ]}
+                onClick={() => location.setLocation(value)}
                 active={location.data.activeLocation.placeId === value.placeId}
               />
             ))}
