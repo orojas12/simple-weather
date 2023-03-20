@@ -46,8 +46,9 @@
   display: flex;
 }
 
-.App>main {
+.App > main {
   width: 100%;
+  height: 100%;
   overflow-y: auto;
 }
 
@@ -56,7 +57,7 @@
     flex-direction: column;
   }
 
-  .App>main {
+  .App > main {
     padding: 0;
   }
 }
