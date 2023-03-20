@@ -4,10 +4,19 @@ services:
     container_name: simpleweather_server
     volumes:
       - ./server:/app
+    command: npm start
+    depends_on:
+      - server_tsc
+  server_tsc:
+    build: ./server
+    container_name: simpleweather_server-tsc
+    volumes:
+      - ./server:/app
+    command: npm run build:watch
   client:
     build: ./client
     container_name: simpleweather_client
-    volumes: 
+    volumes:
       - ./client:/app
   proxy:
     image: nginx:1.23
@@ -16,3 +25,6 @@ services:
       - ./nginx/nginx.dev.conf:/etc/nginx/nginx.conf
     ports:
       - "8080:80"
+    depends_on:
+      - client
+      - server
