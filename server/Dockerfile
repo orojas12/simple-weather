@@ -7,8 +7,6 @@ COPY . .
 
 RUN npm ci
 
-RUN npm run build:watch
-
 EXPOSE 8080
 
 CMD ["npm", "start"]
