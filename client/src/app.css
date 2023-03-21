@@ -8,6 +8,7 @@
   --clr-base-300: 216 45% 94%;
   --clr-base-400: 216 45% 90%;
   --clr-base-500: 216 45% 85%;
+  --clr-base-600: 216 45% 70%;
   --clr-dark-100: 216 10% 50%;
   --clr-dark-200: 216 10% 35%;
   --clr-success-100: 149 100% 75%;
@@ -31,6 +32,7 @@
   --bp-xl: 1200px;
   --bp-xxl: 1400px;
   --box-shadow-100: 0 0 3px hsl(var(--clr-base-500));
+  --box-shadow-200: 0 0 3px hsl(var(--clr-base-600));
 }
 
 .App {
