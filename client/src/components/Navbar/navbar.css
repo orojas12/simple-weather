@@ -13,7 +13,9 @@
 }
 
 .navbar__logo {
-  width: 160px;
+  width: 100%;
+  height: auto;
+  padding-inline: 0.8em;
 }
 
 .navbar__icon {
@@ -46,7 +48,7 @@
 }
 
 .navbar__dropdown-menu li {
-  padding: 0.6em;
+  padding: 0;
 }
 
 .navbar__list {
@@ -63,6 +65,7 @@
   box-shadow: none !important;
   padding: 1em !important;
   gap: 0.5em;
+  border-radius: 8px !important;
 }
 
 .navbar__link:hover {
@@ -95,12 +98,16 @@
 }
 
 @media screen and (max-width: 768px) {
-
   .navbar__list {
     display: none;
   }
 
   .navbar__dropdown {
     display: block;
+  }
+
+  .navbar__link {
+    padding: 1.5em !important;
+    border-radius: 0 !important;
   }
 }
