@@ -26,7 +26,7 @@
   position: absolute;
   top: 115%;
   overflow: hidden;
-  padding: 1px;
+  padding: 5px;
   width: max-content;
   z-index: 2;
 }
@@ -45,7 +45,7 @@
   margin: 0;
   animation: 0.3s 1 normal slide-in-top;
   background-color: hsl(var(--clr-base-100));
-  box-shadow: var(--box-shadow-100);
+  box-shadow: var(--box-shadow-200);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -54,11 +54,15 @@
 }
 
 .dropdown__menu-item {
-  padding: 0.8em;
+  padding: 1em;
 }
 
 .dropdown__menu-item:hover {
   background-color: hsl(var(--clr-base-300));
+}
+
+.dropdown__menu-item:not(:first-child) {
+  border-top: 1px solid hsl(var(--clr-base-400));
 }
 
 .dropdown__icon {
