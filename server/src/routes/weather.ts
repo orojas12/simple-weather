@@ -19,7 +19,7 @@ weatherRouter.get("/weather", async (req, res) => {
     if (!response.ok) {
       return res.status(response.status).json(data);
     }
-    res.set("Cache-Control", "public, max-age=300").json(data);
+    res.set("Cache-Control", "max-age=300, must-revalidate").json(data);
   } catch (error) {
     console.error(error);
     res.status(500).json({
