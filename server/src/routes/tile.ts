@@ -11,7 +11,16 @@ tileRouter.get("/tile/:layer/:z/:x/:y.png", async (req, res) => {
       `https://tile.openweathermap.org/map/${layer}/${z}/${x}/${y}.png?appid=${WEATHER_API_KEY}`
     );
     const tile = await response.buffer();
-    res.status(response.status).set({ "Content-Type": "image/png" }).send(tile);
+    if (!response.ok) {
+      return res.status(response.status);
+    }
+    res
+      .status(response.status)
+      .set({
+        "Content-Type": "image/png",
+        "Cache-Control": "max-age=600, must-revalidate",
+      })
+      .send(tile);
   } catch (err: any) {
     console.error(err);
     res.status(500).json({
