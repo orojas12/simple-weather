@@ -1,0 +1,91 @@
+.settings-page {
+  max-width: 50em;
+}
+
+.settings-page header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+}
+
+.settings-page main {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+}
+
+.settings-page header h1 {
+  font-size: var(--fs-4);
+}
+
+.settings {
+  padding: 0;
+}
+
+.setting:not(:first-child) {
+  border-top: 1px solid hsl(var(--clr-base-400));
+}
+
+.setting {
+  cursor: pointer;
+  gap: 0.5em;
+}
+
+.setting__toggle {
+  padding: 0;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.setting:first-child .setting__toggle {
+  border-radius: 8px 8px 0 0;
+}
+
+.setting:last-child .setting__toggle {
+  border-radius: 0 0 8px 8px;
+}
+
+.setting__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.5em;
+  text-align: left;
+  padding: 1.5em;
+  box-shadow: none;
+  width: 100%;
+}
+
+.setting__menu {
+  top: 100%;
+}
+
+.setting__menu > * {
+  box-shadow: var(--box-shadow-200);
+}
+
+.setting__menu-item {
+  padding: 1.5em;
+}
+
+.setting__menu-item--active {
+  color: hsl(var(--clr-primary));
+}
+
+.setting__menu-check {
+  height: 1em;
+}
+
+.setting__menu-check path {
+  fill: hsl(var(--clr-primary));
+}
+
+.setting__toggle:hover {
+  background-color: hsl(var(--clr-base-200));
+}
+
+.setting__value {
+  color: hsl(var(--clr-primary));
+}
