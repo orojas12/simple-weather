@@ -20,25 +20,25 @@ export default class WeatherDay extends Weather {
 
   /**
    * Gets the minimum or "low" temperature for this day.
-   * @param useCelsius Get temperature on celsius. Uses fahrenheit if false.
+   * @param unit Use imperial or metric units.
    * @returns Minimum temperature.
    */
-  getMinTemp(useCelsius = false) {
+  getMinTemp(unit = "imperial") {
     if (typeof this.temp === "object")
       return Math.round(
-        useCelsius ? this.toCelsius(this.temp.min) : this.temp.min
+        unit === "metric" ? this.toCelsius(this.temp.min) : this.temp.min
       );
   }
 
   /**
    * Gets the maximum or "high" temperature for this day.
-   * @param useCelsius Get temperature on celsius. Uses fahrenheit if false.
+   * @param unit Use imperial or metric units.
    * @returns Maximum temperature.
    */
-  getMaxTemp(useCelsius = false) {
+  getMaxTemp(unit = "imperial") {
     if (typeof this.temp === "object")
       return Math.round(
-        useCelsius ? this.toCelsius(this.temp.max) : this.temp.max
+        unit === "metric" ? this.toCelsius(this.temp.max) : this.temp.max
       );
   }
 
@@ -47,8 +47,8 @@ export default class WeatherDay extends Weather {
    * @returns Description of the temperature.
    */
   getTempDesc() {
-    let desc = ""
-    const maxTemp = this.getMaxTemp()!
+    let desc = "";
+    const maxTemp = this.getMaxTemp()!;
     if (maxTemp <= 32) {
       desc = "Very Cold";
     } else if (maxTemp <= 60) {
@@ -58,7 +58,7 @@ export default class WeatherDay extends Weather {
     } else if (maxTemp < 100) {
       desc = "Hot";
     } else {
-      desc = "Very Hot"
+      desc = "Very Hot";
     }
     return desc;
   }

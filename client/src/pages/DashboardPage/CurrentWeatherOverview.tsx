@@ -7,6 +7,7 @@ import WeatherChart from "./WeatherChart";
 import WeatherDetailCard from "./WeatherDetailCard";
 
 interface CurrentWeatherOverviewProps {
+  units: string;
   weather: WeatherCurrent;
   hourlyWindData: {
     labels: string[];
@@ -36,6 +37,7 @@ export default function CurrentWeatherOverview({
   hourlyWindData,
   hourlyPrecipData,
   hourlyTempData,
+  units,
 }: CurrentWeatherOverviewProps) {
   const WeatherIcon = weather.getIcon();
 
@@ -43,7 +45,7 @@ export default function CurrentWeatherOverview({
     <div className="dashboard__cards">
       <WeatherDetailCard
         title="Current"
-        content={`${weather.getTemp()}\u00b0`}
+        content={`${weather.getTemp(units)}\u00b0`}
         icon={
           WeatherIcon ? (
             <WeatherIcon className="dashboard__current-icon" />
@@ -53,23 +55,31 @@ export default function CurrentWeatherOverview({
       />
       <WeatherDetailCard
         title="Feels Like"
-        content={`${Math.round(weather.getFeelsLikeTemp())}\u00b0`}
+        content={`${Math.round(weather.getFeelsLikeTemp(units))}\u00b0`}
         icon={<TempIcon className="dashboard__card-icon" />}
         subtitle={weather.getTempDesc()}
       />
       <WeatherDetailCard
         title="Wind"
-        content={`${Math.round(weather.wind_speed)} mph`}
+        content={`${Math.round(weather.getWindSpeed(units))} ${
+          units === "imperial" ? "mph" : "m/s"
+        }`}
         icon={<WindIcon className="dashboard__card-icon" />}
         subtitle={`${weather.getWindDirection()}${
           weather.wind_gust
-            ? ` - Gusts of ${Math.round(weather.wind_gust)} mph`
+            ? ` - Gusts of ${Math.round(weather.getWindGust(units)!)} ${
+                units === "imperial" ? "mph" : "m/s"
+              }`
             : ""
         }`}
       />
       <WeatherDetailCard
         title="Visibility"
-        content={`${weather.metersToMiles(weather.visibility)} mi`}
+        content={`${
+          units === "imperial"
+            ? weather.metersToMiles(weather.visibility)
+            : weather.visibility
+        } ${units === "imperial" ? "mi" : "m"}`}
         icon={<EyeIcon className="dashboard__card-icon" />}
         subtitle={`${weather.getVisibilityDesc(weather.visibility)}`}
       />
