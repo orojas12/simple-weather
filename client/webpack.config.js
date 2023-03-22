@@ -14,11 +14,9 @@ const config = {
     open: true,
     host: "0.0.0.0",
     port: 3000,
-    allowedHosts: [
-      "all"
-    ],
+    allowedHosts: ["all"],
     client: {
-      webSocketURL: "ws://localhost:8080/ws"
+      webSocketURL: "ws://localhost:8080/ws",
     },
     historyApiFallback: true,
   },
@@ -52,7 +50,8 @@ const config = {
       pages: path.resolve(__dirname, "src/pages"),
       hooks: path.resolve(__dirname, "src/hooks"),
       layout: path.resolve(__dirname, "src/layout"),
-      services: path.resolve(__dirname, "src/services"),
+      context: path.resolve(__dirname, "src/context"),
+      utils: path.resolve(__dirname, "src/utils"),
     },
   },
 };
