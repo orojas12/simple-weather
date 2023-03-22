@@ -1,17 +1,19 @@
 import React from "react";
 import { Dropdown } from "components";
 import { CheckIcon } from "icons/ui";
+import { capitalize } from "utils";
 
 interface SettingProps {
+  label: string;
   name: string;
   value: any;
-  values: any[];
+  options: { label: string; value: any }[];
   onChange: (name: string, value: any) => void;
 }
 
 export default function Setting(props: SettingProps) {
-  const items = props.values.map((value) => {
-    const isActive = props.value === value;
+  const items = props.options.map((option) => {
+    const isActive = option.value === props.value;
 
     return {
       content: (
@@ -20,20 +22,22 @@ export default function Setting(props: SettingProps) {
             isActive ? "setting__menu-item--active" : null
           }`}
         >
-          {value}{" "}
+          {option.label}{" "}
           {isActive ? <CheckIcon className="setting__menu-check" /> : null}
         </div>
       ),
-      action: () => props.onChange(props.name, value),
+      action: () => props.onChange(props.name, option.value),
     };
   });
 
   return (
-    <Dropdown id={`setting_${props.name}`} className="setting">
+    <Dropdown id={`setting_${props.label}`} className="setting">
       <Dropdown.Toggle className="setting__toggle">
         <div className="setting__content">
-          <span className="setting__name">{props.name}</span>
-          <span className="setting__value">{props.value}</span>
+          <span className="setting__name">{props.label}</span>
+          <span className="setting__value">
+            {capitalize(String(props.value))}
+          </span>
         </div>
       </Dropdown.Toggle>
       <Dropdown.Menu
