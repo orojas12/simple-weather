@@ -5,10 +5,12 @@ import React from "react";
 import WeatherDetailCard from "./WeatherDetailCard";
 
 interface DailyWeatherOverviewProps {
+  units: string;
   weather: WeatherDay;
 }
 
 export default function DailyWeatherOverview({
+  units,
   weather,
 }: DailyWeatherOverviewProps) {
   const WeatherIcon = weather.getIcon();
@@ -17,10 +19,10 @@ export default function DailyWeatherOverview({
   let eveTemp = 0;
   let nightTemp = 0;
   if (typeof weather.temp === "object") {
-    mornTemp = Math.round(weather.temp.morn);
-    dayTemp = Math.round(weather.temp.day);
-    eveTemp = Math.round(weather.temp.eve);
-    nightTemp = Math.round(weather.temp.night);
+    mornTemp = Math.round(weather.getTemp(units, "morn"));
+    dayTemp = Math.round(weather.getTemp(units, "day"));
+    eveTemp = Math.round(weather.getTemp(units, "eve"));
+    nightTemp = Math.round(weather.getTemp(units, "night"));
   }
 
   return (
@@ -29,8 +31,8 @@ export default function DailyWeatherOverview({
         title="Conditions"
         content={
           <>
-            <span>{weather.getMaxTemp()}&deg;</span>
-            <span className="fs-4">/{weather.getMinTemp()}&deg;</span>
+            <span>{weather.getMaxTemp(units)}&deg;</span>
+            <span className="fs-4">/{weather.getMinTemp(units)}&deg;</span>
           </>
         }
         icon={
@@ -40,11 +42,15 @@ export default function DailyWeatherOverview({
       />
       <WeatherDetailCard
         title="Wind"
-        content={`${Math.round(weather.wind_speed || 0)} mph`}
+        content={`${Math.round(weather.getWindSpeed(units))} ${
+          units === "imperial" ? "mph" : "m/s"
+        }`}
         icon={<WindIcon className="dashboard__card-icon" />}
         subtitle={`${weather.getWindDirection()}${
           weather.wind_gust
-            ? ` - Gusts of ${Math.round(weather.wind_gust)} mph`
+            ? ` - Gusts of ${Math.round(weather.getWindGust(units)!)} ${
+                units === "imperial" ? "mph" : "m/s"
+              }`
             : ""
         }`}
       />

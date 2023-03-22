@@ -4,12 +4,14 @@ import { PrecipitationIcon } from "icons/weather";
 import { WeatherDay, WeatherCurrent } from "hooks";
 
 interface WeatherCardProps {
+  units: string;
   weather?: WeatherDay | WeatherCurrent;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   active?: boolean;
 }
 
 export default function WeatherCard({
+  units,
   weather,
   onClick,
   active = false,
@@ -40,10 +42,10 @@ export default function WeatherCard({
 
   if (weather instanceof WeatherCurrent) {
     title = "Current";
-    temperature = <span>{Math.round(weather.getTemp())}&deg;</span>;
+    temperature = <span>{Math.round(weather.getTemp(units))}&deg;</span>;
     feelsTemperature = (
       <span className="fs-2">
-        Feels {Math.round(weather.getFeelsLikeTemp())}&deg;
+        Feels {Math.round(weather.getFeelsLikeTemp(units))}&deg;
       </span>
     );
   } else {
@@ -52,8 +54,8 @@ export default function WeatherCard({
       : weather.dt.toLocaleDateString([], { day: "2-digit", weekday: "short" });
     temperature = (
       <span>
-        {Math.round(weather.getMaxTemp() as number)}&deg;/
-        {Math.round(weather.getMinTemp() as number)}&deg;
+        {Math.round(weather.getMaxTemp(units) as number)}&deg;/
+        {Math.round(weather.getMinTemp(units) as number)}&deg;
       </span>
     );
     precipitation = (

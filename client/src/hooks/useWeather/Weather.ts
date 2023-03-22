@@ -161,35 +161,39 @@ export default abstract class Weather {
   /**
    * Gets this weather's temperature.
    * @param time Time of day (if applicable)
-   * @param useCelsius Get temperature in celsius. Uses fahrenheit if false.
+   * @param unit Use imperial or metric units.
    * @returns Temperature
    */
-  getTemp(useCelsius = false, time: "morn" | "day" | "eve" | "night" = "day") {
+  getTemp(unit = "imperial", time: "morn" | "day" | "eve" | "night" = "day") {
     if (typeof this.temp === "object") {
       return Math.round(
-        useCelsius ? this.toCelsius(this.temp[time]) : this.temp[time]
+        unit === "metric" ? this.toCelsius(this.temp[time]) : this.temp[time]
       );
     } else {
-      return Math.round(useCelsius ? this.toCelsius(this.temp) : this.temp);
+      return Math.round(
+        unit === "metric" ? this.toCelsius(this.temp) : this.temp
+      );
     }
   }
 
   /**
    * Gets this weather's feels-like temperature.
    * @param time Time of day (if applicable)
-   * @param useCelsius Get temperature in celsius. Uses fahrenheit if false.
+   * @param unit Use imperial or metric units.
    * @returns Feels-like temperature
    */
   getFeelsLikeTemp(
-    useCelsius = false,
+    unit = "imperial",
     time: "morn" | "day" | "eve" | "night" = "day"
   ) {
     if (typeof this.feels_like === "object") {
-      return useCelsius
+      return unit === "metric"
         ? this.toCelsius(this.feels_like[time])
         : this.feels_like[time];
     } else {
-      return useCelsius ? this.toCelsius(this.feels_like) : this.feels_like;
+      return unit === "metric"
+        ? this.toCelsius(this.feels_like)
+        : this.feels_like;
     }
   }
 
@@ -202,6 +206,30 @@ export default abstract class Weather {
     const interval = 45; // 8 directions from 360 degrees (360 / 8)
     const key = Math.round(this.wind_deg / interval);
     return cardinalDirections.get(key);
+  }
+
+  /**
+   * Gets the wind speed in meters/sec or miles/hour
+   * @param units Use imperial or metric units
+   * @returns Wind speed
+   */
+  getWindSpeed(units = "imperial") {
+    return units === "imperial"
+      ? this.metersPerSecToMilesPerHour(this.wind_speed)
+      : this.wind_speed;
+  }
+
+  /**
+   * Gets the wind gust in meters/sec or miles/hour
+   * @param units Use imperial or metric units
+   * @returns Wind gust or null if not available
+   */
+  getWindGust(units = "imperial") {
+    if (this.wind_gust) {
+      return units === "imperial"
+        ? this.metersPerSecToMilesPerHour(this.wind_gust)
+        : this.wind_gust;
+    } else return null;
   }
 
   /**
@@ -281,6 +309,14 @@ export default abstract class Weather {
    */
   metersToMiles(meters: number) {
     return Math.round((meters / 1609.34) * 100) / 100;
+  }
+
+  /**
+   * Converts meters/sec to miles/hour rounded to the nearest hundreth.
+   * @returns Miles per hour
+   */
+  metersPerSecToMilesPerHour(metersPerSec: number) {
+    return Math.round(metersPerSec * 2.237 * 100) / 100;
   }
 
   /**

@@ -56,8 +56,9 @@ export default function Dropdown({
 
   return (
     <div
-      className={`dropdown ${size === "small" ? "dropdown--sm" : ""} ${className || ""
-        }`}
+      className={`dropdown ${size === "small" ? "dropdown--sm" : ""} ${
+        className || ""
+      }`}
     >
       <DropdownContext.Provider value={{ id, open, setOpen, toggle, size }}>
         {children}
@@ -72,8 +73,10 @@ function Toggle({ className = "", style, children }: ToggleProps) {
   return (
     <button
       ref={ctx?.toggle}
-      className={`btn dropdown__button ${ctx?.open ? "dropdown__button--active" : ""
-        } ${className}`}
+      className={`btn dropdown__button ${
+        ctx?.open ? "dropdown__button--active" : ""
+      } ${className}`}
+      style={style}
       onClick={() => ctx?.setOpen((prevState) => !prevState)}
       aria-haspopup="true"
       aria-controls={`${ctx?.id}-menu`}
@@ -89,13 +92,20 @@ function ToggleIcon({ className = "", style, children }: ToggleIconProps) {
     <>{children}</>
   ) : (
     <ArrowDownIcon
-      className={`dropdown__icon ${ctx?.open && "dropdown__icon--active"
-        } ${className}`}
+      className={`dropdown__icon ${
+        ctx?.open && "dropdown__icon--active"
+      } ${className}`}
     />
   );
 }
 
-function Menu({ items, align = "start", className = "", itemClassName = "", style }: MenuProps) {
+function Menu({
+  items,
+  align = "start",
+  className = "",
+  itemClassName = "",
+  style,
+}: MenuProps) {
   const ctx = useContext(DropdownContext);
 
   const firstChild = useRef<HTMLLIElement>(null);
@@ -120,11 +130,11 @@ function Menu({ items, align = "start", className = "", itemClassName = "", styl
       ></div>
       <div
         className={`dropdown__menu-wrapper dropdown__menu-wrapper--${align} ${className}`}
+        style={style}
       >
         <ul
           id={`${ctx?.id}-menu`}
           className={`dropdown__menu`}
-          style={style}
           role="menu"
           onKeyDown={(e) => e.key === "Escape" && onClick()}
         >

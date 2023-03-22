@@ -2,6 +2,7 @@ import React, { useState, createContext, useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
 import { useLocation, useWeather, WeatherContext } from "hooks";
 import { LocationContext } from "hooks/useLocation";
+import { SettingsProvider } from "context";
 import { Navbar, Toast, ToastContext, ToastProps } from "components";
 import "./app.css";
 
@@ -50,15 +51,17 @@ export default function App() {
     <div className="App">
       <Navbar />
       <main>
-        <LocationContext.Provider value={location}>
-          <WeatherContext.Provider
-            value={{ weather, update, isLoading, error }}
-          >
-            <ToastContext.Provider value={{ setToast }}>
-              <Outlet />
-            </ToastContext.Provider>
-          </WeatherContext.Provider>
-        </LocationContext.Provider>
+        <SettingsProvider>
+          <LocationContext.Provider value={location}>
+            <WeatherContext.Provider
+              value={{ weather, update, isLoading, error }}
+            >
+              <ToastContext.Provider value={{ setToast }}>
+                <Outlet />
+              </ToastContext.Provider>
+            </WeatherContext.Provider>
+          </LocationContext.Provider>
+        </SettingsProvider>
       </main>
       <Toast
         type={toast?.type}

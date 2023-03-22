@@ -14,6 +14,7 @@ import WeatherAlertAccordian from "./WeatherAlertAccordian";
 import CurrentWeatherOverview from "./CurrentWeatherOverview";
 import DailyWeatherOverview from "./DailyWeatherOverview";
 import "./dashboard.css";
+import { useSettings } from "hooks";
 
 function getDashboardHeading(weather: Weather | undefined, location: string) {
   let heading = "";
@@ -33,7 +34,13 @@ function getDailyCardPlaceholders() {
   const days = Array(8).fill(undefined);
   return days.map((day, i) => {
     return (
-      <WeatherCard key={i} weather={day} onClick={() => { }} active={false} />
+      <WeatherCard
+        key={i}
+        weather={day}
+        onClick={() => {}}
+        active={false}
+        units="imperial"
+      />
     );
   });
 }
@@ -41,7 +48,8 @@ function getDailyCardPlaceholders() {
 function getDailyCards(
   days: WeatherDay[],
   onCardClick: (day: WeatherDay) => void,
-  activeWeather: WeatherCurrent | WeatherDay | undefined
+  activeWeather: WeatherCurrent | WeatherDay | undefined,
+  units: string
 ) {
   return days.map((day, i) => {
     return (
@@ -50,12 +58,14 @@ function getDailyCards(
         weather={day}
         onClick={() => onCardClick(day)}
         active={activeWeather && activeWeather === day}
+        units={units}
       />
     );
   });
 }
 
 export default function DashboardPage() {
+  const settings = useSettings();
   const location = useContext(LocationContext);
   const { weather, update, isLoading } = useContext(WeatherContext);
   const [displayedWeather, setDisplayedWeather] = useState<
@@ -70,10 +80,11 @@ export default function DashboardPage() {
     isLoading || !weather?.daily
       ? getDailyCardPlaceholders()
       : getDailyCards(
-        weather.daily,
-        (day) => setDisplayedWeather(day),
-        displayedWeather
-      );
+          weather.daily,
+          (day) => setDisplayedWeather(day),
+          displayedWeather,
+          settings.get("units")
+        );
 
   const heading = getDashboardHeading(
     displayedWeather,
@@ -106,7 +117,7 @@ export default function DashboardPage() {
         label: "Wind Speed",
         data: weather?.hourly
           .slice(0, 25)
-          .map((hour) => hour.wind_speed) as number[],
+          .map((hour) => hour.getWindSpeed(settings.get("units"))) as number[],
       },
     ],
   };
@@ -152,6 +163,7 @@ export default function DashboardPage() {
       <main>
         <div className="dashboard__days">
           <WeatherCard
+            units={settings.get("units")}
             weather={isLoading ? undefined : weather?.current}
             onClick={() => setDisplayedWeather(weather?.current)}
             active={displayedWeather === weather?.current}
@@ -171,13 +183,17 @@ export default function DashboardPage() {
             </div>
           ) : displayedWeather instanceof WeatherCurrent ? (
             <CurrentWeatherOverview
+              units={settings.get("units")}
               weather={displayedWeather}
               hourlyPrecipData={hourlyPrecipData}
               hourlyWindData={hourlyWindData}
               hourlyTempData={hourlyTempData}
             />
           ) : (
-            <DailyWeatherOverview weather={displayedWeather as WeatherDay} />
+            <DailyWeatherOverview
+              units={settings.get("units")}
+              weather={displayedWeather as WeatherDay}
+            />
           )}
         </div>
       </main>
