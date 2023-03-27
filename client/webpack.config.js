@@ -51,7 +51,7 @@ const config = {
       hooks: path.resolve(__dirname, "src/hooks"),
       layout: path.resolve(__dirname, "src/layout"),
       context: path.resolve(__dirname, "src/context"),
-      utils: path.resolve(__dirname, "src/utils"),
+      lib: path.resolve(__dirname, "src/lib"),
     },
   },
 };
