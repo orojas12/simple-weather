@@ -1,17 +1,11 @@
-import React, { useState, createContext, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
-import { useLocation, useWeather, WeatherContext } from "hooks";
-import { LocationContext } from "hooks/useLocation";
-import { SettingsProvider } from "context";
+import { useWeather } from "hooks";
 import { Navbar, Toast, ToastContext, ToastProps } from "components";
 import "./app.css";
 
 export default function App() {
-  const location = useLocation();
-  const { weather, update, isLoading, error } = useWeather(
-    location.data.activeLocation.lat,
-    location.data.activeLocation.lng
-  );
+  const weather = useWeather();
   const [toast, setToast] = useState<ToastProps | null>(null);
   const [toastActive, setToastActive] = useState(false);
   const toastTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -39,29 +33,21 @@ export default function App() {
   }, [toastActive]);
 
   useEffect(() => {
-    if (error) {
+    if (weather.error) {
       setToast({
         type: "alert",
         msg: "Something went wrong. Please try again later.",
       });
     }
-  }, [error]);
+  }, [weather.error]);
 
   return (
-    <div className="App">
+    <article className="App">
       <Navbar />
       <main>
-        <SettingsProvider>
-          <LocationContext.Provider value={location}>
-            <WeatherContext.Provider
-              value={{ weather, update, isLoading, error }}
-            >
-              <ToastContext.Provider value={{ setToast }}>
-                <Outlet />
-              </ToastContext.Provider>
-            </WeatherContext.Provider>
-          </LocationContext.Provider>
-        </SettingsProvider>
+        <ToastContext.Provider value={{ setToast }}>
+          <Outlet />
+        </ToastContext.Provider>
       </main>
       <Toast
         type={toast?.type}
@@ -70,6 +56,6 @@ export default function App() {
         display={Boolean(toast)}
         onClick={() => setToastActive(false)}
       />
-    </div>
+    </article>
   );
 }

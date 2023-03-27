@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./index.css";
 import App from "./App";
 import {
   ErrorPage,
@@ -11,6 +10,8 @@ import {
   SettingsPage,
 } from "pages";
 import AddLocationPage from "./pages/LocationsPage/AddLocationPage";
+import { SettingsProvider, LocationProvider, WeatherProvider } from "context";
+import "./index.css";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,12 @@ const element = document.getElementById("root");
 const root = ReactDOM.createRoot(element!);
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <SettingsProvider>
+      <LocationProvider>
+        <WeatherProvider>
+          <RouterProvider router={router} />
+        </WeatherProvider>
+      </LocationProvider>
+    </SettingsProvider>
   </React.StrictMode>
 );
