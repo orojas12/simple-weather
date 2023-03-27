@@ -7,7 +7,7 @@ export interface Location {
   lng: number;
 }
 
-interface LocationState {
+export interface LocationState {
   activeLocation: Location;
   savedLocations: Location[] | [];
   favoriteLocation: Location | undefined;

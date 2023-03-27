@@ -1,28 +1,36 @@
-import { useState, useEffect, createContext } from "react";
-import WeatherCurrent from "./WeatherCurrent";
-import WeatherDay from "./WeatherDay";
-import WeatherHour from "./WeatherHour";
-import json from "../../response.json";
-import WeatherAlert from "./WeatherAlert";
+import { useLocation } from "hooks";
+import React, { createContext, useState, useEffect } from "react";
+import { ContextNotFoundError } from "../error";
+import {
+  WeatherCurrent,
+  WeatherDay,
+  WeatherHour,
+  WeatherAlert,
+} from "lib/weather";
 
-export interface WeatherData {
+interface IWeather {
   current: WeatherCurrent;
   hourly: WeatherHour[];
   daily: WeatherDay[];
   alerts: WeatherAlert[];
 }
 
-export const WeatherContext = createContext<ReturnType<typeof useWeather>>({
-  weather: null,
-  update: () => {},
-  isLoading: true,
-  error: null,
-});
+interface IWeatherContext {
+  data: IWeather | null;
+  update: () => void;
+  isLoading: boolean;
+  error: Error | null;
+}
 
-export default function useWeather(lat: number, lng: number) {
-  const [weather, setWeather] = useState<WeatherData | null>(null);
+export const WeatherContext = createContext<IWeatherContext | null>(null);
+
+export function WeatherProvider(props: { children?: React.ReactNode }) {
+  const location = useLocation();
+  const [weather, setWeather] = useState<IWeather | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+
+  const { lat, lng } = location.data.activeLocation;
 
   useEffect(() => {
     fetchWeather(lat, lng);
@@ -54,5 +62,13 @@ export default function useWeather(lat: number, lng: number) {
     fetchWeather(lat, lng);
   }
 
-  return { weather, update, isLoading, error };
+  if (!location) throw new ContextNotFoundError("LocationContext");
+
+  return (
+    <WeatherContext.Provider
+      value={{ data: weather, update, isLoading, error }}
+    >
+      {props.children}
+    </WeatherContext.Provider>
+  );
 }

@@ -1,5 +1,7 @@
 export class ContextNotFoundError extends Error {
-  constructor() {
-    super("No matching provider in the tree was found for this context.");
+  constructor(context: string) {
+    super(
+      `No matching provider in the tree was found for context: ${context}.`
+    );
   }
 }

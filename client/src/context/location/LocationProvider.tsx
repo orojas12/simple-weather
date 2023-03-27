@@ -1,11 +1,19 @@
 import useGeocode from "hooks/useGeocode";
-import { useReducer, useEffect, createContext } from "react";
-import { Place, geocode } from "services";
-import { locationReducer, Location } from "./location";
+import { Place } from "hooks/usePlaceAutocomplete";
+import React, { useReducer, useEffect, createContext } from "react";
+import { LocationState, locationReducer, Location } from "./locationReducer";
 
-export const LocationContext = createContext<ReturnType<
-  typeof useLocation
-> | null>(null);
+interface ILocationContext {
+  data: LocationState;
+  addLocation: (place: Place) => void;
+  deleteLocation: (location: Location) => void;
+  setLocation: (location: Location) => void;
+  setFavorite: (location: Location) => void;
+  removeFavorite: () => void;
+  clearStatus: () => void;
+}
+
+export const LocationContext = createContext<ILocationContext | null>(null);
 
 const initialLocationData = {
   activeLocation: {
@@ -54,7 +62,7 @@ function loadLocationData() {
   }
 }
 
-export default function useLocation() {
+export function LocationProvider(props: { children?: React.ReactNode }) {
   const [state, dispatch] = useReducer(locationReducer, loadLocationData());
   const { geocode } = useGeocode();
 
@@ -92,13 +100,19 @@ export default function useLocation() {
     dispatch({ type: "clearStatus" });
   };
 
-  return {
-    data: state,
-    addLocation,
-    deleteLocation,
-    setLocation,
-    setFavorite,
-    removeFavorite,
-    clearStatus,
-  };
+  return (
+    <LocationContext.Provider
+      value={{
+        data: state,
+        addLocation,
+        deleteLocation,
+        setLocation,
+        setFavorite,
+        removeFavorite,
+        clearStatus,
+      }}
+    >
+      {props.children}
+    </LocationContext.Provider>
+  );
 }
