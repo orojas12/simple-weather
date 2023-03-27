@@ -1,7 +1,7 @@
 import React from "react";
 import { Dropdown } from "components";
 import { CheckIcon } from "icons/ui";
-import { capitalize } from "utils";
+import { capitalize } from "src/lib/utils";
 
 interface SettingProps {
   label: string;
