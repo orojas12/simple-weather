@@ -122,7 +122,7 @@ export default function DashboardPage() {
         label: "Temperature",
         data: weather.data?.hourly
           .slice(0, 25)
-          .map((hour) => hour.getTemp()) as number[],
+          .map((hour) => hour.getTemp(settings.get("units"))) as number[],
       },
     ],
   };
