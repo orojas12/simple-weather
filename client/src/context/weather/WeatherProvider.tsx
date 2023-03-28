@@ -1,5 +1,5 @@
-import { useLocation } from "hooks";
 import React, { createContext, useState, useEffect } from "react";
+import { useLocation } from "hooks";
 import { ContextNotFoundError } from "../error";
 import {
   WeatherCurrent,
@@ -26,6 +26,9 @@ export const WeatherContext = createContext<IWeatherContext | null>(null);
 
 export function WeatherProvider(props: { children?: React.ReactNode }) {
   const location = useLocation();
+
+  if (!location) throw new ContextNotFoundError("LocationContext");
+
   const [weather, setWeather] = useState<IWeather | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -38,11 +41,9 @@ export function WeatherProvider(props: { children?: React.ReactNode }) {
 
   async function fetchWeather(lat: number, lng: number) {
     setIsLoading(true);
-
     try {
       const res = await fetch(`/api/weather?lat=${lat}&lng=${lng}`);
       if (!res.ok) throw new Error(`${res.status} Failed to fetch weather.`);
-
       const data = await res.json();
       setWeather({
         current: new WeatherCurrent(data.current),
@@ -58,11 +59,12 @@ export function WeatherProvider(props: { children?: React.ReactNode }) {
     }
   }
 
+  /**
+   * Refreshes weather data for the active location.
+   */
   function update() {
     fetchWeather(lat, lng);
   }
-
-  if (!location) throw new ContextNotFoundError("LocationContext");
 
   return (
     <WeatherContext.Provider
