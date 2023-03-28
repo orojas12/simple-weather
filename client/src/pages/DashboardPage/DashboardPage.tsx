@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSettings, useLocation, useWeather } from "hooks";
+import { Weather, WeatherCurrent, WeatherDay } from "lib/weather";
 import { Dropdown, Spinner } from "components";
 import { LocationIcon } from "icons/ui";
 import Clock from "./Clock";
@@ -8,7 +9,6 @@ import WeatherAlertAccordian from "./WeatherAlertAccordian";
 import CurrentWeatherOverview from "./CurrentWeatherOverview";
 import DailyWeatherOverview from "./DailyWeatherOverview";
 import "./dashboard.css";
-import { Weather, WeatherCurrent, WeatherDay } from "lib/weather";
 
 function getDashboardHeading(weather: Weather | undefined, location: string) {
   let heading = "";
@@ -24,38 +24,48 @@ function getDashboardHeading(weather: Weather | undefined, location: string) {
   return heading;
 }
 
-function getDailyCardPlaceholders() {
-  const days = Array(8).fill(undefined);
-  return days.map((day, i) => {
-    return (
-      <WeatherCard
-        key={i}
-        weather={day}
-        onClick={() => {}}
-        active={false}
-        units="imperial"
-      />
-    );
-  });
+interface DailyCardsProps {
+  days: WeatherDay[];
+  onCardClick: (day: WeatherDay) => void;
+  activeWeather: WeatherCurrent | WeatherDay | undefined;
+  units: string;
 }
 
-function getDailyCards(
-  days: WeatherDay[],
-  onCardClick: (day: WeatherDay) => void,
-  activeWeather: WeatherCurrent | WeatherDay | undefined,
-  units: string
-) {
-  return days.map((day, i) => {
-    return (
-      <WeatherCard
-        key={i}
-        weather={day}
-        onClick={() => onCardClick(day)}
-        active={activeWeather && activeWeather === day}
-        units={units}
-      />
-    );
-  });
+function DailyCards(props: DailyCardsProps) {
+  return (
+    <>
+      {props.days.map((day, i) => {
+        return (
+          <WeatherCard
+            key={i}
+            weather={day}
+            onClick={() => props.onCardClick(day)}
+            active={props.activeWeather && props.activeWeather === day}
+            units={props.units}
+          />
+        );
+      })}
+    </>
+  );
+}
+
+function DailyCardPlaceholders() {
+  const days = Array(8).fill(undefined);
+  return (
+    <>
+      {days.map((day, i) => {
+        return (
+          <WeatherCard
+            key={i}
+            weather={day}
+            onClick={() => {}}
+            active={false}
+            units="imperial"
+          />
+        );
+      })}
+    </>
+  );
 }
 
 export default function DashboardPage() {
@@ -69,15 +79,6 @@ export default function DashboardPage() {
   useEffect(() => {
     setDisplayedWeather(weather.data?.current);
   }, [weather]);
-
-  const dailyCards = weather.isLoading
-    ? getDailyCardPlaceholders()
-    : getDailyCards(
-        weather.data!.daily,
-        (day) => setDisplayedWeather(day),
-        displayedWeather,
-        settings.get("units")
-      );
 
   const heading = getDashboardHeading(
     displayedWeather,
@@ -161,7 +162,16 @@ export default function DashboardPage() {
             onClick={() => setDisplayedWeather(weather.data?.current)}
             active={displayedWeather === weather.data?.current}
           />
-          {dailyCards}
+          {weather.isLoading ? (
+            <DailyCardPlaceholders />
+          ) : (
+            <DailyCards
+              days={weather.data!.daily}
+              onCardClick={(day) => setDisplayedWeather(day)}
+              activeWeather={displayedWeather}
+              units={settings.get("units")}
+            />
+          )}
         </div>
         <div className="dashboard__overview">
           <h1 className="dashboard__heading">{heading}</h1>
