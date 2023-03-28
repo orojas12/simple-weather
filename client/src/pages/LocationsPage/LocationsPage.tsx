@@ -17,13 +17,14 @@ export default function LocationsPage() {
         type: "alert",
         msg: status.msg as string,
       });
+      location.clearStatus();
     } else if (status.msg) {
       toast?.setToast({
         type: "success",
         msg: status.msg,
       });
+      location.clearStatus();
     }
-    location.clearStatus();
   }, [location.data.status]);
 
   return (
