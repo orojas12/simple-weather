@@ -43,9 +43,13 @@ const initialLocationData = {
     lat: 31.7618778,
     lng: -106.4850217,
   },
+  status: {
+    error: false,
+    msg: null,
+  },
 };
 
-function loadLocationData() {
+function loadLocationData(): LocationState {
   const json = localStorage.getItem("locations");
   if (json) {
     const data = JSON.parse(json);
@@ -56,6 +60,10 @@ function loadLocationData() {
     } else {
       data.activeLocation = data.defaultLocation;
     }
+    data.status = {
+      error: false,
+      msg: null,
+    };
     return data;
   } else {
     return initialLocationData;
@@ -67,7 +75,9 @@ export function LocationProvider(props: { children?: React.ReactNode }) {
   const { geocode } = useGeocode();
 
   useEffect(() => {
-    localStorage.setItem("locations", JSON.stringify(state));
+    // Do not save status to localStorage
+    const { status, ...data } = state;
+    localStorage.setItem("locations", JSON.stringify(data));
   }, [state]);
 
   const addLocation = async (place: Place) => {
