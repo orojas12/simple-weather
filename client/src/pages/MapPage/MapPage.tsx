@@ -1,11 +1,10 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import L from "leaflet";
-import { LocationContext } from "hooks/useLocation";
-import { Dropdown } from "components";
+import { useLocation } from "hooks";
 import "./map.css";
 
 export default function MapPage() {
-  const location = useContext(LocationContext);
+  const location = useLocation();
 
   const [layer, setLayer] = useState("precipitation");
 

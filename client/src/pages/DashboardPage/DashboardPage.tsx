@@ -1,20 +1,14 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useSettings, useLocation, useWeather } from "hooks";
 import { Dropdown, Spinner } from "components";
 import { LocationIcon } from "icons/ui";
-import {
-  Weather,
-  WeatherContext,
-  WeatherCurrent,
-  WeatherDay,
-} from "hooks/useWeather";
-import { LocationContext } from "hooks/useLocation";
 import Clock from "./Clock";
 import WeatherCard from "./WeatherCard";
 import WeatherAlertAccordian from "./WeatherAlertAccordian";
 import CurrentWeatherOverview from "./CurrentWeatherOverview";
 import DailyWeatherOverview from "./DailyWeatherOverview";
 import "./dashboard.css";
-import { useSettings } from "hooks";
+import { Weather, WeatherCurrent, WeatherDay } from "lib/weather";
 
 function getDashboardHeading(weather: Weather | undefined, location: string) {
   let heading = "";
@@ -66,32 +60,31 @@ function getDailyCards(
 
 export default function DashboardPage() {
   const settings = useSettings();
-  const location = useContext(LocationContext);
-  const { weather, update, isLoading } = useContext(WeatherContext);
+  const location = useLocation();
+  const weather = useWeather();
   const [displayedWeather, setDisplayedWeather] = useState<
     WeatherCurrent | WeatherDay | undefined
-  >(weather?.current);
+  >(weather.data?.current);
 
   useEffect(() => {
-    setDisplayedWeather(weather?.current);
+    setDisplayedWeather(weather.data?.current);
   }, [weather]);
 
-  const dailyCards =
-    isLoading || !weather?.daily
-      ? getDailyCardPlaceholders()
-      : getDailyCards(
-          weather.daily,
-          (day) => setDisplayedWeather(day),
-          displayedWeather,
-          settings.get("units")
-        );
+  const dailyCards = weather.isLoading
+    ? getDailyCardPlaceholders()
+    : getDailyCards(
+        weather.data!.daily,
+        (day) => setDisplayedWeather(day),
+        displayedWeather,
+        settings.get("units")
+      );
 
   const heading = getDashboardHeading(
     displayedWeather,
     location?.data.activeLocation.description as string
   );
 
-  const hour24Labels = weather?.hourly.slice(0, 25).map((hour) =>
+  const hour24Labels = weather.data?.hourly.slice(0, 25).map((hour) =>
     hour.dt.toLocaleTimeString([], {
       hour: "numeric",
       hour12: true,
@@ -103,7 +96,7 @@ export default function DashboardPage() {
     datasets: [
       {
         label: "Precipitation",
-        data: weather?.hourly
+        data: weather.data?.hourly
           .slice(0, 25)
           .map((hour) => hour.pop * 100) as number[],
       },
@@ -115,7 +108,7 @@ export default function DashboardPage() {
     datasets: [
       {
         label: "Wind Speed",
-        data: weather?.hourly
+        data: weather.data?.hourly
           .slice(0, 25)
           .map((hour) => hour.getWindSpeed(settings.get("units"))) as number[],
       },
@@ -127,7 +120,7 @@ export default function DashboardPage() {
     datasets: [
       {
         label: "Temperature",
-        data: weather?.hourly
+        data: weather.data?.hourly
           .slice(0, 25)
           .map((hour) => hour.getTemp()) as number[],
       },
@@ -164,20 +157,20 @@ export default function DashboardPage() {
         <div className="dashboard__days">
           <WeatherCard
             units={settings.get("units")}
-            weather={isLoading ? undefined : weather?.current}
-            onClick={() => setDisplayedWeather(weather?.current)}
-            active={displayedWeather === weather?.current}
+            weather={weather.data?.current}
+            onClick={() => setDisplayedWeather(weather.data?.current)}
+            active={displayedWeather === weather.data?.current}
           />
           {dailyCards}
         </div>
         <div className="dashboard__overview">
           <h1 className="dashboard__heading">{heading}</h1>
           <div className="dashboard__alerts">
-            {weather?.alerts?.map((alert) => (
+            {weather.data?.alerts.map((alert) => (
               <WeatherAlertAccordian key={alert.event} alert={alert} />
             ))}
           </div>
-          {isLoading || !displayedWeather ? (
+          {weather.isLoading || !displayedWeather ? (
             <div className="dashboard__loader">
               <Spinner />
             </div>

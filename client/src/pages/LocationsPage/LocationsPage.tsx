@@ -1,31 +1,30 @@
 import React, { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { LocationContext } from "hooks/useLocation";
 import { AddIcon } from "icons/ui";
-import "./locations.css";
 import { Card, ToastContext } from "components";
+import { useLocation } from "hooks";
 import Location from "./Location";
+import "./locations.css";
 
 export default function LocationsPage() {
-  const location = useContext(LocationContext);
+  const location = useLocation();
   const toast = useContext(ToastContext);
 
   useEffect(() => {
-    const status = location?.data.status;
-    if (status?.error) {
+    const { status } = location.data;
+    if (status.error) {
       toast?.setToast({
         type: "alert",
         msg: status.msg as string,
       });
-      location?.clearStatus();
-    } else if (status?.msg) {
+    } else if (status.msg) {
       toast?.setToast({
         type: "success",
         msg: status.msg,
       });
-      location?.clearStatus();
     }
-  }, [location?.data.status]);
+    location.clearStatus();
+  }, [location.data.status]);
 
   return (
     <article className="locations">
@@ -54,7 +53,11 @@ export default function LocationsPage() {
                     location.deleteLocation(location.data.favoriteLocation!),
                 },
               ]}
-              onClick={() => location.data.favoriteLocation ? location.setLocation(location.data.favoriteLocation) : undefined}
+              onClick={() =>
+                location.data.favoriteLocation
+                  ? location.setLocation(location.data.favoriteLocation)
+                  : undefined
+              }
               active={
                 location.data.activeLocation.placeId ===
                 location.data.favoriteLocation.placeId
