@@ -8,9 +8,9 @@ import {
   LocationsPage,
   MapPage,
   SettingsPage,
-} from "pages";
+} from "@pages";
 import AddLocationPage from "./pages/LocationsPage/AddLocationPage";
-import { SettingsProvider, LocationProvider, WeatherProvider } from "context";
+import { SettingsProvider, LocationProvider, WeatherProvider } from "@context";
 import "./index.css";
 
 const router = createBrowserRouter([

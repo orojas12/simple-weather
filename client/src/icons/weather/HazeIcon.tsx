@@ -1,5 +1,5 @@
 import React from "react";
-import IconProps from "../IconProps";
+import { IconProps } from "@icons";
 
 export default function HazeIcon({ color, style, className }: IconProps) {
   const fill = color || "#A3AFC2";

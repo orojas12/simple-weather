@@ -1,10 +1,10 @@
 import React from "react";
-import { Progress } from "components";
-import { EyeIcon } from "icons/ui";
-import { WindIcon, TempIcon } from "icons/weather";
+import { Progress } from "@components";
+import { EyeIcon } from "@icons/ui";
+import { WindIcon, TempIcon } from "@icons/weather";
 import WeatherChart from "./WeatherChart";
 import WeatherDetailCard from "./WeatherDetailCard";
-import { WeatherCurrent } from "lib/weather";
+import { WeatherCurrent } from "@lib/weather";
 
 interface CurrentWeatherOverviewProps {
   units: string;

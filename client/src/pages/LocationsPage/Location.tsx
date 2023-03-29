@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, Dropdown } from "components";
-import { CheckIcon, VerticalDotsIcon } from "icons/ui";
+import { Card, Dropdown } from "@components";
+import { CheckIcon, VerticalDotsIcon } from "@icons/ui";
 
 interface LocationProps {
   location: {
@@ -12,11 +12,16 @@ interface LocationProps {
     lng: number;
   };
   options: { content: React.ReactNode; action: () => void }[];
-  onClick: () => void
+  onClick: () => void;
   active: boolean;
 }
 
-export default function Location({ location, options, onClick, active }: LocationProps) {
+export default function Location({
+  location,
+  options,
+  onClick,
+  active,
+}: LocationProps) {
   return (
     <Card className="locations__location">
       <Card.Content className="locations__location-wrapper">

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
 const path = require("path");
 
 const isProduction = process.env.NODE_ENV == "production";
@@ -45,13 +47,13 @@ const config = {
     extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
     modules: [path.resolve(__dirname, "src"), "node_modules"],
     alias: {
-      components: path.resolve(__dirname, "src/components"),
-      icons: path.resolve(__dirname, "src/icons"),
-      pages: path.resolve(__dirname, "src/pages"),
-      hooks: path.resolve(__dirname, "src/hooks"),
-      layout: path.resolve(__dirname, "src/layout"),
-      context: path.resolve(__dirname, "src/context"),
-      lib: path.resolve(__dirname, "src/lib"),
+      "@components": path.resolve(__dirname, "src/components"),
+      "@icons": path.resolve(__dirname, "src/icons"),
+      "@pages": path.resolve(__dirname, "src/pages"),
+      "@hooks": path.resolve(__dirname, "src/hooks"),
+      "@layout": path.resolve(__dirname, "src/layout"),
+      "@context": path.resolve(__dirname, "src/context"),
+      "@lib": path.resolve(__dirname, "src/lib"),
     },
   },
 };

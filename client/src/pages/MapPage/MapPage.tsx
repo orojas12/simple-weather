@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import L from "leaflet";
-import { useLocation } from "hooks";
+import { useLocation } from "@hooks";
 import "./map.css";
 
 export default function MapPage() {

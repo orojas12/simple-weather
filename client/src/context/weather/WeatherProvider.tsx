@@ -1,12 +1,12 @@
 import React, { createContext, useState, useEffect } from "react";
-import { useLocation } from "hooks";
+import { useLocation } from "@hooks";
 import { ContextNotFoundError } from "../error";
 import {
   WeatherCurrent,
   WeatherDay,
   WeatherHour,
   WeatherAlert,
-} from "lib/weather";
+} from "@lib/weather";
 
 interface IWeather {
   current: WeatherCurrent;

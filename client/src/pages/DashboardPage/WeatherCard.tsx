@@ -1,7 +1,7 @@
 import React from "react";
-import { Card } from "components";
-import { PrecipitationIcon } from "icons/weather";
-import { WeatherCurrent, WeatherDay } from "lib/weather";
+import { Card } from "@components";
+import { PrecipitationIcon } from "@icons/weather";
+import { WeatherCurrent, WeatherDay } from "@lib/weather";
 
 interface WeatherCardProps {
   units: string;

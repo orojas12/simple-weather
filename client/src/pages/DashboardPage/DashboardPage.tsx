@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useSettings, useLocation, useWeather } from "hooks";
-import { Weather, WeatherCurrent, WeatherDay } from "lib/weather";
-import { Dropdown, Spinner } from "components";
-import { LocationIcon } from "icons/ui";
+import { useSettings, useLocation, useWeather } from "@hooks";
+import { Weather, WeatherCurrent, WeatherDay } from "@lib/weather";
+import { Dropdown, Spinner } from "@components";
+import { LocationIcon } from "@icons/ui";
 import Clock from "./Clock";
 import WeatherCard from "./WeatherCard";
 import WeatherAlertAccordian from "./WeatherAlertAccordian";

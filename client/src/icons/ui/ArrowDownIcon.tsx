@@ -1,5 +1,5 @@
 import React from "react";
-import { IconProps } from "icons";
+import { IconProps } from "@icons";
 
 export default function ArrowDownIcon({ color, style, className }: IconProps) {
   const fill = color || "black";

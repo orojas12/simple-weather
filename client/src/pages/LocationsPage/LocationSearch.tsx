@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { AddIcon, CloseIcon, SearchIcon } from "icons/ui";
-import { usePlaceAutocomplete } from "hooks";
-import { Place } from "hooks/usePlaceAutocomplete";
-import { Card, ToastContext } from "components";
+import { AddIcon, CloseIcon, SearchIcon } from "@icons/ui";
+import { usePlaceAutocomplete } from "@hooks";
+import { Place } from "@hooks/usePlaceAutocomplete";
+import { Card, ToastContext } from "@components";
 
 interface LocationSearchProps {
   addLocation: (place: Place) => void;

@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from "chart.js";
 import { Bar, Line } from "react-chartjs-2";
-import { Card } from "components";
+import { Card } from "@components";
 
 ChartJS.register(
   CategoryScale,

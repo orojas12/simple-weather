@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
-import { useWeather } from "hooks";
-import { Navbar, Toast, ToastContext, ToastProps } from "components";
+import { useWeather } from "@hooks";
+import { Navbar, Toast, ToastContext, ToastProps } from "@components";
 import "./app.css";
 
 export default function App() {

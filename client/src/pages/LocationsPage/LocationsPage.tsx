@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { AddIcon } from "icons/ui";
-import { Card, ToastContext } from "components";
-import { useLocation } from "hooks";
+import { AddIcon } from "@icons/ui";
+import { Card, ToastContext } from "@components";
+import { useLocation } from "@hooks";
 import Location from "./Location";
 import "./locations.css";
 

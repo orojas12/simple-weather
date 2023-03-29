@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { IconProps } from "icons";
+import { IconProps } from "@icons";
 import {
   LogoIcon,
   HomeIcon,
@@ -8,8 +8,8 @@ import {
   LocationIcon,
   GearIcon,
   MenuIcon,
-} from "icons/ui";
-import { Dropdown } from "components";
+} from "@icons/ui";
+import { Dropdown } from "@components";
 import "./navbar.css";
 
 function getLinkClassName({ isActive }: any) {

@@ -1,5 +1,5 @@
-import useGeocode from "hooks/useGeocode";
-import { Place } from "hooks/usePlaceAutocomplete";
+import useGeocode from "@hooks/useGeocode";
+import { Place } from "@hooks/usePlaceAutocomplete";
 import React, { useReducer, useEffect, createContext } from "react";
 import { LocationState, locationReducer, Location } from "./locationReducer";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import IconProps from "../IconProps";
+import { IconProps } from "@icons";
 
 export default function WindIcon({ color, style, className }: IconProps) {
   const fill = color || "#4791FF";

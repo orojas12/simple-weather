@@ -1,7 +1,7 @@
 import React from "react";
-import { Card, Progress, Separator } from "components";
-import { HorizonIcon, MoonIcon, SunnyIcon, WindIcon } from "icons/weather";
-import { WeatherDay } from "lib/weather";
+import { Card, Progress, Separator } from "@components";
+import { HorizonIcon, MoonIcon, SunnyIcon, WindIcon } from "@icons/weather";
+import { WeatherDay } from "@lib/weather";
 import WeatherDetailCard from "./WeatherDetailCard";
 
 interface DailyWeatherOverviewProps {

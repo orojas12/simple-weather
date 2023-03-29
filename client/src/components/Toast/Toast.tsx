@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
-import { Card } from "components";
-import { CheckCircleIcon, CloseCircleIcon } from "icons/ui";
+import { Card } from "@components";
+import { CheckCircleIcon, CloseCircleIcon } from "@icons/ui";
 import "./toast.css";
 
 export interface ToastProps {
