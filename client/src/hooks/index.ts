@@ -3,6 +3,7 @@ import useWeather from "./useWeather";
 import usePlaceAutocomplete from "./usePlaceAutocomplete";
 import useGeocode from "./useGeocode";
 import useSettings from "./useSettings";
+import useNotifications from "./useNotifications";
 
 export {
   useLocation,
@@ -10,4 +11,5 @@ export {
   usePlaceAutocomplete,
   useGeocode,
   useSettings,
+  useNotifications,
 };
