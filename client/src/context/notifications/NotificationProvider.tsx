@@ -12,7 +12,7 @@ export interface INotificationContext {
   addNotification: (
     notification: Omit<Notification, "id">,
     milliseconds?: number
-  ) => void;
+  ) => string;
   dismissNotification: (id: string) => void;
 }
 
@@ -37,6 +37,7 @@ export function NotificationProvider(props: { children?: React.ReactNode }) {
    * Add a new notification.
    * @param notification Notification object
    * @param milliseconds Milliseconds to wait until auto-dismissing notification.
+   * @returns Notification id
    */
   function addNotification(
     notification: Omit<Notification, "id">,
@@ -56,8 +57,13 @@ export function NotificationProvider(props: { children?: React.ReactNode }) {
         },
       ];
     }
+    return id;
   }
 
+  /**
+   * Remove a notification.
+   * @param id Notification id
+   */
   function dismissNotification(id: string) {
     setNotifications((prevNotifications) =>
       prevNotifications.filter((notification) => notification.id !== id)
