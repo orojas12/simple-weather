@@ -79,7 +79,7 @@ const weatherIcons = new Map([
   [804, CloudyIcon],
 ]);
 
-export default abstract class Weather {
+export default class Weather {
   readonly dt: Date;
   readonly temp:
     | number
@@ -198,7 +198,7 @@ export default abstract class Weather {
   }
 
   /**
-   * Gets one of eight cardinal directions (NW, N, NE, E, SE, S, SW, W) from the
+   * Gets the cardinal direction the wind is traveling in from the
    * wind degree property.
    * @returns The cardinal direction.
    */
@@ -256,7 +256,7 @@ export default abstract class Weather {
   }
 
   /**
-   * Gets UV Index as a percentage
+   * Gets UV Index as a percentage of the minimum UVI to be classified as extreme (11+)
    */
   getUviPercentage() {
     return (this.uvi / 11) * 100;
