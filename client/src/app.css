@@ -35,7 +35,7 @@
   --box-shadow-200: 0 0 3px hsl(var(--clr-base-600));
 }
 
-.App {
+.BaseLayout {
   background-color: hsl(var(--clr-base-200));
   font-family: "Roboto", sans-serif;
   font-size: var(--fs-3);
@@ -48,18 +48,18 @@
   display: flex;
 }
 
-.App > main {
+.BaseLayout > main {
   width: 100%;
   height: 100%;
   overflow-y: auto;
 }
 
 @media screen and (max-width: 1200px) {
-  .App {
+  .BaseLayout {
     flex-direction: column;
   }
 
-  .App > main {
+  .BaseLayout > main {
     padding: 0;
   }
 }

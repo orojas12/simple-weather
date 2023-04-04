@@ -7,6 +7,7 @@ import Progress from "./Progress/Progress";
 import Toast, { ToastContext, ToastProps } from "./Toast/Toast";
 import Spinner from "./Spinner/Spinner";
 import Separator from "./Separator/Separator";
+import BaseLayout from "./BaseLayout/BaseLayout";
 
 export type { ToastProps };
 export {
@@ -20,4 +21,5 @@ export {
   ToastContext,
   Spinner,
   Separator,
+  BaseLayout,
 };
