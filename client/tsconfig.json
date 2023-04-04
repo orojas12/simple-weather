@@ -20,7 +20,12 @@
       "@layout": ["src/layout"],
       "@context": ["src/context"],
       "@lib": ["src/lib"],
-      "@lib/*": ["src/lib/*"]
+      "@lib/*": ["src/lib/*"],
+      "@config": ["src/config"],
+      "@types": ["src/types"],
+      "@providers": ["src/providers"],
+      "@providers/*": ["src/providers/*"],
+      "@routes": ["src/routes"]
     },
     "resolveJsonModule": true
   },
