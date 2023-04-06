@@ -1,0 +1,32 @@
+.toggle-group {
+  display: flex;
+  background-color: hsl(var(--clr-base-100));
+  border-radius: 8px;
+  border: var(--border-100);
+  user-select: none;
+  overflow: hidden;
+}
+
+.toggle {
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  color: inherit;
+  background-color: hsl(var(--clr-base-300));
+}
+
+.toggle:not(:first-child) {
+  border-left: var(--border-100);
+}
+
+.toggle--active {
+  background-color: hsl(var(--clr-primary));
+  color: hsl(var(--clr-base-100));
+}
+
+.toggle--active:hover {
+  background-color: hsl(var(--clr-primary));
+  color: hsl(var(--clr-base-100));
+}

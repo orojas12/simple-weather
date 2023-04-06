@@ -8,6 +8,7 @@ import Toast, { ToastContext, ToastProps } from "./Toast/Toast";
 import Spinner from "./Spinner/Spinner";
 import Separator from "./Separator/Separator";
 import BaseLayout from "./BaseLayout/BaseLayout";
+import ToggleGroup from "./ToggleGroup/ToggleGroup";
 
 export type { ToastProps };
 export {
@@ -22,4 +23,5 @@ export {
   Spinner,
   Separator,
   BaseLayout,
+  ToggleGroup,
 };
