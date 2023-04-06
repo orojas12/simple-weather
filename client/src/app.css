@@ -32,7 +32,8 @@
   --bp-xl: 1200px;
   --bp-xxl: 1400px;
   --box-shadow-100: 0 0 3px hsl(var(--clr-base-500));
-  --box-shadow-200: 0 0 3px hsl(var(--clr-base-600));
+  --box-shadow-200: 0 0 2px hsl(var(--clr-dark-100));
+  --border-100: solid 1px hsl(var(--clr-base-500));
 }
 
 .BaseLayout {
