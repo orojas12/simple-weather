@@ -6,3 +6,4 @@ export {
   NotificationProvider,
 } from "./notifications/NotificationProvider";
 export { ContextNotFoundError } from "./error";
+export type { IWeather } from "./weather/WeatherProvider";
