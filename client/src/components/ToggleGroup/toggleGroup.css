@@ -5,6 +5,7 @@
   border: var(--border-100);
   user-select: none;
   overflow: hidden;
+  width: fit-content;
 }
 
 .toggle {

@@ -3,6 +3,7 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Summary from "../Summary";
+import { WeatherCurrent } from "@/lib/weather";
 
 describe("Summary component", () => {
   function setup(jsx: React.ReactElement) {
@@ -14,23 +15,55 @@ describe("Summary component", () => {
 
   test("shows current summary by default if day is today", () => {
     const { user } = setup(
-      <Summary day={0} weather={{} as any} location={{} as any} />
+      <Summary
+        day={0}
+        weather={mockWeather as any}
+        location={{} as any}
+        units={""}
+      />
     );
     expect(screen.getByTestId("current-summary")).toBeInTheDocument();
     expect(screen.queryByTestId("day-summary")).toBe(null);
   });
 
-  test("show current/today toggle if day is today", () => {
+  test("renders current/today toggle if day is today", async () => {
     const { user } = setup(
-      <Summary day={0} weather={{} as any} location={{} as any} />
+      <Summary
+        day={0}
+        weather={mockWeather as any}
+        location={{} as any}
+        units={""}
+      />
     );
     expect(screen.getByRole("group")).toBeInTheDocument();
   });
 
-  test("do not show current/today toggle if day is not today", () => {
+  test("does not show current/today toggle if day is not today", () => {
     const { user } = setup(
-      <Summary day={1} weather={{} as any} location={{} as any} />
+      <Summary
+        day={1}
+        weather={mockWeather as any}
+        location={{} as any}
+        units={""}
+      />
     );
     expect(screen.queryByRole("group")).toBe(null);
+  });
+
+  test("renders correct type of summary on toggle click", async () => {
+    const { user } = setup(
+      <Summary
+        day={0}
+        weather={mockWeather as any}
+        location={{} as any}
+        units={""}
+      />
+    );
+    await user.click(screen.getByText("Today"));
+    expect(screen.queryByTestId("current-summary")).toBe(null);
+    expect(screen.getByTestId("day-summary")).toBeInTheDocument();
+    await user.click(screen.getByText("Current"));
+    expect(screen.getByTestId("current-summary")).toBeInTheDocument();
+    expect(screen.queryByTestId("day-summary")).toBe(null);
   });
 });

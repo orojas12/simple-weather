@@ -6,6 +6,7 @@ interface ToggleGroupProps {
   exclusive?: boolean;
   enforceSelection?: boolean;
   onChange?: (selected: string[]) => void;
+  className?: string;
 }
 
 interface IToggleGroupContext {
@@ -42,7 +43,7 @@ function ToggleGroup(props: ToggleGroupProps) {
 
   return (
     <ToggleGroupContext.Provider value={{ selected, select, deselect }}>
-      <div className="toggle-group" role="group">
+      <div className={`toggle-group ${props.className}`} role="group">
         {props.children}
       </div>
     </ToggleGroupContext.Provider>

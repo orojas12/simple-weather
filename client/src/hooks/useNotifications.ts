@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ContextNotFoundError, NotificationContext } from "@context";
+import { ContextNotFoundError, NotificationContext } from "@/context";
 
 export default function useNotifications() {
   const ctx = useContext(NotificationContext);

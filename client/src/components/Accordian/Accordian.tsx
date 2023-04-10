@@ -1,5 +1,5 @@
 import React, { useState, createContext, useContext } from "react";
-import { ArrowDownIcon } from "@icons/ui";
+import { ArrowDownIcon } from "@/assets/icons/ui";
 import "./accordian.css";
 
 interface AccordianProps {

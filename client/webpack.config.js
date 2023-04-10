@@ -47,17 +47,7 @@ const config = {
     extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
     modules: [path.resolve(__dirname, "src"), "node_modules"],
     alias: {
-      "@components": path.resolve(__dirname, "src/components"),
-      "@icons": path.resolve(__dirname, "src/icons"),
-      "@pages": path.resolve(__dirname, "src/pages"),
-      "@hooks": path.resolve(__dirname, "src/hooks"),
-      "@layout": path.resolve(__dirname, "src/layout"),
-      "@context": path.resolve(__dirname, "src/context"),
-      "@lib": path.resolve(__dirname, "src/lib"),
-      "@config": path.resolve(__dirname, "src/config"),
-      "@types": path.resolve(__dirname, "src/types"),
-      "@providers": path.resolve(__dirname, "src/providers"),
-      "@routes": path.resolve(__dirname, "src/routes"),
+      "@": path.resolve(__dirname, "src"),
     },
   },
 };

@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react";
 import useSettings from "../useSettings";
-import { SettingsProvider } from "@context";
+import { SettingsProvider } from "@/context";
 
 describe("useSettings", () => {
   afterEach(() => {

@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, Dropdown } from "@components";
-import { CheckIcon, VerticalDotsIcon } from "@icons/ui";
+import { Card, Dropdown } from "@/components";
+import { CheckIcon, VerticalDotsIcon } from "@/assets/icons/ui";
 
 interface LocationProps {
   location: {

@@ -1,5 +1,5 @@
 import useLocation from "./useLocation";
-import useWeather from "./useWeather";
+import useWeather from "../features/weather/hooks/useWeather";
 import usePlaceAutocomplete from "./usePlaceAutocomplete";
 import useGeocode from "./useGeocode";
 import useSettings from "./useSettings";

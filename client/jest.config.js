@@ -8,15 +8,6 @@ module.exports = {
     "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
       "<rootDir>/__mocks__/fileMock.js",
     "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
-    "^@context(.*)$": "<rootDir>/src/context$1",
-    "^@components(.*)$": "<rootDir>/src/components$1",
-    "^@hooks(.*)$": "<rootDir>/src/hooks$1",
-    "^@icons(.*)$": "<rootDir>/src/icons$1",
-    "^@lib(.*)$": "<rootDir>/src/lib$1",
-    "^@pages(.*)$": "<rootDir>/src/pages$1",
-    "^@config(.*)$": "<rootDir>/src/config$1",
-    "^@types(.*)$": "<rootDir>/src/types$1",
-    "^@providers(.*)$": "<rootDir>/src/providers$1",
-    "^@routes(.*)$": "<rootDir>/src/routes$1",
+    "^@/(.*)$": "<rootDir>/src/$1",
   },
 };

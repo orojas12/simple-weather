@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { ArrowDownIcon } from "@icons/ui";
+import { ArrowDownIcon } from "@/assets/icons/ui";
 import LocationSearch from "./LocationSearch";
-import { Place } from "@hooks/usePlaceAutocomplete";
-import { ToastContext } from "@components";
+import { Place } from "@/hooks/usePlaceAutocomplete";
+import { ToastContext } from "@/components";
 import "./addLocation.css";
-import { useLocation } from "@hooks";
+import { useLocation } from "@/hooks";
 
 export default function AddLocationPage() {
   const toast = useContext(ToastContext);

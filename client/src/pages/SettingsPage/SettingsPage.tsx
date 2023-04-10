@@ -1,6 +1,6 @@
 import React from "react";
-import { Card } from "@components";
-import { useSettings } from "@hooks";
+import { Card } from "@/components";
+import { useSettings } from "@/hooks";
 import Setting from "./Setting";
 import "./settings.css";
 

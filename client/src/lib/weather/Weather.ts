@@ -7,7 +7,7 @@ import {
   HazeIcon,
   ThunderstormIcon,
   TornadoIcon,
-} from "@icons/weather";
+} from "@/features/weather/assets/icons";
 
 const cardinalDirections = new Map([
   [0, "S"],

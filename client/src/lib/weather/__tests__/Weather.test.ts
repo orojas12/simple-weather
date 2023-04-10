@@ -74,7 +74,7 @@ describe("Weather", () => {
 
   test("gets wind gust with correct units", () => {
     let weather = getTestWeather({ wind_gust: 1 });
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    // eslint-disable-next-line @/typescript-eslint/no-non-null-assertion
     expect(Math.round(weather.getWindGust()! * 100) / 100).toBe(2.24);
     weather = getTestWeather({ wind_speed: 1 });
     expect(weather.getWindGust("metric")).toBe(1);

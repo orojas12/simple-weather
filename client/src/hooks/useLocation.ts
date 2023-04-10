@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ContextNotFoundError, LocationContext } from "@context";
+import { ContextNotFoundError, LocationContext } from "@/context";
 
 export default function useLocation() {
   const location = useContext(LocationContext);

@@ -5,7 +5,7 @@ import React, {
   useRef,
   useEffect,
 } from "react";
-import { ArrowDownIcon } from "@icons/ui";
+import { ArrowDownIcon } from "@/assets/icons/ui";
 import "./dropdown.css";
 
 interface DropdownProps {

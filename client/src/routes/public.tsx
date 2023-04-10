@@ -1,16 +1,11 @@
 import React from "react";
-import { BaseLayout } from "@components";
+import { BaseLayout } from "@/components";
 import { Outlet } from "react-router-dom";
-import {
-  ErrorPage,
-  DashboardPage,
-  LocationsPage,
-  MapPage,
-  SettingsPage,
-} from "@pages";
+import { ErrorPage, LocationsPage, MapPage, SettingsPage } from "@/pages";
 import AddLocationPage from "../pages/LocationsPage/AddLocationPage";
+import { WeatherRoutes } from "@/features/weather";
 
-function App() {
+function Layout() {
   return (
     <BaseLayout>
       <Outlet />
@@ -21,10 +16,10 @@ function App() {
 export const publicRoutes = [
   {
     path: "/",
-    element: <App />,
+    element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <DashboardPage /> },
+      WeatherRoutes,
       { path: "locations", element: <LocationsPage /> },
       { path: "locations/add", element: <AddLocationPage /> },
       { path: "map", element: <MapPage /> },

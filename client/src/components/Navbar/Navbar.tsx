@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { IconProps } from "@icons";
+import { IconProps } from "@/types/icon";
 import {
   LogoIcon,
   HomeIcon,
@@ -8,8 +8,8 @@ import {
   LocationIcon,
   GearIcon,
   MenuIcon,
-} from "@icons/ui";
-import { Dropdown } from "@components";
+} from "@/assets/icons/ui";
+import { Dropdown } from "@/components";
 import "./navbar.css";
 
 function getLinkClassName({ isActive }: any) {
@@ -23,7 +23,7 @@ function getNavLinkContentRenderer(
   text: string,
   props?: IconProps
 ): (state: { isActive: boolean }) => React.ReactNode {
-  return function ({ isActive }) {
+  return function NavLinkContentRenderer({ isActive }: { isActive: boolean }) {
     return (
       <>
         <Icon

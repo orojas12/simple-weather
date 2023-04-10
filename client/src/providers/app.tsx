@@ -4,7 +4,7 @@ import {
   WeatherProvider,
   SettingsProvider,
   NotificationProvider,
-} from "@context";
+} from "@/context";
 
 export function AppProvider(props: { children: React.ReactNode }) {
   return (

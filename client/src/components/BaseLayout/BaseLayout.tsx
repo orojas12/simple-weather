@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar } from "@components";
+import { Navbar } from "@/components";
 
 export default function BaseLayout(props: { children: React.ReactNode }) {
   return (

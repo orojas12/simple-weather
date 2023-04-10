@@ -1,7 +1,7 @@
 import Axios, { AxiosError } from "axios";
-import { API_URL } from "@config";
-import { ApiErrorBody } from "@types";
-import { useNotifications } from "@hooks";
+import { API_URL } from "@/config";
+import { ApiErrorBody } from "@/types";
+import { useNotifications } from "@/hooks";
 
 export const axios = Axios.create({
   baseURL: API_URL,

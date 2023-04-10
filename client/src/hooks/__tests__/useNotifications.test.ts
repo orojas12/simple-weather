@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react";
 import useNotifications from "../useNotifications";
-import { NotificationProvider } from "@context";
+import { NotificationProvider } from "@/context";
 
 describe("useNotifications", () => {
   beforeEach(() => {

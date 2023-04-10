@@ -11,21 +11,8 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "@components": ["src/components"],
-      "@pages": ["src/pages"],
-      "@hooks": ["src/hooks"],
-      "@hooks/*": ["src/hooks/*"],
-      "@icons": ["src/icons"],
-      "@icons/*": ["src/icons/*"],
-      "@layout": ["src/layout"],
-      "@context": ["src/context"],
-      "@lib": ["src/lib"],
-      "@lib/*": ["src/lib/*"],
-      "@config": ["src/config"],
-      "@types": ["src/types"],
-      "@providers": ["src/providers"],
-      "@providers/*": ["src/providers/*"],
-      "@routes": ["src/routes"]
+      "@": ["src"],
+      "@/*": ["src/*"]
     },
     "resolveJsonModule": true
   },
