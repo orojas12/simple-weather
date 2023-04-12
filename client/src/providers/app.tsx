@@ -1,10 +1,10 @@
 import React from "react";
 import {
   LocationProvider,
-  WeatherProvider,
   SettingsProvider,
   NotificationProvider,
 } from "@/context";
+import { WeatherProvider } from "@/features/weather";
 
 export function AppProvider(props: { children: React.ReactNode }) {
   return (
