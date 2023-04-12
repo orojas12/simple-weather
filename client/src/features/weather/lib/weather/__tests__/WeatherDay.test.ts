@@ -1,4 +1,4 @@
-import { WeatherDay } from "..";
+import { WeatherDay } from "../";
 
 describe("WeatherDay", () => {
   function getTestWeather(data?: object) {
