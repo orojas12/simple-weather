@@ -1,6 +1,6 @@
 import React from "react";
 import WeatherCard from "./WeatherCard";
-import { WeatherDay } from "@/lib/weather";
+import { WeatherDay } from "../lib/weather";
 
 interface DaysListProps {
   units: string;

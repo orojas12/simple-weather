@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Progress, Separator } from "@/components";
 import { HorizonIcon, MoonIcon, SunnyIcon, WindIcon } from "../assets/icons";
-import { WeatherDay } from "@/lib/weather";
+import { WeatherDay } from "../lib/weather";
 import WeatherDetailCard from "./WeatherDetailCard";
 
 interface DaySummaryProps {
@@ -23,7 +23,7 @@ export default function DaySummary({ units, day }: DaySummaryProps) {
   }
 
   return (
-    <div className="dashboard__cards">
+    <div className="dashboard__cards" data-testid="day-summary">
       <WeatherDetailCard
         title="Conditions"
         content={

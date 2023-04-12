@@ -3,7 +3,7 @@ import { IWeather } from "@/context";
 import { ToggleGroup } from "@/components";
 import CurrentSummary from "./CurrentSummary";
 import DaySummary from "./DaySummary";
-import { WeatherDay } from "@/lib/weather";
+import { WeatherDay } from "../lib/weather";
 import WeatherAlertAccordian from "./WeatherAlertAccordian";
 
 interface SummaryProps {

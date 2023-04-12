@@ -10,7 +10,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { Card } from "@/components";
-import { WeatherHour } from "@/lib/weather";
+import { WeatherHour } from "../lib/weather";
 
 ChartJS.register(
   CategoryScale,

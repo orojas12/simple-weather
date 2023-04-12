@@ -1,7 +1,7 @@
 import React from "react";
 import { Accordian } from "@/components";
 import { AlertIcon } from "@/assets/icons/ui";
-import { WeatherAlert } from "@/lib/weather";
+import { WeatherAlert } from "../lib/weather";
 
 interface WeatherAlertProps {
   alert: WeatherAlert;

@@ -1,7 +1,7 @@
 // TODO: fix all "@" imports in project!
 
 import React from "react";
-import { WeatherCurrent, WeatherHour } from "@/lib/weather";
+import { WeatherCurrent, WeatherHour } from "../lib/weather";
 import { TempIcon, WindIcon, EyeIcon } from "../assets/icons";
 import WeatherDetailCard from "./WeatherDetailCard";
 import { Progress } from "@/components";
@@ -18,7 +18,7 @@ function CurrentSummary(props: CurrentSummaryProps) {
   const WeatherIcon = current.getIcon();
 
   return (
-    <div className="dashboard__cards">
+    <div className="dashboard__cards" data-testid="current-summary">
       <WeatherDetailCard
         title="Current"
         content={`${current.getTemp(units)}\u00b0`}
