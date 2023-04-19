@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
 const path = require("path");
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV == "production";
 
@@ -44,11 +45,9 @@ const config = {
     ],
   },
   resolve: {
+    plugins: [new TsconfigPathsPlugin()],
     extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
     modules: [path.resolve(__dirname, "src"), "node_modules"],
-    alias: {
-      "@": path.resolve(__dirname, "src"),
-    },
   },
 };
 
