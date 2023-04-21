@@ -1,5 +1,8 @@
 export { SettingsContext, SettingsProvider } from "./settings/SettingsProvider";
-export { LocationContext, LocationProvider } from "./location/LocationProvider";
+export {
+  LocationContext,
+  LocationProvider,
+} from "../features/locations/context/LocationProvider";
 export {
   WeatherContext,
   WeatherProvider,

@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AddIcon, CloseIcon, SearchIcon } from "@/assets/icons/ui";
 import { usePlaceAutocomplete } from "@/hooks";
 import { Place } from "@/hooks/usePlaceAutocomplete";
-import { Card, ToastContext } from "@/components";
+import { Card } from "@/components";
+import { useNotifications } from "@/context/notifications";
+import "./location-search.css";
 
 interface LocationSearchProps {
   addLocation: (place: Place) => void;
 }
 
 export default function LocationSearch({ addLocation }: LocationSearchProps) {
-  const toast = useContext(ToastContext);
+  const { addNotification } = useNotifications();
   const [value, setValue] = useState("");
   const [places, setPlaces] = useState<Place[] | []>([]);
   const { getPlaces } = usePlaceAutocomplete();
@@ -23,7 +25,10 @@ export default function LocationSearch({ addLocation }: LocationSearchProps) {
         setPlaces(places);
       } catch (err: any) {
         console.error(err);
-        toast?.setToast({ type: "alert", msg: "Oops, something went wrong." });
+        addNotification({
+          type: "error",
+          message: "Oops, something went wrong.",
+        });
       }
     }, 1000);
   }, [value]);

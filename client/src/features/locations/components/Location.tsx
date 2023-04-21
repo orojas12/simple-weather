@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Dropdown } from "@/components";
 import { CheckIcon, VerticalDotsIcon } from "@/assets/icons/ui";
+import "./location.css";
 
 interface LocationProps {
   location: {
@@ -23,19 +24,17 @@ export default function Location({
   active,
 }: LocationProps) {
   return (
-    <Card className="locations__location">
-      <Card.Content className="locations__location-wrapper">
-        <div className="locations__location-header" onClick={() => onClick()}>
-          <div className="locations__location-title">{location.mainText}</div>
-          <div className="locations__location-subtitle">
-            {location.secondaryText}
-          </div>
+    <Card className="location">
+      <Card.Content className="location-wrapper">
+        <div className="location__content" onClick={() => onClick()}>
+          <div className="location__title">{location.mainText}</div>
+          <div className="location__subtitle">{location.secondaryText}</div>
         </div>
-        <div className="flex align-center">
-          {active ? <CheckIcon className="locations__location-check" /> : null}
+        <div className="flex align-center gap-1">
+          {active ? <CheckIcon className="location__check" /> : null}
           <Dropdown id={location.placeId}>
-            <Dropdown.Toggle className="locations__btn">
-              <VerticalDotsIcon className="locations__location-options" />
+            <Dropdown.Toggle className="location__btn">
+              <VerticalDotsIcon className="location__options" />
             </Dropdown.Toggle>
             <Dropdown.Menu align="end" items={options} />
           </Dropdown>

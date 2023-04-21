@@ -1,0 +1,20 @@
+.add-location {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  max-width: 50em;
+}
+
+.add-location a {
+  display: flex;
+  margin-right: 1em;
+}
+
+.add-location__arrow {
+  transform: rotate(90deg);
+}
+
+.add-location__arrow path {
+  fill: hsl(var(--clr-dark-200));
+}

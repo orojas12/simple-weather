@@ -6,6 +6,7 @@ interface CardProps {
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 interface TitleProps {
@@ -21,16 +22,18 @@ interface ContentProps {
   children?: React.ReactNode;
 }
 
-export default function Card({
+function Card({
   loading = false,
   style,
   className = "",
   children,
+  onClick,
 }: CardProps) {
   return (
     <div
       className={`card ${loading ? "card--loading" : ""} ${className}`}
       style={style}
+      onClick={onClick}
     >
       {children}
     </div>
@@ -63,3 +66,5 @@ function Content({ className = "", style, children }: ContentProps) {
 
 Card.Title = Title;
 Card.Content = Content;
+
+export default Card;

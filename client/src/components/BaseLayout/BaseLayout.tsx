@@ -3,9 +3,9 @@ import { Navbar } from "@/components";
 
 export default function BaseLayout(props: { children: React.ReactNode }) {
   return (
-    <article className="BaseLayout">
+    <div className="BaseLayout">
       <Navbar />
-      <main>{props.children}</main>
-    </article>
+      <div className="content">{props.children}</div>
+    </div>
   );
 }

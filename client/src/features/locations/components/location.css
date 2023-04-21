@@ -1,0 +1,34 @@
+.location-wrapper {
+  display: flex;
+}
+
+.location {
+  padding: 1em;
+}
+
+.location__content {
+  width: 100%;
+  cursor: pointer;
+}
+
+.location__title {
+  color: hsl(var(--clr-dark-200));
+  font-weight: 500;
+}
+
+.location__subtitle {
+  color: hsl(var(--clr-dark-100));
+  font-size: var(--fs-3);
+}
+
+.location__check path {
+  fill: hsl(var(--clr-tertiary));
+}
+
+.location__options path {
+  fill: hsl(var(--clr-dark-200));
+}
+
+.location__btn {
+  box-shadow: none !important;
+}

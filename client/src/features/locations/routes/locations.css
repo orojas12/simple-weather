@@ -1,0 +1,18 @@
+.locations {
+  max-width: 50em;
+}
+
+.locations header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+}
+
+.locations header h1 {
+  font-size: var(--fs-4);
+}
+
+.locations__add path {
+  fill: hsl(var(--clr-dark-200));
+}

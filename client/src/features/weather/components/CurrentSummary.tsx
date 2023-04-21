@@ -1,11 +1,11 @@
-// TODO: fix all "@" imports in project!
-
 import React from "react";
 import { WeatherCurrent, WeatherHour } from "../lib/weather";
 import { TempIcon, WindIcon, EyeIcon } from "../assets/icons";
 import WeatherDetailCard from "./WeatherDetailCard";
 import { Progress } from "@/components";
 import PrecipitationChart from "./PrecipitationChart";
+import TemperatureChart from "./TemperatureChart";
+import WindChart from "./WindChart";
 
 interface CurrentSummaryProps {
   current: WeatherCurrent;
@@ -89,6 +89,10 @@ function CurrentSummary(props: CurrentSummaryProps) {
       /> */}
       <PrecipitationChart weatherHours={hours} variant="lg" />
       <PrecipitationChart weatherHours={hours} variant="sm" />
+      <WindChart weatherHours={hours} variant="lg" />
+      <WindChart weatherHours={hours} variant="sm" />
+      <TemperatureChart weatherHours={hours} variant="lg" />
+      <TemperatureChart weatherHours={hours} variant="sm" />
       {/* <WeatherChart
         className="dashboard__wind-speed-card dashboard__chart--lg"
         type="line"

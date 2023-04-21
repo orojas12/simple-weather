@@ -1,45 +1,39 @@
-.toast {
-  transition: transform 0.3s linear;
-  transform: translateY(200%);
+.notification {
   font-weight: 500;
 }
 
-.toast--success {
+.notification--success {
   background-color: hsl(var(--clr-success-100));
   color: hsl(var(--clr-success-300));
 }
 
-.toast--success path {
+.notification--success path {
   fill: hsl(var(--clr-success-300));
 }
 
-.toast--alert {
+.notification--error {
   background-color: hsl(var(--clr-alert-100));
   color: hsl(var(--clr-alert-300));
 }
 
-.toast--alert path {
+.notification--error path {
   fill: hsl(var(--clr-alert-300));
 }
 
-.toast--active {
-  transform: none;
-}
-
-.toast--hidden {
-  visibility: hidden;
-}
-
-.toast__wrapper {
+.notifications {
   position: fixed;
   left: 50%;
   bottom: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
   transform: translateX(-50%);
   cursor: pointer;
+  z-index: 1;
 }
 
 @media screen and (max-width: 576px) {
-  .toast__wrapper {
+  .notifications {
     width: 90%;
     bottom: 1em;
   }

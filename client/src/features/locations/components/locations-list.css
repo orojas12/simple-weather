@@ -1,0 +1,25 @@
+.locations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+}
+
+.locations-list h2 {
+  font-size: var(--fs-3);
+  color: hsl(var(--clr-dark-100));
+  font-weight: 400;
+}
+
+.locations-list__favorite {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.locations-list__other {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin-bottom: 5em;
+}

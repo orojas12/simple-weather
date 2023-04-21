@@ -20,8 +20,15 @@ export const NotificationContext = createContext<INotificationContext | null>(
   null
 );
 
-export function NotificationProvider(props: { children?: React.ReactNode }) {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
+interface NotificationProviderProps {
+  children?: React.ReactNode;
+  initialState?: Notification[];
+}
+
+export function NotificationProvider(props: NotificationProviderProps) {
+  const [notifications, setNotifications] = useState<Notification[]>(
+    props.initialState || []
+  );
   const notificationTimeouts = useRef<
     { id: string; timeout: NodeJS.Timeout }[]
   >([]);

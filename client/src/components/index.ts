@@ -4,13 +4,12 @@ import Card from "./Card/Card";
 import Navbar from "./Navbar/Navbar";
 import Accordian from "./Accordian/Accordian";
 import Progress from "./Progress/Progress";
-import Toast, { ToastContext, ToastProps } from "./Toast/Toast";
 import Spinner from "./Spinner/Spinner";
 import Separator from "./Separator/Separator";
 import BaseLayout from "./BaseLayout/BaseLayout";
 import ToggleGroup from "./ToggleGroup/ToggleGroup";
+import Notifications from "./Notifications/Notifications";
 
-export type { ToastProps };
 export {
   Combobox,
   Dropdown,
@@ -18,10 +17,9 @@ export {
   Navbar,
   Accordian,
   Progress,
-  Toast,
-  ToastContext,
   Spinner,
   Separator,
   BaseLayout,
   ToggleGroup,
+  Notifications,
 };

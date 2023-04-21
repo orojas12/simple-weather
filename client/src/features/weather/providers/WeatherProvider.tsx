@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { useLocation } from "@/hooks";
+import { useLocation } from "@/features/locations";
 import { ContextNotFoundError } from "@//context/error";
 import {
   WeatherCurrent,

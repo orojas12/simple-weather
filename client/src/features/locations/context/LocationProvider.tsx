@@ -2,10 +2,11 @@ import useGeocode from "@/hooks/useGeocode";
 import { Place } from "@/hooks/usePlaceAutocomplete";
 import React, { useReducer, useEffect, createContext } from "react";
 import { LocationState, locationReducer, Location } from "./locationReducer";
+import { useNotifications } from "@/context/notifications";
 
 interface ILocationContext {
   data: LocationState;
-  addLocation: (place: Place) => void;
+  addLocation: (place: Place) => Promise<void>;
   deleteLocation: (location: Location) => void;
   setLocation: (location: Location) => void;
   setFavorite: (location: Location) => void;
@@ -71,6 +72,7 @@ function loadLocationData(): LocationState {
 }
 
 export function LocationProvider(props: { children?: React.ReactNode }) {
+  const { addNotification } = useNotifications();
   const [state, dispatch] = useReducer(locationReducer, loadLocationData());
   const { geocode } = useGeocode();
 
@@ -79,6 +81,29 @@ export function LocationProvider(props: { children?: React.ReactNode }) {
     const { status, ...data } = state;
     localStorage.setItem("locations", JSON.stringify(data));
   }, [state]);
+
+  useEffect(() => {
+    const { status } = state;
+    if (status.error) {
+      addNotification(
+        {
+          type: "error",
+          message: status.msg as string,
+        },
+        10000
+      );
+      clearStatus();
+    } else if (status.msg) {
+      addNotification(
+        {
+          type: "success",
+          message: status.msg,
+        },
+        10000
+      );
+      clearStatus();
+    }
+  }, [state.status]);
 
   const addLocation = async (place: Place) => {
     const result = await geocode(place.placeId);

@@ -1,24 +1,26 @@
-import React, { useState } from "react";
-import { useSettings, useLocation, useWeather } from "@/hooks";
+import React, { useEffect, useState } from "react";
+import { useSettings, useWeather } from "@/hooks";
 import { Dropdown, Spinner } from "@/components";
 import { LocationIcon } from "@/assets/icons/ui";
+import { useLocation } from "@/features/locations";
 import Clock from "../components/Clock";
 import DaysList from "../components/DaysList";
 import "./dashboard.css";
 import Summary from "../components/Summary";
+import { useNotifications } from "@/context/notifications";
 
 export default function Dashboard() {
   const settings = useSettings();
   const location = useLocation();
   const weather = useWeather();
-  // const [displayedWeather, setDisplayedWeather] = useState<
-  //   WeatherCurrent | WeatherDay | undefined
-  // >(weather.data?.current);
+  const { addNotification } = useNotifications();
   const [selectedDay, setSelectedDay] = useState(0);
 
-  // useEffect(() => {
-  //   setDisplayedWeather(weather.data?.current);
-  // }, [weather]);
+  useEffect(() => {
+    if (weather.error) {
+      addNotification({ type: "error", message: weather.error.message });
+    }
+  }, [weather.error]);
 
   const hour24Labels = weather.data?.hourly.slice(0, 25).map((hour) =>
     hour.dt.toLocaleTimeString([], {
