@@ -36,7 +36,7 @@
   --border-100: solid 1px hsl(var(--clr-base-500));
 }
 
-.BaseLayout {
+.base-layout {
   background-color: hsl(var(--clr-base-200));
   font-family: "Roboto", sans-serif;
   font-size: var(--fs-3);
