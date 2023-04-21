@@ -1,5 +1,5 @@
-import useGeocode from "@/hooks/useGeocode";
-import { Place } from "@/hooks/usePlaceAutocomplete";
+import { geocode } from "@/features/geocode";
+import { Place } from "@/features/places";
 import React, { useReducer, useEffect, createContext } from "react";
 import { LocationState, locationReducer, Location } from "./locationReducer";
 import { useNotifications } from "@/context/notifications";
@@ -74,7 +74,6 @@ function loadLocationData(): LocationState {
 export function LocationProvider(props: { children?: React.ReactNode }) {
   const { addNotification } = useNotifications();
   const [state, dispatch] = useReducer(locationReducer, loadLocationData());
-  const { geocode } = useGeocode();
 
   useEffect(() => {
     // Do not save status to localStorage

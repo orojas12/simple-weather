@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSettings, useWeather } from "@/hooks";
 import { Dropdown, Spinner } from "@/components";
 import { LocationIcon } from "@/assets/icons/ui";
 import { useLocation } from "@/features/locations";
@@ -8,6 +7,8 @@ import DaysList from "../components/DaysList";
 import "./dashboard.css";
 import Summary from "../components/Summary";
 import { useNotifications } from "@/context/notifications";
+import { useSettings } from "@/features/settings";
+import { useWeather } from "../api";
 
 export default function Dashboard() {
   const settings = useSettings();

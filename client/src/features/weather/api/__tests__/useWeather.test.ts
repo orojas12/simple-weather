@@ -1,5 +1,5 @@
 import { renderHook } from "@testing-library/react";
-import { WeatherProvider } from "../WeatherProvider";
+import { WeatherProvider } from "../../../weather/context/WeatherProvider";
 import useWeather from "../useWeather";
 
 jest.mock("@/hooks", () => {

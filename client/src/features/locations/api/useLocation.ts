@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { LocationContext } from "./LocationProvider";
+import { LocationContext } from "../context/LocationProvider";
 import { ContextNotFoundError } from "@/context";
 
 export function useLocation() {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "@/components";
-import { useSettings } from "../context";
+import { useSettings } from "../api";
 import Setting from "./Setting";
 import "./settings.css";
 

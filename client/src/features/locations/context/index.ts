@@ -1,3 +1,3 @@
 export * from "./LocationProvider";
 export * from "./locationReducer";
-export * from "./useLocation";
+export * from "../api/useLocation";
