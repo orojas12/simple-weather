@@ -1,10 +1,10 @@
 import React from "react";
 import { Card } from "@/components";
-import { useSettings } from "@/hooks";
+import { useSettings } from "../context";
 import Setting from "./Setting";
 import "./settings.css";
 
-export default function SettingsPage() {
+export default function Settings() {
   const settings = useSettings();
 
   const onChange = (name: string, value: any) => {
@@ -12,12 +12,12 @@ export default function SettingsPage() {
   };
 
   return (
-    <article className="settings-page">
+    <article className="settings">
       <header>
         <h1>Settings</h1>
       </header>
       <main>
-        <Card className="settings">
+        <Card className="settings-list">
           <Card.Content>
             <Setting
               label="Units"

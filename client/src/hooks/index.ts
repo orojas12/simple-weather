@@ -1,6 +1,6 @@
-import useWeather from "../features/weather/hooks/useWeather";
+import useWeather from "../features/weather/context/useWeather";
 import usePlaceAutocomplete from "./usePlaceAutocomplete";
 import useGeocode from "./useGeocode";
-import useSettings from "./useSettings";
+import useSettings from "../features/settings/context/useSettings";
 
 export { useWeather, usePlaceAutocomplete, useGeocode, useSettings };

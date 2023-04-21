@@ -1,5 +1,6 @@
 import { useContext } from "react";
-import { ContextNotFoundError, WeatherContext } from "@/context";
+import { ContextNotFoundError } from "@/context";
+import { WeatherContext } from "./WeatherProvider";
 
 export default function useWeather() {
   const weather = useContext(WeatherContext);

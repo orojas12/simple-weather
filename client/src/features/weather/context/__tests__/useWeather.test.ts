@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react";
+import { WeatherProvider } from "../WeatherProvider";
 import useWeather from "../useWeather";
-import { WeatherProvider } from "../../providers/WeatherProvider";
 
 jest.mock("@/hooks", () => {
   const originalModule = jest.requireActual("@/hooks");

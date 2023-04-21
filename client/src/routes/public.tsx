@@ -1,9 +1,11 @@
 import React from "react";
 import { BaseLayout } from "@/components";
 import { Outlet } from "react-router-dom";
-import { ErrorPage, MapPage, SettingsPage } from "@/pages";
+import { ErrorPage } from "@/pages";
 import { WeatherRoutes } from "@/features/weather";
 import { LocationRoutes } from "@/features/locations";
+import { MapRoutes } from "@/features/map";
+import { SettingsRoutes } from "@/features/settings";
 
 function Layout() {
   return (
@@ -21,8 +23,8 @@ export const publicRoutes = [
     children: [
       ...WeatherRoutes,
       ...LocationRoutes,
-      { path: "map", element: <MapPage /> },
-      { path: "settings", element: <SettingsPage /> },
+      ...MapRoutes,
+      ...SettingsRoutes,
     ],
   },
 ];

@@ -3,7 +3,7 @@ import L from "leaflet";
 import { useLocation } from "@/features/locations";
 import "./map.css";
 
-export default function MapPage() {
+export default function Map() {
   const location = useLocation();
 
   const [layer, setLayer] = useState("precipitation");

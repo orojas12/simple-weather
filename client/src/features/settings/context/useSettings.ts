@@ -1,6 +1,6 @@
 import { useContext } from "react";
-
-import { ContextNotFoundError, SettingsContext } from "@/context";
+import { ContextNotFoundError } from "@/context";
+import { SettingsContext } from "./SettingsProvider";
 
 export default function useSettings() {
   const settings = useContext(SettingsContext);
