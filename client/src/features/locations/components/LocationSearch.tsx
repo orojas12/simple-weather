@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { AddIcon, CloseIcon, SearchIcon } from "@/assets/icons/ui";
-import { usePlaceAutocomplete } from "@/hooks";
-import { Place } from "@/hooks/usePlaceAutocomplete";
+import { getPlaces, Place } from "@/features/places";
 import { Card } from "@/components";
 import { useNotifications } from "@/context/notifications";
 import "./location-search.css";
@@ -14,7 +13,6 @@ export default function LocationSearch({ addLocation }: LocationSearchProps) {
   const { addNotification } = useNotifications();
   const [value, setValue] = useState("");
   const [places, setPlaces] = useState<Place[] | []>([]);
-  const { getPlaces } = usePlaceAutocomplete();
   const timeoutId = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
