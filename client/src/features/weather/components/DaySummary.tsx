@@ -1,26 +1,21 @@
 import React from "react";
-import { Card, Progress, Separator } from "@/components";
-import { HorizonIcon, MoonIcon, SunnyIcon, WindIcon } from "../assets/icons";
-import { WeatherDay } from "../lib/weather";
+import { Progress } from "@/components";
+import { WindIcon } from "../assets/icons";
+import { WeatherDay, WeatherHour } from "../lib/weather";
+import DayTemps from "./DayTemps";
 import WeatherDetailCard from "./WeatherDetailCard";
+import PrecipitationChart from "./PrecipitationChart";
+import TemperatureChart from "./TemperatureChart";
+import WindChart from "./WindChart";
 
 interface DaySummaryProps {
   units: string;
   day: WeatherDay;
+  hours: WeatherHour[];
 }
 
-export default function DaySummary({ units, day }: DaySummaryProps) {
+export default function DaySummary({ units, day, hours }: DaySummaryProps) {
   const WeatherIcon = day.getIcon();
-  let mornTemp = 0;
-  let dayTemp = 0;
-  let eveTemp = 0;
-  let nightTemp = 0;
-  if (typeof day.temp === "object") {
-    mornTemp = Math.round(day.getTemp(units, "morn"));
-    dayTemp = Math.round(day.getTemp(units, "day"));
-    eveTemp = Math.round(day.getTemp(units, "eve"));
-    nightTemp = Math.round(day.getTemp(units, "night"));
-  }
 
   return (
     <div className="dashboard__cards" data-testid="day-summary">
@@ -43,11 +38,11 @@ export default function DaySummary({ units, day }: DaySummaryProps) {
           units === "imperial" ? "mph" : "m/s"
         }`}
         icon={<WindIcon className="dashboard__card-icon" />}
-        subtitle={`${day.getWindDirection()}${
+        subtitle={`${
           day.wind_gust
-            ? ` - Gusts of ${Math.round(day.getWindGust(units)!)} ${
-                units === "imperial" ? "mph" : "m/s"
-              }`
+            ? `${day.getWindDirection()} - Gusts of ${Math.round(
+                day.getWindGust(units)!
+              )} ${units === "imperial" ? "mph" : "m/s"}`
             : ""
         }`}
       />
@@ -61,33 +56,17 @@ export default function DaySummary({ units, day }: DaySummaryProps) {
         }
         subtitle={day.getUviCategory()}
       />
-      <Card className="dashboard__day-temps">
-        <Card.Content className="flex justify-around">
-          <div className="dashboard__day-temp">
-            <span className="clr-dark-100 text-center">Morning</span>
-            <HorizonIcon className="dashboard__weather-icon" />
-            <span className="fs-4 text-center">{mornTemp}&deg;</span>
-          </div>
-          <Separator type="vertical" />
-          <div className="dashboard__day-temp">
-            <span className="clr-dark-100 text-center">Day</span>
-            <SunnyIcon className="dashboard__weather-icon" />
-            <span className="fs-4 text-center">{dayTemp}&deg;</span>
-          </div>
-          <Separator type="vertical" />
-          <div className="dashboard__day-temp">
-            <span className="clr-dark-100 text-center">Evening</span>
-            <HorizonIcon className="dashboard__weather-icon" />
-            <span className="fs-4 text-center">{eveTemp}&deg;</span>
-          </div>
-          <Separator type="vertical" />
-          <div className="dashboard__day-temp">
-            <span className="clr-dark-100 text-center">Night</span>
-            <MoonIcon className="dashboard__weather-icon" />
-            <span className="fs-4 text-center">{nightTemp}&deg;</span>
-          </div>
-        </Card.Content>
-      </Card>
+      <DayTemps day={day} units={units} />
+      {day.isToday() ? (
+        <>
+          <PrecipitationChart weatherHours={hours} variant="lg" />
+          <PrecipitationChart weatherHours={hours} variant="sm" />
+          <WindChart weatherHours={hours} variant="lg" />
+          <WindChart weatherHours={hours} variant="sm" />
+          <TemperatureChart weatherHours={hours} variant="lg" />
+          <TemperatureChart weatherHours={hours} variant="sm" />
+        </>
+      ) : null}
     </div>
   );
 }

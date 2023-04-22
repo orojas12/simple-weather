@@ -9,12 +9,11 @@ import WindChart from "./WindChart";
 
 interface CurrentSummaryProps {
   current: WeatherCurrent;
-  hours: WeatherHour[];
   units: string;
 }
 
 function CurrentSummary(props: CurrentSummaryProps) {
-  const { current, hours, units } = props;
+  const { current, units } = props;
   const WeatherIcon = current.getIcon();
 
   return (
@@ -41,9 +40,9 @@ function CurrentSummary(props: CurrentSummaryProps) {
           units === "imperial" ? "mph" : "m/s"
         }`}
         icon={<WindIcon className="dashboard__card-icon" />}
-        subtitle={`${current.getWindDirection()}${
+        subtitle={`${
           current.wind_gust
-            ? ` - Gusts of ${Math.round(
+            ? `${current.getWindDirection()} - Gusts of ${Math.round(
                 current.getWindGust(units) as number
               )} ${units === "imperial" ? "mph" : "m/s"}`
             : ""
@@ -69,66 +68,6 @@ function CurrentSummary(props: CurrentSummaryProps) {
         }
         subtitle={current.getUviCategory()}
       />
-      {/* <WeatherChart
-        className="dashboard__precipitation-card dashboard__chart--lg"
-        type="bar"
-        title="Probability of Precipitation (%)"
-        data={hourlyPrecipData}
-        yMax={100}
-        aspectRatio={3}
-        variant="lg"
-      />
-      <WeatherChart
-        className="dashboard__precipitation-card dashboard__chart--sm"
-        type="bar"
-        title="Probability of Precipitation (%)"
-        data={hourlyPrecipData}
-        yMax={100}
-        aspectRatio={2}
-        variant="sm"
-      /> */}
-      <PrecipitationChart weatherHours={hours} variant="lg" />
-      <PrecipitationChart weatherHours={hours} variant="sm" />
-      <WindChart weatherHours={hours} variant="lg" />
-      <WindChart weatherHours={hours} variant="sm" />
-      <TemperatureChart weatherHours={hours} variant="lg" />
-      <TemperatureChart weatherHours={hours} variant="sm" />
-      {/* <WeatherChart
-        className="dashboard__wind-speed-card dashboard__chart--lg"
-        type="line"
-        title="Wind Speed"
-        data={hourlyWindData}
-        yMax={100}
-        aspectRatio={3}
-        variant="lg"
-      />
-      <WeatherChart
-        className="dashboard__wind-speed-card dashboard__chart--sm"
-        type="line"
-        title="Wind Speed"
-        data={hourlyWindData}
-        yMax={100}
-        aspectRatio={2}
-        variant="sm"
-      />
-      <WeatherChart
-        className="dashboard__temperature-card dashboard__chart--lg"
-        type="line"
-        title="Temperature"
-        data={hourlyTempData}
-        yMax={100}
-        aspectRatio={3}
-        variant="lg"
-      />
-      <WeatherChart
-        className="dashboard__temperature-card dashboard__chart--sm"
-        type="line"
-        title="Temperature"
-        data={hourlyTempData}
-        yMax={100}
-        aspectRatio={2}
-        variant="sm"
-      /> */}
     </div>
   );
 }
