@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { API_URL } from "@/config";
 import { useLocation } from "@/features/locations";
 import { ContextNotFoundError } from "@//context/error";
 import {
@@ -42,7 +43,7 @@ export function WeatherProvider(props: { children?: React.ReactNode }) {
   async function fetchWeather(lat: number, lng: number) {
     setIsLoading(true);
     try {
-      const res = await fetch(`/api/weather?lat=${lat}&lng=${lng}`);
+      const res = await fetch(`${API_URL}/weather?lat=${lat}&lng=${lng}`);
       if (!res.ok) throw new Error(`${res.status} Failed to fetch weather.`);
       const data = await res.json();
       setWeather({

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { API_URL } from "@/config";
 import L from "leaflet";
 import { useLocation } from "@/features/locations";
 import "./map.css";
@@ -19,7 +20,7 @@ export default function Map() {
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }).addTo(map);
 
-      L.tileLayer(`/api/tile/${layer}/{z}/{x}/{y}.png`, {
+      L.tileLayer(`${API_URL}/tile/${layer}/{z}/{x}/{y}.png`, {
         maxZoom: 14,
         zIndex: 2,
       }).addTo(map);
