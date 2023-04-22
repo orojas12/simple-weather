@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { IWeather } from "@/context";
 import { ToggleGroup } from "@/components";
 import CurrentSummary from "./CurrentSummary";
 import DaySummary from "./DaySummary";
 import { WeatherDay } from "../lib/weather";
 import WeatherAlertAccordian from "./WeatherAlertAccordian";
+import { IWeather } from "../context";
 
 interface SummaryProps {
   units: string;
@@ -54,13 +54,13 @@ function Summary(props: SummaryProps) {
         </ToggleGroup>
       ) : null}
       {showCurrent ? (
-        <CurrentSummary
-          current={props.weather.current}
-          hours={props.weather.hourly}
-          units={props.units}
-        />
+        <CurrentSummary current={props.weather.current} units={props.units} />
       ) : (
-        <DaySummary units={props.units} day={props.weather.daily[props.day]} />
+        <DaySummary
+          units={props.units}
+          day={props.weather.daily[props.day]}
+          hours={props.weather.hourly}
+        />
       )}
     </div>
   );

@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Dropdown, Spinner } from "@/components";
 import { LocationIcon } from "@/assets/icons/ui";
 import { useLocation } from "@/features/locations";
-import Clock from "../components/Clock";
-import DaysList from "../components/DaysList";
-import "./dashboard.css";
-import Summary from "../components/Summary";
 import { useNotifications } from "@/context/notifications";
 import { useSettings } from "@/features/settings";
 import { useWeather } from "../api";
+import { Clock, Summary, DaysList } from "../components";
+import "./dashboard.css";
 
 export default function Dashboard() {
   const settings = useSettings();
@@ -22,49 +20,6 @@ export default function Dashboard() {
       addNotification({ type: "error", message: weather.error.message });
     }
   }, [weather.error]);
-
-  const hour24Labels = weather.data?.hourly.slice(0, 25).map((hour) =>
-    hour.dt.toLocaleTimeString([], {
-      hour: "numeric",
-      hour12: true,
-    })
-  );
-
-  const hourlyPrecipData = {
-    labels: hour24Labels as string[],
-    datasets: [
-      {
-        label: "Precipitation",
-        data: weather.data?.hourly
-          .slice(0, 25)
-          .map((hour) => hour.pop * 100) as number[],
-      },
-    ],
-  };
-
-  const hourlyWindData = {
-    labels: hour24Labels as string[],
-    datasets: [
-      {
-        label: "Wind Speed",
-        data: weather.data?.hourly
-          .slice(0, 25)
-          .map((hour) => hour.getWindSpeed(settings.get("units"))) as number[],
-      },
-    ],
-  };
-
-  const hourlyTempData = {
-    labels: hour24Labels as string[],
-    datasets: [
-      {
-        label: "Temperature",
-        data: weather.data?.hourly
-          .slice(0, 25)
-          .map((hour) => hour.getTemp(settings.get("units"))) as number[],
-      },
-    ],
-  };
 
   return (
     <article className="dashboard">
@@ -112,30 +67,6 @@ export default function Dashboard() {
             location={location.data.activeLocation.description}
           />
         )}
-
-        {/* <div className="dashboard__overview">
-          
-          <div className="dashboard__alerts">
-            {weather.data?.alerts.map((alert) => (
-              <WeatherAlertAccordian key={alert.event} alert={alert} />
-            ))}
-          </div>
-          {weather.isLoading || !displayedWeather ? (
-            <div className="dashboard__loader">
-              <Spinner />
-            </div>
-          ) : displayedWeather instanceof WeatherCurrent ? (
-            <CurrentWeatherOverview
-              units={settings.get("units")}
-              weather={weather.data as IWeather}
-            />
-          ) : (
-            <DailyWeatherOverview
-              units={settings.get("units")}
-              weather={displayedWeather as WeatherDay}
-            />
-          )}
-        </div> */}
       </main>
     </article>
   );

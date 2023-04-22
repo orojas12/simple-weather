@@ -215,8 +215,8 @@ export default class Weather {
    */
   getWindSpeed(units = "imperial") {
     return units === "imperial"
-      ? this.metersPerSecToMilesPerHour(this.wind_speed)
-      : this.wind_speed;
+      ? this.wind_speed
+      : this.milesPerHourToMetersPerSec(this.wind_speed);
   }
 
   /**
@@ -227,8 +227,8 @@ export default class Weather {
   getWindGust(units = "imperial") {
     if (this.wind_gust) {
       return units === "imperial"
-        ? this.metersPerSecToMilesPerHour(this.wind_gust)
-        : this.wind_gust;
+        ? this.wind_gust
+        : this.milesPerHourToMetersPerSec(this.wind_gust);
     } else return null;
   }
 
@@ -317,6 +317,14 @@ export default class Weather {
    */
   metersPerSecToMilesPerHour(metersPerSec: number) {
     return Math.round(metersPerSec * 2.237 * 100) / 100;
+  }
+
+  /**
+   * Converts mph to m/s rounded to the nearest hundreth.
+   * @returns Miles per hour
+   */
+  milesPerHourToMetersPerSec(milesPerHour: number) {
+    return Math.round((milesPerHour / 2.237) * 100) / 100;
   }
 
   /**

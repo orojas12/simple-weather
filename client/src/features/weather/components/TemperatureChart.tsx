@@ -36,7 +36,7 @@ function getTemperatureChartData(weatherHours: WeatherHour[]) {
     ),
     datasets: [
       {
-        label: "Temperature Speed",
+        label: "Temperature",
         data: weatherHours.slice(0, 25).map((hour) => hour.temp),
       },
     ],
@@ -51,7 +51,7 @@ export default function TemperatureChart(props: TemperatureChartProps) {
       className={`dashboard__card dashboard__temperature-card dashboard__chart--${props.variant}`}
     >
       <Card.Title align="start" className="dashboard__card-title">
-        Wind Speed
+        Temperature
       </Card.Title>
       <Card.Content className={`dashboard__weather-chart--${props.variant}`}>
         <Line

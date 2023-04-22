@@ -36,7 +36,7 @@ function getPrecipitationChartData(weatherHours: WeatherHour[]) {
     ),
     datasets: [
       {
-        label: "Precipitation",
+        label: "Precipitation Chance (%)",
         data: weatherHours
           .slice(0, 25)
           .map((hour) => hour.pop * 100) as number[],
