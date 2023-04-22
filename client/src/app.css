@@ -49,18 +49,18 @@
   display: flex;
 }
 
-.BaseLayout > .content {
+.base-layout > .content {
   width: 100%;
   height: 100%;
   overflow-y: auto;
 }
 
 @media screen and (max-width: 1200px) {
-  .BaseLayout {
+  .base-layout {
     flex-direction: column;
   }
 
-  .BaseLayout > main {
+  .base-layout > main {
     padding: 0;
   }
 }
