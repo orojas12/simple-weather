@@ -153,8 +153,10 @@
   grid-column: 1 / 4;
 }
 
-.dashboard__day-temp:not(:first-child) {
-  border-left: solid 1px hsl(var(--clr-base-500));
+.dashboard__day-temps-content {
+  display: grid;
+  gap: 1em;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .dashboard__day-temp {
@@ -292,6 +294,10 @@
 
   .dashboard__day-temps {
     grid-column: 1 / 2;
+  }
+
+  .dashboard__day-temps-content {
+    grid-template-columns: 1fr 1fr;
   }
 
   .dashboard header {
