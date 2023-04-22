@@ -1,0 +1,22 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.error h1 {
+  font-size: var(--fs-8);
+}
+
+.error h2 {
+  font-size: var(--fs-5);
+}
+
+.error a {
+  margin-top: 1em;
+  cursor: pointer;
+  text-decoration: underline;
+  color: hsl(var(--clr-primary));
+}
