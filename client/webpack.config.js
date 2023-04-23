@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
 const path = require("path");
+const Dotenv = require("dotenv-webpack");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV == "production";
@@ -24,7 +25,7 @@ const config = {
     historyApiFallback: true,
   },
   devtool: "inline-source-map",
-  plugins: [],
+  plugins: [new Dotenv()],
   module: {
     rules: [
       {

@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "start": "nodemon -w ./dist ./dist/server.js"
+    "dev": "nodemon -w ./dist ./dist/server.js",
+    "start": "NODE_ENV=production node ./dist/server.js"
   },
   "author": "",
   "license": "ISC",

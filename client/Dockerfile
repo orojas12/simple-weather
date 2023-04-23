@@ -1,12 +1,6 @@
 # syntax=docker/dockerfile:1
-FROM node:18
+FROM nginx:1.23-alpine
 
-WORKDIR /app
+WORKDIR /data/www
 
-COPY . .
-
-RUN npm ci
-
-EXPOSE 3000
-
-CMD ["npm", "start"]
+COPY ./public/* .

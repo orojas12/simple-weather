@@ -1,1 +1,1 @@
-export const API_URL = "http://0.0.0.0:8080/api";
+export const API_URL = process.env.API_URL;

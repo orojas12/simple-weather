@@ -3,10 +3,11 @@ FROM node:18
 
 WORKDIR /app
 
-COPY . .
+COPY ./dist ./dist
+COPY ./package.json .
+COPY ./package-lock.json .
+COPY .env .
 
 RUN npm ci
-
-EXPOSE 8080
 
 CMD ["npm", "start"]
