@@ -7,7 +7,7 @@ node_modules
 
 # production
 server/dist
-client/dist/*.js
+client/public/*.js
 
 # misc
 .env
