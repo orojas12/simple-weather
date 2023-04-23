@@ -8,11 +8,11 @@ const isProduction = process.env.NODE_ENV == "production";
 const config = {
   entry: "./src/index.tsx",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "public"),
   },
   devServer: {
     static: {
-      directory: path.resolve(__dirname, "dist"),
+      directory: path.resolve(__dirname, "public"),
     },
     open: true,
     host: "0.0.0.0",
