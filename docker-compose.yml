@@ -1,13 +1,11 @@
 services:
   server:
-    build: ./server
-    container_name: simpleweather_server
+    image: orojas12/simpleweather-server:1.0
+    container_name: simpleweather-server
   nginx:
-    build: ./client
-    container_name: simpleweather_nginx
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    image: orojas12/simpleweather-nginx:1.0.1
+    container_name: simpleweather-nginx
     ports:
-      - "8080:80"
+      - "80:80"
     depends_on:
       - server
