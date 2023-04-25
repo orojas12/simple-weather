@@ -5,7 +5,9 @@ services:
   nginx:
     image: orojas12/simpleweather-nginx:1.0.1
     container_name: simpleweather-nginx
+    volumes:
+      - "/etc/letsencrypt:/etc/letsencrypt"
     ports:
-      - "80:80"
+      - "443:443"
     depends_on:
       - server
